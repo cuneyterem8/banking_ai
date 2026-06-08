@@ -1,0 +1,2911 @@
+{
+  "generation_seed": 9307,
+  "customer_count": 12,
+  "document_count": 60,
+  "documents": [
+    {
+      "document_id": "DOC-BS-0001",
+      "customer_id": "CUST-OCR-0001",
+      "customer_name": "Avery Morgan",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0001/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0001",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0001",
+        "customer_name": "Avery Morgan",
+        "masked_account_number": "****8116",
+        "statement_period": "2026-01-01 to 2026-01-30",
+        "opening_balance": "3774.74",
+        "closing_balance": "2517.18",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-01-04",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "420.24",
+              "balance": "3354.50"
+            },
+            {
+              "date": "2026-01-07",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "191.45",
+              "balance": "3163.05"
+            },
+            {
+              "date": "2026-01-10",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "596.76",
+              "balance": "2566.29"
+            },
+            {
+              "date": "2026-01-13",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "335.74",
+              "balance": "2902.03"
+            },
+            {
+              "date": "2026-01-16",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "162.19",
+              "balance": "2739.84"
+            },
+            {
+              "date": "2026-01-19",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "296.82",
+              "balance": "2443.02"
+            },
+            {
+              "date": "2026-01-22",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "303.97",
+              "balance": "2746.99"
+            },
+            {
+              "date": "2026-01-25",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "229.81",
+              "balance": "2517.18"
+            }
+          ]
+        }
+      ],
+      "sha256": "3889b7940f7012032c8cde6a2c15617ca4847d4f92f77624adeb084679fc0fb8"
+    },
+    {
+      "document_id": "DOC-AC-0001",
+      "customer_id": "CUST-OCR-0001",
+      "customer_name": "Avery Morgan",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0001/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0001",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0001",
+        "customer_name": "Avery Morgan",
+        "masked_account_number": "****8116",
+        "iban": "US-SYN-0001-8116",
+        "branch": "North Avenue Branch",
+        "issue_date": "2026-02-02",
+        "account_open_date": "2022-03-11",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "f60c3e167ae11f95cc7261421f3b5e3e6a5d08067ba6c292d26bbc5353219c9d"
+    },
+    {
+      "document_id": "DOC-IP-0001",
+      "customer_id": "CUST-OCR-0001",
+      "customer_name": "Avery Morgan",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0001/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0001",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0001",
+        "customer_name": "Avery Morgan",
+        "employer": "Blue Harbor Retail Group",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "6985.94",
+        "monthly_net_income": "5169.60",
+        "payroll_date": "2026-01-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "9e4fd8e0ad61cf61463afbd9a36fec306e3a70249f4c9f20673dbd28ea053f18"
+    },
+    {
+      "document_id": "DOC-SS-0001",
+      "customer_id": "CUST-OCR-0001",
+      "customer_name": "Avery Morgan",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0001/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0001",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0001",
+        "customer_name": "Avery Morgan",
+        "masked_account_number": "****8116",
+        "statement_period": "2026-01-01 to 2026-01-30",
+        "opening_balance": "3774.74",
+        "closing_balance": "2517.18",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-01-04",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "420.24",
+              "balance": "3354.50"
+            },
+            {
+              "date": "2026-01-07",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "191.45",
+              "balance": "3163.05"
+            },
+            {
+              "date": "2026-01-10",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "596.76",
+              "balance": "2566.29"
+            },
+            {
+              "date": "2026-01-13",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "335.74",
+              "balance": "2902.03"
+            },
+            {
+              "date": "2026-01-16",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "162.19",
+              "balance": "2739.84"
+            },
+            {
+              "date": "2026-01-19",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "296.82",
+              "balance": "2443.02"
+            },
+            {
+              "date": "2026-01-22",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "303.97",
+              "balance": "2746.99"
+            },
+            {
+              "date": "2026-01-25",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "229.81",
+              "balance": "2517.18"
+            }
+          ]
+        }
+      ],
+      "sha256": "dec908bdb663de88620c44b9fa185c376e487a68320aa2869668350f799437cf"
+    },
+    {
+      "document_id": "DOC-TN-0001",
+      "customer_id": "CUST-OCR-0001",
+      "customer_name": "Avery Morgan",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0001/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0001",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0001",
+        "customer_name": "Avery Morgan",
+        "masked_account_number": "****8116",
+        "transfer_date": "2026-01-25",
+        "transfer_amount": "229.81",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "acd3dc6ab59e4b4b94a92de786efa02f6fad90c17e392e4ce8eaa34b5b6e9e3a"
+    },
+    {
+      "document_id": "DOC-BS-0002",
+      "customer_id": "CUST-OCR-0002",
+      "customer_name": "Jordan Ellis",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0002/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0002",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0002",
+        "customer_name": "Jordan Ellis",
+        "masked_account_number": "****6287",
+        "statement_period": "2026-02-01 to 2026-03-02",
+        "opening_balance": "7647.16",
+        "closing_balance": "6080.18",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-02-04",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "356.68",
+              "balance": "7290.48"
+            },
+            {
+              "date": "2026-02-07",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "162.54",
+              "balance": "7127.94"
+            },
+            {
+              "date": "2026-02-10",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "349.39",
+              "balance": "7477.33"
+            },
+            {
+              "date": "2026-02-13",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "457.39",
+              "balance": "7019.94"
+            },
+            {
+              "date": "2026-02-16",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "609.25",
+              "balance": "6410.69"
+            },
+            {
+              "date": "2026-02-19",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "327.11",
+              "balance": "6737.80"
+            },
+            {
+              "date": "2026-02-22",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "294.19",
+              "balance": "6443.61"
+            },
+            {
+              "date": "2026-02-25",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "363.43",
+              "balance": "6080.18"
+            }
+          ]
+        }
+      ],
+      "sha256": "4ce806cc7c07abd151258c28b3af7c406933b82baec31bcbc9c20a967a7d68b5"
+    },
+    {
+      "document_id": "DOC-AC-0002",
+      "customer_id": "CUST-OCR-0002",
+      "customer_name": "Jordan Ellis",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0002/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0002",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0002",
+        "customer_name": "Jordan Ellis",
+        "masked_account_number": "****6287",
+        "iban": "US-SYN-0002-6287",
+        "branch": "Riverside Branch",
+        "issue_date": "2026-03-05",
+        "account_open_date": "2023-04-12",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "848edfdcf0c7414b4eee2a6943675bb086655479c5adcb0b58dcc7abcfac1a24"
+    },
+    {
+      "document_id": "DOC-IP-0002",
+      "customer_id": "CUST-OCR-0002",
+      "customer_name": "Jordan Ellis",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0002/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0002",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0002",
+        "customer_name": "Jordan Ellis",
+        "employer": "Summit Health Services",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "7070.35",
+        "monthly_net_income": "5232.06",
+        "payroll_date": "2026-02-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "3afb0949da8b830c3816dd39b945349fc6d801cbb24e10280ed0a6b0a61b473b"
+    },
+    {
+      "document_id": "DOC-SS-0002",
+      "customer_id": "CUST-OCR-0002",
+      "customer_name": "Jordan Ellis",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0002/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0002",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0002",
+        "customer_name": "Jordan Ellis",
+        "masked_account_number": "****6287",
+        "statement_period": "2026-02-01 to 2026-03-02",
+        "opening_balance": "7647.16",
+        "closing_balance": "6080.18",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-02-04",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "356.68",
+              "balance": "7290.48"
+            },
+            {
+              "date": "2026-02-07",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "162.54",
+              "balance": "7127.94"
+            },
+            {
+              "date": "2026-02-10",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "349.39",
+              "balance": "7477.33"
+            },
+            {
+              "date": "2026-02-13",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "457.39",
+              "balance": "7019.94"
+            },
+            {
+              "date": "2026-02-16",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "609.25",
+              "balance": "6410.69"
+            },
+            {
+              "date": "2026-02-19",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "327.11",
+              "balance": "6737.80"
+            },
+            {
+              "date": "2026-02-22",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "294.19",
+              "balance": "6443.61"
+            },
+            {
+              "date": "2026-02-25",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "363.43",
+              "balance": "6080.18"
+            }
+          ]
+        }
+      ],
+      "sha256": "413b77d66ceb4644811fcaa1086e6ef6053b2390bf6dc0e744ccb8c6409db4b8"
+    },
+    {
+      "document_id": "DOC-TN-0002",
+      "customer_id": "CUST-OCR-0002",
+      "customer_name": "Jordan Ellis",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0002/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0002",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0002",
+        "customer_name": "Jordan Ellis",
+        "masked_account_number": "****6287",
+        "transfer_date": "2026-02-25",
+        "transfer_amount": "363.43",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "5dbcdb558a6116df377231c571d6762739b1c261fa5ae788d5f67e22f598b6ce"
+    },
+    {
+      "document_id": "DOC-BS-0003",
+      "customer_id": "CUST-OCR-0003",
+      "customer_name": "Taylor Brooks",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0003/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0003",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0003",
+        "customer_name": "Taylor Brooks",
+        "masked_account_number": "****6581",
+        "statement_period": "2026-03-01 to 2026-03-30",
+        "opening_balance": "4335.17",
+        "closing_balance": "4097.16",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-03-04",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "170.10",
+              "balance": "4165.07"
+            },
+            {
+              "date": "2026-03-07",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "487.78",
+              "balance": "4652.85"
+            },
+            {
+              "date": "2026-03-10",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "211.09",
+              "balance": "4441.76"
+            },
+            {
+              "date": "2026-03-13",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "467.66",
+              "balance": "3974.10"
+            },
+            {
+              "date": "2026-03-16",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "488.69",
+              "balance": "4462.79"
+            },
+            {
+              "date": "2026-03-19",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "54.89",
+              "balance": "4407.90"
+            },
+            {
+              "date": "2026-03-22",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "64.01",
+              "balance": "4343.89"
+            },
+            {
+              "date": "2026-03-25",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "246.73",
+              "balance": "4097.16"
+            }
+          ]
+        }
+      ],
+      "sha256": "30ddc046c65219843b4cd3066a1bbfabea8e621988d2cd82003a39928debf51b"
+    },
+    {
+      "document_id": "DOC-AC-0003",
+      "customer_id": "CUST-OCR-0003",
+      "customer_name": "Taylor Brooks",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0003/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0003",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0003",
+        "customer_name": "Taylor Brooks",
+        "masked_account_number": "****6581",
+        "iban": "US-SYN-0003-6581",
+        "branch": "Market Street Branch",
+        "issue_date": "2026-04-02",
+        "account_open_date": "2024-05-13",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "f50c96f8e4d1aaea816ba677d3243ced67f8f834f480754e5837aa8f26c86f12"
+    },
+    {
+      "document_id": "DOC-IP-0003",
+      "customer_id": "CUST-OCR-0003",
+      "customer_name": "Taylor Brooks",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0003/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0003",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0003",
+        "customer_name": "Taylor Brooks",
+        "employer": "Pioneer Solar Systems",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "7641.23",
+        "monthly_net_income": "5654.51",
+        "payroll_date": "2026-03-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "82e87888ab650fa4f9a5c61d2c71fe1200dd5f9b0217fca63112e656b15f2850"
+    },
+    {
+      "document_id": "DOC-SS-0003",
+      "customer_id": "CUST-OCR-0003",
+      "customer_name": "Taylor Brooks",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0003/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0003",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0003",
+        "customer_name": "Taylor Brooks",
+        "masked_account_number": "****6581",
+        "statement_period": "2026-03-01 to 2026-03-30",
+        "opening_balance": "4335.17",
+        "closing_balance": "4097.16",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-03-04",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "170.10",
+              "balance": "4165.07"
+            },
+            {
+              "date": "2026-03-07",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "487.78",
+              "balance": "4652.85"
+            },
+            {
+              "date": "2026-03-10",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "211.09",
+              "balance": "4441.76"
+            },
+            {
+              "date": "2026-03-13",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "467.66",
+              "balance": "3974.10"
+            },
+            {
+              "date": "2026-03-16",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "488.69",
+              "balance": "4462.79"
+            },
+            {
+              "date": "2026-03-19",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "54.89",
+              "balance": "4407.90"
+            },
+            {
+              "date": "2026-03-22",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "64.01",
+              "balance": "4343.89"
+            },
+            {
+              "date": "2026-03-25",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "246.73",
+              "balance": "4097.16"
+            }
+          ]
+        }
+      ],
+      "sha256": "03ae1409b7aa69bc25878f2792696a8434e93fcc4c98a1322b7a7e0f18c7b23f"
+    },
+    {
+      "document_id": "DOC-TN-0003",
+      "customer_id": "CUST-OCR-0003",
+      "customer_name": "Taylor Brooks",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0003/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0003",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0003",
+        "customer_name": "Taylor Brooks",
+        "masked_account_number": "****6581",
+        "transfer_date": "2026-03-25",
+        "transfer_amount": "246.73",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "206d9a933a2c314b44d9c7758e634bc7709d581785dac1798df66b7c07b90916"
+    },
+    {
+      "document_id": "DOC-BS-0004",
+      "customer_id": "CUST-OCR-0004",
+      "customer_name": "Riley Chen",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0004/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0004",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0004",
+        "customer_name": "Riley Chen",
+        "masked_account_number": "****8604",
+        "statement_period": "2026-04-01 to 2026-04-30",
+        "opening_balance": "3976.56",
+        "closing_balance": "2707.16",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-04-04",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "368.59",
+              "balance": "4345.15"
+            },
+            {
+              "date": "2026-04-07",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "442.74",
+              "balance": "3902.41"
+            },
+            {
+              "date": "2026-04-10",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "57.16",
+              "balance": "3845.25"
+            },
+            {
+              "date": "2026-04-13",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "109.61",
+              "balance": "3954.86"
+            },
+            {
+              "date": "2026-04-16",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "404.21",
+              "balance": "3550.65"
+            },
+            {
+              "date": "2026-04-19",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "390.02",
+              "balance": "3160.63"
+            },
+            {
+              "date": "2026-04-22",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "198.83",
+              "balance": "2961.80"
+            },
+            {
+              "date": "2026-04-25",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "254.64",
+              "balance": "2707.16"
+            }
+          ]
+        }
+      ],
+      "sha256": "d397e30112c32758864b1a82ca777fc97a147c4548f9393cfeb2050f7c795091"
+    },
+    {
+      "document_id": "DOC-AC-0004",
+      "customer_id": "CUST-OCR-0004",
+      "customer_name": "Riley Chen",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0004/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0004",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0004",
+        "customer_name": "Riley Chen",
+        "masked_account_number": "****8604",
+        "iban": "US-SYN-0004-8604",
+        "branch": "Central Operations Branch",
+        "issue_date": "2026-05-03",
+        "account_open_date": "2021-06-14",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "b9a1dc569ad73b78c657c9c436436124474d181e318ff3dfce9d497d21235a1f"
+    },
+    {
+      "document_id": "DOC-IP-0004",
+      "customer_id": "CUST-OCR-0004",
+      "customer_name": "Riley Chen",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0004/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0004",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0004",
+        "customer_name": "Riley Chen",
+        "employer": "Cedar Point Logistics",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "8136.09",
+        "monthly_net_income": "6020.71",
+        "payroll_date": "2026-04-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "0755aa0d1479ceed3c693d745594d185fa326257cf804c52f46c639804805007"
+    },
+    {
+      "document_id": "DOC-SS-0004",
+      "customer_id": "CUST-OCR-0004",
+      "customer_name": "Riley Chen",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0004/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0004",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0004",
+        "customer_name": "Riley Chen",
+        "masked_account_number": "****8604",
+        "statement_period": "2026-04-01 to 2026-04-30",
+        "opening_balance": "3976.56",
+        "closing_balance": "2707.16",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-04-04",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "368.59",
+              "balance": "4345.15"
+            },
+            {
+              "date": "2026-04-07",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "442.74",
+              "balance": "3902.41"
+            },
+            {
+              "date": "2026-04-10",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "57.16",
+              "balance": "3845.25"
+            },
+            {
+              "date": "2026-04-13",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "109.61",
+              "balance": "3954.86"
+            },
+            {
+              "date": "2026-04-16",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "404.21",
+              "balance": "3550.65"
+            },
+            {
+              "date": "2026-04-19",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "390.02",
+              "balance": "3160.63"
+            },
+            {
+              "date": "2026-04-22",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "198.83",
+              "balance": "2961.80"
+            },
+            {
+              "date": "2026-04-25",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "254.64",
+              "balance": "2707.16"
+            }
+          ]
+        }
+      ],
+      "sha256": "ab9ee19e3fae0fb519ac639f435082219394f903cf50ec65ffc4e348e3d5f431"
+    },
+    {
+      "document_id": "DOC-TN-0004",
+      "customer_id": "CUST-OCR-0004",
+      "customer_name": "Riley Chen",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0004/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0004",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0004",
+        "customer_name": "Riley Chen",
+        "masked_account_number": "****8604",
+        "transfer_date": "2026-04-25",
+        "transfer_amount": "254.64",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "bf651d7a8a8566df31d99be21f5485936a229f410eee97d2e59a5dd358b9208e"
+    },
+    {
+      "document_id": "DOC-BS-0005",
+      "customer_id": "CUST-OCR-0005",
+      "customer_name": "Morgan Patel",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0005/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0005",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0005",
+        "customer_name": "Morgan Patel",
+        "masked_account_number": "****5403",
+        "statement_period": "2026-05-01 to 2026-05-30",
+        "opening_balance": "5792.15",
+        "closing_balance": "4122.90",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-05-04",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "385.03",
+              "balance": "5407.12"
+            },
+            {
+              "date": "2026-05-07",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "278.86",
+              "balance": "5128.26"
+            },
+            {
+              "date": "2026-05-10",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "315.11",
+              "balance": "5443.37"
+            },
+            {
+              "date": "2026-05-13",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "340.23",
+              "balance": "5103.14"
+            },
+            {
+              "date": "2026-05-16",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "353.12",
+              "balance": "4750.02"
+            },
+            {
+              "date": "2026-05-19",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "503.08",
+              "balance": "4246.94"
+            },
+            {
+              "date": "2026-05-22",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "403.13",
+              "balance": "3843.81"
+            },
+            {
+              "date": "2026-05-25",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "279.09",
+              "balance": "4122.90"
+            }
+          ]
+        }
+      ],
+      "sha256": "c62165f7344a7447d384ceddd54a28dd25f5fdccdfd8158d10b785f302a79db2"
+    },
+    {
+      "document_id": "DOC-AC-0005",
+      "customer_id": "CUST-OCR-0005",
+      "customer_name": "Morgan Patel",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0005/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0005",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0005",
+        "customer_name": "Morgan Patel",
+        "masked_account_number": "****5403",
+        "iban": "US-SYN-0005-5403",
+        "branch": "Downtown Branch",
+        "issue_date": "2026-06-02",
+        "account_open_date": "2022-07-15",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "a82ab35a611bef53501ecdc52f0a2aed0ec56bd9582360233c077ca7e68d46ee"
+    },
+    {
+      "document_id": "DOC-IP-0005",
+      "customer_id": "CUST-OCR-0005",
+      "customer_name": "Morgan Patel",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0005/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0005",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0005",
+        "customer_name": "Morgan Patel",
+        "employer": "Atlas Digital Media",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "8331.26",
+        "monthly_net_income": "6165.13",
+        "payroll_date": "2026-05-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "5196a8a5e792ad4dc5d20831cb13a1df2fdc6d11cf886ce4fdb2f3e616884567"
+    },
+    {
+      "document_id": "DOC-SS-0005",
+      "customer_id": "CUST-OCR-0005",
+      "customer_name": "Morgan Patel",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0005/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0005",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0005",
+        "customer_name": "Morgan Patel",
+        "masked_account_number": "****5403",
+        "statement_period": "2026-05-01 to 2026-05-30",
+        "opening_balance": "5792.15",
+        "closing_balance": "4122.90",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-05-04",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "385.03",
+              "balance": "5407.12"
+            },
+            {
+              "date": "2026-05-07",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "278.86",
+              "balance": "5128.26"
+            },
+            {
+              "date": "2026-05-10",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "315.11",
+              "balance": "5443.37"
+            },
+            {
+              "date": "2026-05-13",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "340.23",
+              "balance": "5103.14"
+            },
+            {
+              "date": "2026-05-16",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "353.12",
+              "balance": "4750.02"
+            },
+            {
+              "date": "2026-05-19",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "503.08",
+              "balance": "4246.94"
+            },
+            {
+              "date": "2026-05-22",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "403.13",
+              "balance": "3843.81"
+            },
+            {
+              "date": "2026-05-25",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "279.09",
+              "balance": "4122.90"
+            }
+          ]
+        }
+      ],
+      "sha256": "0f7eeae7761143d4efa643814766c19bbcdb7f3e2627fed4230e16a3f5dd539c"
+    },
+    {
+      "document_id": "DOC-TN-0005",
+      "customer_id": "CUST-OCR-0005",
+      "customer_name": "Morgan Patel",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0005/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0005",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0005",
+        "customer_name": "Morgan Patel",
+        "masked_account_number": "****5403",
+        "transfer_date": "2026-05-25",
+        "transfer_amount": "279.09",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "8051a5e31f042cdc7659110b9c18df3cc4a26a1a2cfcedb8e8469679037f1832"
+    },
+    {
+      "document_id": "DOC-BS-0006",
+      "customer_id": "CUST-OCR-0006",
+      "customer_name": "Casey Rivera",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0006/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0006",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0006",
+        "customer_name": "Casey Rivera",
+        "masked_account_number": "****5428",
+        "statement_period": "2026-06-01 to 2026-06-30",
+        "opening_balance": "9028.49",
+        "closing_balance": "7596.38",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-06-04",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "98.30",
+              "balance": "8930.19"
+            },
+            {
+              "date": "2026-06-07",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "367.51",
+              "balance": "9297.70"
+            },
+            {
+              "date": "2026-06-10",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "383.65",
+              "balance": "8914.05"
+            },
+            {
+              "date": "2026-06-13",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "63.29",
+              "balance": "8850.76"
+            },
+            {
+              "date": "2026-06-16",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "359.65",
+              "balance": "8491.11"
+            },
+            {
+              "date": "2026-06-19",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "553.61",
+              "balance": "7937.50"
+            },
+            {
+              "date": "2026-06-22",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "79.11",
+              "balance": "8016.61"
+            },
+            {
+              "date": "2026-06-25",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "420.23",
+              "balance": "7596.38"
+            }
+          ]
+        }
+      ],
+      "sha256": "95e06bea005bfa64b5b508b2f58a99f4300202a551cef62b6d54dd798c71100f"
+    },
+    {
+      "document_id": "DOC-AC-0006",
+      "customer_id": "CUST-OCR-0006",
+      "customer_name": "Casey Rivera",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0006/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0006",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0006",
+        "customer_name": "Casey Rivera",
+        "masked_account_number": "****5428",
+        "iban": "US-SYN-0006-5428",
+        "branch": "North Avenue Branch",
+        "issue_date": "2026-07-03",
+        "account_open_date": "2023-08-16",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "57bac46edf4e88d0a16beafa29f134c1e25278e8d96e120e4d69766b4bbe2ab8"
+    },
+    {
+      "document_id": "DOC-IP-0006",
+      "customer_id": "CUST-OCR-0006",
+      "customer_name": "Casey Rivera",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0006/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0006",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0006",
+        "customer_name": "Casey Rivera",
+        "employer": "Northwind Analytics LLC",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "7119.37",
+        "monthly_net_income": "5268.33",
+        "payroll_date": "2026-06-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "1ac04326385ee3fb4fee44250253e8bed5108ead79979015adf10df982bbc456"
+    },
+    {
+      "document_id": "DOC-SS-0006",
+      "customer_id": "CUST-OCR-0006",
+      "customer_name": "Casey Rivera",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0006/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0006",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0006",
+        "customer_name": "Casey Rivera",
+        "masked_account_number": "****5428",
+        "statement_period": "2026-06-01 to 2026-06-30",
+        "opening_balance": "9028.49",
+        "closing_balance": "7596.38",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-06-04",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "98.30",
+              "balance": "8930.19"
+            },
+            {
+              "date": "2026-06-07",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "367.51",
+              "balance": "9297.70"
+            },
+            {
+              "date": "2026-06-10",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "383.65",
+              "balance": "8914.05"
+            },
+            {
+              "date": "2026-06-13",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "63.29",
+              "balance": "8850.76"
+            },
+            {
+              "date": "2026-06-16",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "359.65",
+              "balance": "8491.11"
+            },
+            {
+              "date": "2026-06-19",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "553.61",
+              "balance": "7937.50"
+            },
+            {
+              "date": "2026-06-22",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "79.11",
+              "balance": "8016.61"
+            },
+            {
+              "date": "2026-06-25",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "420.23",
+              "balance": "7596.38"
+            }
+          ]
+        }
+      ],
+      "sha256": "bb8241afc70fc51d2edc35c2df4c6436c4f35bd440238b3c9a6a33159d4eab54"
+    },
+    {
+      "document_id": "DOC-TN-0006",
+      "customer_id": "CUST-OCR-0006",
+      "customer_name": "Casey Rivera",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0006/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0006",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0006",
+        "customer_name": "Casey Rivera",
+        "masked_account_number": "****5428",
+        "transfer_date": "2026-06-25",
+        "transfer_amount": "420.23",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "1b3ddd0cbf07d668b72eb67eb932670a18f8ad127f311100a23fd8a2c31d197e"
+    },
+    {
+      "document_id": "DOC-BS-0007",
+      "customer_id": "CUST-OCR-0007",
+      "customer_name": "Quinn Parker",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0007/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0007",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0007",
+        "customer_name": "Quinn Parker",
+        "masked_account_number": "****4459",
+        "statement_period": "2026-07-01 to 2026-07-30",
+        "opening_balance": "6965.88",
+        "closing_balance": "6103.25",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-07-04",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "422.82",
+              "balance": "7388.70"
+            },
+            {
+              "date": "2026-07-07",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "232.24",
+              "balance": "7156.46"
+            },
+            {
+              "date": "2026-07-10",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "470.56",
+              "balance": "6685.90"
+            },
+            {
+              "date": "2026-07-13",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "94.94",
+              "balance": "6590.96"
+            },
+            {
+              "date": "2026-07-16",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "525.58",
+              "balance": "6065.38"
+            },
+            {
+              "date": "2026-07-19",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "370.29",
+              "balance": "6435.67"
+            },
+            {
+              "date": "2026-07-22",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "208.38",
+              "balance": "6227.29"
+            },
+            {
+              "date": "2026-07-25",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "124.04",
+              "balance": "6103.25"
+            }
+          ]
+        }
+      ],
+      "sha256": "4ee535e290951c900d37121cf05971b73980b818da18155fac16b45b937cca91"
+    },
+    {
+      "document_id": "DOC-AC-0007",
+      "customer_id": "CUST-OCR-0007",
+      "customer_name": "Quinn Parker",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0007/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0007",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0007",
+        "customer_name": "Quinn Parker",
+        "masked_account_number": "****4459",
+        "iban": "US-SYN-0007-4459",
+        "branch": "Riverside Branch",
+        "issue_date": "2026-08-02",
+        "account_open_date": "2024-09-17",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "389897234b50aacdad7ce60832e69d63079b196803d98579641d08bd10802484"
+    },
+    {
+      "document_id": "DOC-IP-0007",
+      "customer_id": "CUST-OCR-0007",
+      "customer_name": "Quinn Parker",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0007/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0007",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0007",
+        "customer_name": "Quinn Parker",
+        "employer": "Blue Harbor Retail Group",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "7242.83",
+        "monthly_net_income": "5359.69",
+        "payroll_date": "2026-07-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "46614b1cb4481df94d1e30672ded50a280db029aff0c4a910b3aa542beafc3be"
+    },
+    {
+      "document_id": "DOC-SS-0007",
+      "customer_id": "CUST-OCR-0007",
+      "customer_name": "Quinn Parker",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0007/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0007",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0007",
+        "customer_name": "Quinn Parker",
+        "masked_account_number": "****4459",
+        "statement_period": "2026-07-01 to 2026-07-30",
+        "opening_balance": "6965.88",
+        "closing_balance": "6103.25",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-07-04",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "422.82",
+              "balance": "7388.70"
+            },
+            {
+              "date": "2026-07-07",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "232.24",
+              "balance": "7156.46"
+            },
+            {
+              "date": "2026-07-10",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "470.56",
+              "balance": "6685.90"
+            },
+            {
+              "date": "2026-07-13",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "94.94",
+              "balance": "6590.96"
+            },
+            {
+              "date": "2026-07-16",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "525.58",
+              "balance": "6065.38"
+            },
+            {
+              "date": "2026-07-19",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "370.29",
+              "balance": "6435.67"
+            },
+            {
+              "date": "2026-07-22",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "208.38",
+              "balance": "6227.29"
+            },
+            {
+              "date": "2026-07-25",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "124.04",
+              "balance": "6103.25"
+            }
+          ]
+        }
+      ],
+      "sha256": "0c9c1d2ad79a7fe5087ec501468743b02ebff132ea84808cb5b62a7eb16f8832"
+    },
+    {
+      "document_id": "DOC-TN-0007",
+      "customer_id": "CUST-OCR-0007",
+      "customer_name": "Quinn Parker",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0007/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0007",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0007",
+        "customer_name": "Quinn Parker",
+        "masked_account_number": "****4459",
+        "transfer_date": "2026-07-25",
+        "transfer_amount": "124.04",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "a3538030f1e015dbdb095dc5aae4368cf574821efe9e8c5e1310832415842982"
+    },
+    {
+      "document_id": "DOC-BS-0008",
+      "customer_id": "CUST-OCR-0008",
+      "customer_name": "Jamie Bennett",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0008/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0008",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0008",
+        "customer_name": "Jamie Bennett",
+        "masked_account_number": "****1048",
+        "statement_period": "2026-08-01 to 2026-08-30",
+        "opening_balance": "7593.71",
+        "closing_balance": "6408.80",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-08-04",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "243.51",
+              "balance": "7350.20"
+            },
+            {
+              "date": "2026-08-07",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "201.36",
+              "balance": "7148.84"
+            },
+            {
+              "date": "2026-08-10",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "573.54",
+              "balance": "6575.30"
+            },
+            {
+              "date": "2026-08-13",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "553.76",
+              "balance": "6021.54"
+            },
+            {
+              "date": "2026-08-16",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "555.83",
+              "balance": "6577.37"
+            },
+            {
+              "date": "2026-08-19",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "133.08",
+              "balance": "6444.29"
+            },
+            {
+              "date": "2026-08-22",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "608.94",
+              "balance": "5835.35"
+            },
+            {
+              "date": "2026-08-25",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "573.45",
+              "balance": "6408.80"
+            }
+          ]
+        }
+      ],
+      "sha256": "6f114d91316e2351cd6a78ffc29b398bbe0fd82d229b43fc32e935234646d894"
+    },
+    {
+      "document_id": "DOC-AC-0008",
+      "customer_id": "CUST-OCR-0008",
+      "customer_name": "Jamie Bennett",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0008/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0008",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0008",
+        "customer_name": "Jamie Bennett",
+        "masked_account_number": "****1048",
+        "iban": "US-SYN-0008-1048",
+        "branch": "Market Street Branch",
+        "issue_date": "2026-09-02",
+        "account_open_date": "2021-02-18",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "fd2bc39c0b20529df02bb08cc2284c34d4f2e098d3b32998e202964256d3aa4f"
+    },
+    {
+      "document_id": "DOC-IP-0008",
+      "customer_id": "CUST-OCR-0008",
+      "customer_name": "Jamie Bennett",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0008/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0008",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0008",
+        "customer_name": "Jamie Bennett",
+        "employer": "Summit Health Services",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "6615.77",
+        "monthly_net_income": "4895.67",
+        "payroll_date": "2026-08-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "5a7c50d621f01e557faac4f24054b783c1f1530fff0c7dcb79a152d01bf3ea1b"
+    },
+    {
+      "document_id": "DOC-SS-0008",
+      "customer_id": "CUST-OCR-0008",
+      "customer_name": "Jamie Bennett",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0008/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0008",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0008",
+        "customer_name": "Jamie Bennett",
+        "masked_account_number": "****1048",
+        "statement_period": "2026-08-01 to 2026-08-30",
+        "opening_balance": "7593.71",
+        "closing_balance": "6408.80",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-08-04",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "243.51",
+              "balance": "7350.20"
+            },
+            {
+              "date": "2026-08-07",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "201.36",
+              "balance": "7148.84"
+            },
+            {
+              "date": "2026-08-10",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "573.54",
+              "balance": "6575.30"
+            },
+            {
+              "date": "2026-08-13",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "553.76",
+              "balance": "6021.54"
+            },
+            {
+              "date": "2026-08-16",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "555.83",
+              "balance": "6577.37"
+            },
+            {
+              "date": "2026-08-19",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "133.08",
+              "balance": "6444.29"
+            },
+            {
+              "date": "2026-08-22",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "608.94",
+              "balance": "5835.35"
+            },
+            {
+              "date": "2026-08-25",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "573.45",
+              "balance": "6408.80"
+            }
+          ]
+        }
+      ],
+      "sha256": "b725da47d25e8ac0812100fbd59bd099a47b0480b5362a23b5b46348262df381"
+    },
+    {
+      "document_id": "DOC-TN-0008",
+      "customer_id": "CUST-OCR-0008",
+      "customer_name": "Jamie Bennett",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0008/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0008",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0008",
+        "customer_name": "Jamie Bennett",
+        "masked_account_number": "****1048",
+        "transfer_date": "2026-08-25",
+        "transfer_amount": "573.45",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "e97e5cf72c5cfcf7122673afb539c27c0ff25ba8f6fc84774637586e712cd20c"
+    },
+    {
+      "document_id": "DOC-BS-0009",
+      "customer_id": "CUST-OCR-0009",
+      "customer_name": "Drew Coleman",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0009/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0009",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0009",
+        "customer_name": "Drew Coleman",
+        "masked_account_number": "****5982",
+        "statement_period": "2026-09-01 to 2026-09-30",
+        "opening_balance": "7077.51",
+        "closing_balance": "5373.38",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-09-04",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "169.31",
+              "balance": "6908.20"
+            },
+            {
+              "date": "2026-09-07",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "445.71",
+              "balance": "6462.49"
+            },
+            {
+              "date": "2026-09-10",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "403.80",
+              "balance": "6058.69"
+            },
+            {
+              "date": "2026-09-13",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "93.66",
+              "balance": "6152.35"
+            },
+            {
+              "date": "2026-09-16",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "184.27",
+              "balance": "5968.08"
+            },
+            {
+              "date": "2026-09-19",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "610.31",
+              "balance": "5357.77"
+            },
+            {
+              "date": "2026-09-22",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "260.12",
+              "balance": "5617.89"
+            },
+            {
+              "date": "2026-09-25",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "244.51",
+              "balance": "5373.38"
+            }
+          ]
+        }
+      ],
+      "sha256": "c41dde73c05817802071737fd7a048d900667ad4e2d6fd686e552fb8a3a07aee"
+    },
+    {
+      "document_id": "DOC-AC-0009",
+      "customer_id": "CUST-OCR-0009",
+      "customer_name": "Drew Coleman",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0009/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0009",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0009",
+        "customer_name": "Drew Coleman",
+        "masked_account_number": "****5982",
+        "iban": "US-SYN-0009-5982",
+        "branch": "Central Operations Branch",
+        "issue_date": "2026-10-03",
+        "account_open_date": "2022-03-19",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "f97fd2093b43c96cd9cbe71875bb4d5130b6cea8aba616928c6acfc9b653fbbe"
+    },
+    {
+      "document_id": "DOC-IP-0009",
+      "customer_id": "CUST-OCR-0009",
+      "customer_name": "Drew Coleman",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0009/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0009",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0009",
+        "customer_name": "Drew Coleman",
+        "employer": "Pioneer Solar Systems",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "6966.32",
+        "monthly_net_income": "5155.08",
+        "payroll_date": "2026-09-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "eeb28fa8b1a62fbc2d0e010855709a182778eaa155454fb69c535ba610ce1163"
+    },
+    {
+      "document_id": "DOC-SS-0009",
+      "customer_id": "CUST-OCR-0009",
+      "customer_name": "Drew Coleman",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0009/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0009",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0009",
+        "customer_name": "Drew Coleman",
+        "masked_account_number": "****5982",
+        "statement_period": "2026-09-01 to 2026-09-30",
+        "opening_balance": "7077.51",
+        "closing_balance": "5373.38",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-09-04",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "169.31",
+              "balance": "6908.20"
+            },
+            {
+              "date": "2026-09-07",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "445.71",
+              "balance": "6462.49"
+            },
+            {
+              "date": "2026-09-10",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "403.80",
+              "balance": "6058.69"
+            },
+            {
+              "date": "2026-09-13",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "93.66",
+              "balance": "6152.35"
+            },
+            {
+              "date": "2026-09-16",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "184.27",
+              "balance": "5968.08"
+            },
+            {
+              "date": "2026-09-19",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "610.31",
+              "balance": "5357.77"
+            },
+            {
+              "date": "2026-09-22",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "260.12",
+              "balance": "5617.89"
+            },
+            {
+              "date": "2026-09-25",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "244.51",
+              "balance": "5373.38"
+            }
+          ]
+        }
+      ],
+      "sha256": "86d40a70d3fa3c960270d8da89d104e097f4de868b7f3883614ccd3b60a13308"
+    },
+    {
+      "document_id": "DOC-TN-0009",
+      "customer_id": "CUST-OCR-0009",
+      "customer_name": "Drew Coleman",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0009/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0009",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0009",
+        "customer_name": "Drew Coleman",
+        "masked_account_number": "****5982",
+        "transfer_date": "2026-09-25",
+        "transfer_amount": "244.51",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "1215981579b668e025a1e5c7c5ebd39942e551333ae0237f05707b8055165679"
+    },
+    {
+      "document_id": "DOC-BS-0010",
+      "customer_id": "CUST-OCR-0010",
+      "customer_name": "Skyler Hughes",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0010/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0010",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0010",
+        "customer_name": "Skyler Hughes",
+        "masked_account_number": "****5713",
+        "statement_period": "2026-10-01 to 2026-10-30",
+        "opening_balance": "5104.23",
+        "closing_balance": "3342.60",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-10-04",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "186.96",
+              "balance": "4917.27"
+            },
+            {
+              "date": "2026-10-07",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "306.72",
+              "balance": "4610.55"
+            },
+            {
+              "date": "2026-10-10",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "384.19",
+              "balance": "4994.74"
+            },
+            {
+              "date": "2026-10-13",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "380.42",
+              "balance": "4614.32"
+            },
+            {
+              "date": "2026-10-16",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "451.03",
+              "balance": "4163.29"
+            },
+            {
+              "date": "2026-10-19",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "67.51",
+              "balance": "4230.80"
+            },
+            {
+              "date": "2026-10-22",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "443.46",
+              "balance": "3787.34"
+            },
+            {
+              "date": "2026-10-25",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "444.74",
+              "balance": "3342.60"
+            }
+          ]
+        }
+      ],
+      "sha256": "1fef417a828b21b009353704d3ea0c92ae6bb57f975b60cf749e0225d4a66901"
+    },
+    {
+      "document_id": "DOC-AC-0010",
+      "customer_id": "CUST-OCR-0010",
+      "customer_name": "Skyler Hughes",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0010/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0010",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0010",
+        "customer_name": "Skyler Hughes",
+        "masked_account_number": "****5713",
+        "iban": "US-SYN-0010-5713",
+        "branch": "Downtown Branch",
+        "issue_date": "2026-11-02",
+        "account_open_date": "2023-04-20",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "c9ecc767ef0d8971319e67e78ded3b548f57e853c03a850015028fb36b575438"
+    },
+    {
+      "document_id": "DOC-IP-0010",
+      "customer_id": "CUST-OCR-0010",
+      "customer_name": "Skyler Hughes",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0010/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0010",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0010",
+        "customer_name": "Skyler Hughes",
+        "employer": "Cedar Point Logistics",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "8217.02",
+        "monthly_net_income": "6080.59",
+        "payroll_date": "2026-10-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "949d1175ed03f8e6b0394ba26282972af2d619f5ed78d0c1cecae0039ad84bc8"
+    },
+    {
+      "document_id": "DOC-SS-0010",
+      "customer_id": "CUST-OCR-0010",
+      "customer_name": "Skyler Hughes",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0010/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0010",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0010",
+        "customer_name": "Skyler Hughes",
+        "masked_account_number": "****5713",
+        "statement_period": "2026-10-01 to 2026-10-30",
+        "opening_balance": "5104.23",
+        "closing_balance": "3342.60",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-10-04",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "186.96",
+              "balance": "4917.27"
+            },
+            {
+              "date": "2026-10-07",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "306.72",
+              "balance": "4610.55"
+            },
+            {
+              "date": "2026-10-10",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "384.19",
+              "balance": "4994.74"
+            },
+            {
+              "date": "2026-10-13",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "380.42",
+              "balance": "4614.32"
+            },
+            {
+              "date": "2026-10-16",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "451.03",
+              "balance": "4163.29"
+            },
+            {
+              "date": "2026-10-19",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "67.51",
+              "balance": "4230.80"
+            },
+            {
+              "date": "2026-10-22",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "443.46",
+              "balance": "3787.34"
+            },
+            {
+              "date": "2026-10-25",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "444.74",
+              "balance": "3342.60"
+            }
+          ]
+        }
+      ],
+      "sha256": "58480e8bbcd1480a1592ecf9f8e2b717433b40edbcfc01f34a87bc9ff3ff7a28"
+    },
+    {
+      "document_id": "DOC-TN-0010",
+      "customer_id": "CUST-OCR-0010",
+      "customer_name": "Skyler Hughes",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0010/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0010",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0010",
+        "customer_name": "Skyler Hughes",
+        "masked_account_number": "****5713",
+        "transfer_date": "2026-10-25",
+        "transfer_amount": "444.74",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "bb55dd31a13e5fff1125eb651399d707a9ef4dc3303312c54d7e8a9718523c9a"
+    },
+    {
+      "document_id": "DOC-BS-0011",
+      "customer_id": "CUST-OCR-0011",
+      "customer_name": "Harper Collins",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0011/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0011",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0011",
+        "customer_name": "Harper Collins",
+        "masked_account_number": "****4411",
+        "statement_period": "2026-11-01 to 2026-11-30",
+        "opening_balance": "6688.45",
+        "closing_balance": "6025.83",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-11-04",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "171.23",
+              "balance": "6517.22"
+            },
+            {
+              "date": "2026-11-07",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "255.54",
+              "balance": "6772.76"
+            },
+            {
+              "date": "2026-11-10",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "475.11",
+              "balance": "6297.65"
+            },
+            {
+              "date": "2026-11-13",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "110.46",
+              "balance": "6187.19"
+            },
+            {
+              "date": "2026-11-16",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "255.11",
+              "balance": "6442.30"
+            },
+            {
+              "date": "2026-11-19",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "254.17",
+              "balance": "6188.13"
+            },
+            {
+              "date": "2026-11-22",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "80.16",
+              "balance": "6107.97"
+            },
+            {
+              "date": "2026-11-25",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "82.14",
+              "balance": "6025.83"
+            }
+          ]
+        }
+      ],
+      "sha256": "c71e993679ddc720701197ecd4d9ac8125509947190001624b8b654f0e482af9"
+    },
+    {
+      "document_id": "DOC-AC-0011",
+      "customer_id": "CUST-OCR-0011",
+      "customer_name": "Harper Collins",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0011/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0011",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0011",
+        "customer_name": "Harper Collins",
+        "masked_account_number": "****4411",
+        "iban": "US-SYN-0011-4411",
+        "branch": "North Avenue Branch",
+        "issue_date": "2026-12-03",
+        "account_open_date": "2024-05-21",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "5e70b304f9e27f397374e683176bf9bc07dc989b6c4118c0ac2b96cc7d7dd83b"
+    },
+    {
+      "document_id": "DOC-IP-0011",
+      "customer_id": "CUST-OCR-0011",
+      "customer_name": "Harper Collins",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0011/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0011",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0011",
+        "customer_name": "Harper Collins",
+        "employer": "Atlas Digital Media",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "7092.19",
+        "monthly_net_income": "5248.22",
+        "payroll_date": "2026-11-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "81384b3d581a5e1e1b56bd9e66f5ae88008c84a6a25262e20aae1750fd9c904a"
+    },
+    {
+      "document_id": "DOC-SS-0011",
+      "customer_id": "CUST-OCR-0011",
+      "customer_name": "Harper Collins",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0011/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0011",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0011",
+        "customer_name": "Harper Collins",
+        "masked_account_number": "****4411",
+        "statement_period": "2026-11-01 to 2026-11-30",
+        "opening_balance": "6688.45",
+        "closing_balance": "6025.83",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-11-04",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "171.23",
+              "balance": "6517.22"
+            },
+            {
+              "date": "2026-11-07",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "255.54",
+              "balance": "6772.76"
+            },
+            {
+              "date": "2026-11-10",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "475.11",
+              "balance": "6297.65"
+            },
+            {
+              "date": "2026-11-13",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "110.46",
+              "balance": "6187.19"
+            },
+            {
+              "date": "2026-11-16",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "255.11",
+              "balance": "6442.30"
+            },
+            {
+              "date": "2026-11-19",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "254.17",
+              "balance": "6188.13"
+            },
+            {
+              "date": "2026-11-22",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "80.16",
+              "balance": "6107.97"
+            },
+            {
+              "date": "2026-11-25",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "82.14",
+              "balance": "6025.83"
+            }
+          ]
+        }
+      ],
+      "sha256": "77621ed469204531397207d569e2283a86c9b0a6f63037224b01fba0994c1d31"
+    },
+    {
+      "document_id": "DOC-TN-0011",
+      "customer_id": "CUST-OCR-0011",
+      "customer_name": "Harper Collins",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0011/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0011",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0011",
+        "customer_name": "Harper Collins",
+        "masked_account_number": "****4411",
+        "transfer_date": "2026-11-25",
+        "transfer_amount": "82.14",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "af4051320eeeaae031c4f80f5971f157bdb09cfff9af7b38614f05dd52d10662"
+    },
+    {
+      "document_id": "DOC-BS-0012",
+      "customer_id": "CUST-OCR-0012",
+      "customer_name": "Rowan Mitchell",
+      "document_type": "bank_statement",
+      "file_name": "bank_statement.pdf",
+      "relative_path": "raw/customer_0012/bank_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-BS-0012",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0012",
+        "customer_name": "Rowan Mitchell",
+        "masked_account_number": "****5007",
+        "statement_period": "2026-12-01 to 2026-12-30",
+        "opening_balance": "8557.17",
+        "closing_balance": "8039.75",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-12-04",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "283.80",
+              "balance": "8840.97"
+            },
+            {
+              "date": "2026-12-07",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "491.15",
+              "balance": "8349.82"
+            },
+            {
+              "date": "2026-12-10",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "105.76",
+              "balance": "8244.06"
+            },
+            {
+              "date": "2026-12-13",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "461.15",
+              "balance": "8705.21"
+            },
+            {
+              "date": "2026-12-16",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "201.61",
+              "balance": "8503.60"
+            },
+            {
+              "date": "2026-12-19",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "81.23",
+              "balance": "8422.37"
+            },
+            {
+              "date": "2026-12-22",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "238.94",
+              "balance": "8183.43"
+            },
+            {
+              "date": "2026-12-25",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "143.68",
+              "balance": "8039.75"
+            }
+          ]
+        }
+      ],
+      "sha256": "6ac23d9d93a4c7495e30a99bc465934670a54e77eb46b28aa9bcd029be5deda3"
+    },
+    {
+      "document_id": "DOC-AC-0012",
+      "customer_id": "CUST-OCR-0012",
+      "customer_name": "Rowan Mitchell",
+      "document_type": "account_confirmation",
+      "file_name": "account_confirmation.pdf",
+      "relative_path": "raw/customer_0012/account_confirmation.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-AC-0012",
+        "document_type": "Account Confirmation",
+        "customer_id": "CUST-OCR-0012",
+        "customer_name": "Rowan Mitchell",
+        "masked_account_number": "****5007",
+        "iban": "US-SYN-0012-5007",
+        "branch": "Riverside Branch",
+        "issue_date": "2027-01-02",
+        "account_open_date": "2021-06-10",
+        "account_status": "Active",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "802135eb34f651a96dbce88ecffd4fc7212c815036450237b4f01cfcc753a352"
+    },
+    {
+      "document_id": "DOC-IP-0012",
+      "customer_id": "CUST-OCR-0012",
+      "customer_name": "Rowan Mitchell",
+      "document_type": "income_proof",
+      "file_name": "income_proof.pdf",
+      "relative_path": "raw/customer_0012/income_proof.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": false,
+      "expected_fields": {
+        "document_id": "DOC-IP-0012",
+        "document_type": "Income Proof",
+        "customer_id": "CUST-OCR-0012",
+        "customer_name": "Rowan Mitchell",
+        "employer": "Northwind Analytics LLC",
+        "employment_status": "Full-time",
+        "monthly_gross_income": "6349.74",
+        "monthly_net_income": "4698.81",
+        "payroll_date": "2026-12-28",
+        "currency": "USD"
+      },
+      "expected_tables": [],
+      "sha256": "789f5f16466603609fa47a3d05142200d740051aff464ae9e58aaebf3d14dc05"
+    },
+    {
+      "document_id": "DOC-SS-0012",
+      "customer_id": "CUST-OCR-0012",
+      "customer_name": "Rowan Mitchell",
+      "document_type": "scanned_statement",
+      "file_name": "scanned_statement.pdf",
+      "relative_path": "raw/customer_0012/scanned_statement.pdf",
+      "media_type": "application/pdf",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-SS-0012",
+        "document_type": "Bank Statement",
+        "customer_id": "CUST-OCR-0012",
+        "customer_name": "Rowan Mitchell",
+        "masked_account_number": "****5007",
+        "statement_period": "2026-12-01 to 2026-12-30",
+        "opening_balance": "8557.17",
+        "closing_balance": "8039.75",
+        "currency": "USD"
+      },
+      "expected_tables": [
+        {
+          "name": "transactions",
+          "rows": [
+            {
+              "date": "2026-12-04",
+              "description": "Incoming Transfer",
+              "type": "Credit",
+              "amount": "283.80",
+              "balance": "8840.97"
+            },
+            {
+              "date": "2026-12-07",
+              "description": "Insurance Payment",
+              "type": "Debit",
+              "amount": "491.15",
+              "balance": "8349.82"
+            },
+            {
+              "date": "2026-12-10",
+              "description": "Mobile Transfer",
+              "type": "Debit",
+              "amount": "105.76",
+              "balance": "8244.06"
+            },
+            {
+              "date": "2026-12-13",
+              "description": "Payroll Deposit",
+              "type": "Credit",
+              "amount": "461.15",
+              "balance": "8705.21"
+            },
+            {
+              "date": "2026-12-16",
+              "description": "POS Grocery Market",
+              "type": "Debit",
+              "amount": "201.61",
+              "balance": "8503.60"
+            },
+            {
+              "date": "2026-12-19",
+              "description": "Online Utility Payment",
+              "type": "Debit",
+              "amount": "81.23",
+              "balance": "8422.37"
+            },
+            {
+              "date": "2026-12-22",
+              "description": "ATM Withdrawal",
+              "type": "Debit",
+              "amount": "238.94",
+              "balance": "8183.43"
+            },
+            {
+              "date": "2026-12-25",
+              "description": "Card Restaurant",
+              "type": "Debit",
+              "amount": "143.68",
+              "balance": "8039.75"
+            }
+          ]
+        }
+      ],
+      "sha256": "99afd797ba462957051e79881345e4f91a1698412ba5c9313fae5ba5f1f70f14"
+    },
+    {
+      "document_id": "DOC-TN-0012",
+      "customer_id": "CUST-OCR-0012",
+      "customer_name": "Rowan Mitchell",
+      "document_type": "transfer_notice",
+      "file_name": "transfer_notice.jpg",
+      "relative_path": "raw/customer_0012/transfer_notice.jpg",
+      "media_type": "image/jpeg",
+      "is_scanned": true,
+      "expected_fields": {
+        "document_id": "DOC-TN-0012",
+        "document_type": "Transfer Notice",
+        "customer_id": "CUST-OCR-0012",
+        "customer_name": "Rowan Mitchell",
+        "masked_account_number": "****5007",
+        "transfer_date": "2026-12-25",
+        "transfer_amount": "143.68",
+        "currency": "USD",
+        "transfer_status": "Completed"
+      },
+      "expected_tables": [],
+      "sha256": "8263925eb581e2db0b19ecfa67720bc1f015fb0eed46bd3d13668595dd8cb936"
+    }
+  ]
+}

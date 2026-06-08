@@ -1,0 +1,13 @@
+{
+  "name": "banking-ai-backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node ../scripts/python.cjs -m uvicorn app.main:app --host 127.0.0.1 --port 8001",
+    "db:migrate": "node ../scripts/python.cjs -m app.scripts.migrate",
+    "db:seed": "node ../scripts/python.cjs -m app.scripts.seed",
+    "data:generate": "node ../scripts/python.cjs -m app.scripts.generate_data",
+    "ai:check": "node ../scripts/python.cjs -m app.scripts.ai_check",
+    "test": "node ../scripts/python.cjs -m pytest"
+  }
+}

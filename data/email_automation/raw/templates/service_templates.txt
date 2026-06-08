@@ -1,0 +1,56 @@
+[service:card_replacement]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.
+[service:failed_payment]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.
+[service:suspicious_login_notice]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.
+[service:statement_ready]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.
+[service:loan_payment_reminder]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.
+[service:overdraft_warning]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.
+[service:kyc_refresh_reminder]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.
+[service:branch_appointment_reminder]
+communication_type=service
+subject=${first_name}, ${event_label} for ${product_name}
+preheader=Review this service update for account ${masked_account}.
+body=Hello ${first_name}, we are contacting you about ${event_label} for ${product_name}. This notice references account ${masked_account}. ${service_detail} Please use secure online banking or call ${support_phone} if you need help.
+call_to_action=Review your secure message
+required_disclosures=This service message is not a marketing offer.

@@ -1,0 +1,689 @@
+{
+  "generation_seed": 5505,
+  "series_count": 6,
+  "history_days": 180,
+  "forecast_horizon_days": 14,
+  "holdout_actual_count": 84,
+  "expected_series_ids": [
+    "BR-CENTRAL-001",
+    "BR-LAKESIDE-002",
+    "BR-HARBOR-003",
+    "ATM-CENTRAL-101",
+    "ATM-MARKET-102",
+    "ATM-RESORT-103"
+  ],
+  "actuals": [
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-06-30",
+      "actual_net_cash_demand": 105675.27,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-01",
+      "actual_net_cash_demand": 150817.85,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-02",
+      "actual_net_cash_demand": 154543.01,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-03",
+      "actual_net_cash_demand": 201928.97,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-04",
+      "actual_net_cash_demand": 12961.81,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-05",
+      "actual_net_cash_demand": 11025.82,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-06",
+      "actual_net_cash_demand": 124606.82,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-07",
+      "actual_net_cash_demand": 90882.25,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-08",
+      "actual_net_cash_demand": 109757.96,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-09",
+      "actual_net_cash_demand": 134902.16,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-10",
+      "actual_net_cash_demand": 157720.21,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-11",
+      "actual_net_cash_demand": 17939.54,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-12",
+      "actual_net_cash_demand": 9761.5,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "date": "2026-07-13",
+      "actual_net_cash_demand": 113204.49,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-06-30",
+      "actual_net_cash_demand": 84301.85,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-01",
+      "actual_net_cash_demand": 104777.81,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-02",
+      "actual_net_cash_demand": 117200.72,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-03",
+      "actual_net_cash_demand": 134438.17,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-04",
+      "actual_net_cash_demand": 9012.14,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-05",
+      "actual_net_cash_demand": 7611.2,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-06",
+      "actual_net_cash_demand": 99309.96,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-07",
+      "actual_net_cash_demand": 100243.75,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-08",
+      "actual_net_cash_demand": 90733.55,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-09",
+      "actual_net_cash_demand": 93194.68,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-10",
+      "actual_net_cash_demand": 129026.55,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-11",
+      "actual_net_cash_demand": 13342.71,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-12",
+      "actual_net_cash_demand": 6420.93,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "date": "2026-07-13",
+      "actual_net_cash_demand": 81562.37,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-06-30",
+      "actual_net_cash_demand": 79954.38,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-01",
+      "actual_net_cash_demand": 122596.63,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-02",
+      "actual_net_cash_demand": 126138.68,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-03",
+      "actual_net_cash_demand": 123853.26,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-04",
+      "actual_net_cash_demand": 10618.96,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-05",
+      "actual_net_cash_demand": 10006.22,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-06",
+      "actual_net_cash_demand": 116682.5,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-07",
+      "actual_net_cash_demand": 88583.91,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-08",
+      "actual_net_cash_demand": 87101.7,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-09",
+      "actual_net_cash_demand": 111970.46,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-10",
+      "actual_net_cash_demand": 136959.29,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-11",
+      "actual_net_cash_demand": 15816.94,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-12",
+      "actual_net_cash_demand": 8303.03,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "date": "2026-07-13",
+      "actual_net_cash_demand": 79273.09,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-06-30",
+      "actual_net_cash_demand": 47330.5,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-01",
+      "actual_net_cash_demand": 57143.63,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-02",
+      "actual_net_cash_demand": 60280.33,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-03",
+      "actual_net_cash_demand": 92034.69,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-04",
+      "actual_net_cash_demand": 87710.05,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-05",
+      "actual_net_cash_demand": 74419.77,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-06",
+      "actual_net_cash_demand": 40197.02,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-07",
+      "actual_net_cash_demand": 49125.39,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-08",
+      "actual_net_cash_demand": 42108.45,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-09",
+      "actual_net_cash_demand": 53465.59,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-10",
+      "actual_net_cash_demand": 51796.91,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-11",
+      "actual_net_cash_demand": 55565.77,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-12",
+      "actual_net_cash_demand": 45221.57,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "date": "2026-07-13",
+      "actual_net_cash_demand": 35381.81,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-06-30",
+      "actual_net_cash_demand": 31629.55,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-01",
+      "actual_net_cash_demand": 48147.74,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-02",
+      "actual_net_cash_demand": 50827.7,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-03",
+      "actual_net_cash_demand": 74949.48,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-04",
+      "actual_net_cash_demand": 65810.09,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-05",
+      "actual_net_cash_demand": 55803.35,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-06",
+      "actual_net_cash_demand": 29837.65,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-07",
+      "actual_net_cash_demand": 36449.45,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-08",
+      "actual_net_cash_demand": 43298.12,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-09",
+      "actual_net_cash_demand": 36506.71,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-10",
+      "actual_net_cash_demand": 47490.85,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-11",
+      "actual_net_cash_demand": 40583.64,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-12",
+      "actual_net_cash_demand": 40114.97,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "date": "2026-07-13",
+      "actual_net_cash_demand": 28954.32,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-06-30",
+      "actual_net_cash_demand": 39481.69,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-01",
+      "actual_net_cash_demand": 55043.4,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-02",
+      "actual_net_cash_demand": 58933.35,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-03",
+      "actual_net_cash_demand": 89024.79,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-04",
+      "actual_net_cash_demand": 78304.47,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-05",
+      "actual_net_cash_demand": 72757.15,
+      "holiday_flag": 1,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-06",
+      "actual_net_cash_demand": 43023.04,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-07",
+      "actual_net_cash_demand": 40630.9,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-08",
+      "actual_net_cash_demand": 46279.98,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-09",
+      "actual_net_cash_demand": 43383.2,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-10",
+      "actual_net_cash_demand": 47488.39,
+      "holiday_flag": 0,
+      "campaign_flag": 1
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-11",
+      "actual_net_cash_demand": 56822.17,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-12",
+      "actual_net_cash_demand": 45502.42,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "date": "2026-07-13",
+      "actual_net_cash_demand": 33328.3,
+      "holiday_flag": 0,
+      "campaign_flag": 0
+    }
+  ]
+}

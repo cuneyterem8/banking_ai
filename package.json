@@ -1,0 +1,24 @@
+{
+  "name": "banking-ai-portal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first staged banking AI portal.",
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:stop": "node scripts/free-dev-ports.cjs",
+    "dev:full": "node scripts/free-dev-ports.cjs && concurrently -k \"npm run dev:backend\" \"node scripts/wait-for-backend.cjs && npm run dev:frontend\"",
+    "full": "npm run dev:full",
+    "db:migrate": "npm --prefix backend run db:migrate",
+    "db:seed": "npm --prefix backend run db:seed",
+    "data:generate": "npm --prefix backend run data:generate",
+    "ai:check": "npm --prefix backend run ai:check",
+    "test:full": "npm --prefix backend run test && npm --prefix frontend run test",
+    "setup:frontend": "npm --prefix frontend install",
+    "setup:backend": "node scripts/setup-backend.cjs",
+    "setup": "npm install && npm run setup:frontend && npm run setup:backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

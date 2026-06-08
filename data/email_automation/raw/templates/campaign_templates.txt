@@ -1,0 +1,35 @@
+[campaign:savings_rate_offer]
+communication_type=campaign
+subject=${first_name}, explore ${campaign_name}
+preheader=A synthetic banking offer selected for your ${segment} profile.
+body=Hello ${first_name}, ${offer_summary} This message was prepared for your ${segment} profile. You can review details in online banking. You may opt out of marketing emails at any time.
+call_to_action=View details
+required_disclosures=Marketing opt-out instructions are required.
+[campaign:credit_card_upgrade]
+communication_type=campaign
+subject=${first_name}, explore ${campaign_name}
+preheader=A synthetic banking offer selected for your ${segment} profile.
+body=Hello ${first_name}, ${offer_summary} This message was prepared for your ${segment} profile. You can review details in online banking. You may opt out of marketing emails at any time.
+call_to_action=View details
+required_disclosures=Marketing opt-out instructions are required.
+[campaign:small_business_cash_management]
+communication_type=campaign
+subject=${first_name}, explore ${campaign_name}
+preheader=A synthetic banking offer selected for your ${segment} profile.
+body=Hello ${first_name}, ${offer_summary} This message was prepared for your ${segment} profile. You can review details in online banking. You may opt out of marketing emails at any time.
+call_to_action=View details
+required_disclosures=Marketing opt-out instructions are required.
+[campaign:mortgage_refinance_education]
+communication_type=campaign
+subject=${first_name}, explore ${campaign_name}
+preheader=A synthetic banking offer selected for your ${segment} profile.
+body=Hello ${first_name}, ${offer_summary} This message was prepared for your ${segment} profile. You can review details in online banking. You may opt out of marketing emails at any time.
+call_to_action=View details
+required_disclosures=Marketing opt-out instructions are required.
+[campaign:digital_banking_adoption]
+communication_type=campaign
+subject=${first_name}, explore ${campaign_name}
+preheader=A synthetic banking offer selected for your ${segment} profile.
+body=Hello ${first_name}, ${offer_summary} This message was prepared for your ${segment} profile. You can review details in online banking. You may opt out of marketing emails at any time.
+call_to_action=View details
+required_disclosures=Marketing opt-out instructions are required.

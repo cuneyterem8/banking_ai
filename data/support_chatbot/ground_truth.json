@@ -1,0 +1,143 @@
+{
+  "generation_seed": 4404,
+  "knowledge_document_count": 8,
+  "evaluation_question_count": 8,
+  "chunk_count": 26,
+  "evaluation_cases": [
+    {
+      "question_id": "SUP-Q-001",
+      "question": "What should an agent do when a customer reports an unauthorized card transaction?",
+      "expected_source_ids": [
+        "SUPPORT-POLICY-CARD-DISPUTE",
+        "SUPPORT-FAQ"
+      ],
+      "must_cite": [
+        "verify identity",
+        "block and replace",
+        "fraud support"
+      ],
+      "expected_tags": [
+        "card_disputes",
+        "fraud"
+      ],
+      "escalation_expected": false
+    },
+    {
+      "question_id": "SUP-Q-002",
+      "question": "Can a contact center agent reverse an overdraft fee for a customer?",
+      "expected_source_ids": [
+        "SUPPORT-POLICY-RETAIL",
+        "SUPPORT-FAQ"
+      ],
+      "must_cite": [
+        "once in a rolling twelve month period",
+        "75 USD"
+      ],
+      "expected_tags": [
+        "fees",
+        "retail_banking"
+      ],
+      "escalation_expected": false
+    },
+    {
+      "question_id": "SUP-Q-003",
+      "question": "What is the cutoff time for domestic wires?",
+      "expected_source_ids": [
+        "SUPPORT-POLICY-RETAIL",
+        "SUPPORT-FAQ"
+      ],
+      "must_cite": [
+        "3:00 PM local branch time",
+        "next business day"
+      ],
+      "expected_tags": [
+        "wires",
+        "retail_banking"
+      ],
+      "escalation_expected": false
+    },
+    {
+      "question_id": "SUP-Q-004",
+      "question": "How should staff handle a customer who is locked out of online banking and mentions unexpected passcodes?",
+      "expected_source_ids": [
+        "SUPPORT-POLICY-DIGITAL",
+        "SUPPORT-FAQ"
+      ],
+      "must_cite": [
+        "two approved factors",
+        "unexpected one-time passcodes",
+        "digital fraud support"
+      ],
+      "expected_tags": [
+        "digital_banking",
+        "fraud"
+      ],
+      "escalation_expected": true
+    },
+    {
+      "question_id": "SUP-Q-005",
+      "question": "What are the branch steps for a cash withdrawal above 10000 USD?",
+      "expected_source_ids": [
+        "SUPPORT-PROCEDURE-CASH"
+      ],
+      "must_cite": [
+        "verify account ownership",
+        "branch manager",
+        "currency transaction reporting"
+      ],
+      "expected_tags": [
+        "branch_cash"
+      ],
+      "escalation_expected": true
+    },
+    {
+      "question_id": "SUP-Q-006",
+      "question": "How should a complaint about a fee or employee conduct be routed?",
+      "expected_source_ids": [
+        "SUPPORT-PROCEDURE-ESCALATION"
+      ],
+      "must_cite": [
+        "acknowledge the complaint",
+        "requested resolution",
+        "complaint management"
+      ],
+      "expected_tags": [
+        "escalation"
+      ],
+      "escalation_expected": true
+    },
+    {
+      "question_id": "SUP-Q-007",
+      "question": "What extra review is needed when a customer changes contact details and then requests a wire?",
+      "expected_source_ids": [
+        "SUPPORT-PROCEDURE-MAINTENANCE",
+        "SUPPORT-POLICY-RETAIL"
+      ],
+      "must_cite": [
+        "within 24 hours",
+        "account takeover risk"
+      ],
+      "expected_tags": [
+        "account_maintenance",
+        "fraud"
+      ],
+      "escalation_expected": true
+    },
+    {
+      "question_id": "SUP-Q-008",
+      "question": "When can the rush debit card replacement fee be waived?",
+      "expected_source_ids": [
+        "SUPPORT-NOTICE-FEE-2026"
+      ],
+      "must_cite": [
+        "card compromise",
+        "bank error"
+      ],
+      "expected_tags": [
+        "fee_update",
+        "card_disputes"
+      ],
+      "escalation_expected": false
+    }
+  ]
+}

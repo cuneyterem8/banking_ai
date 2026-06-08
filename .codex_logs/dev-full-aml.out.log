@@ -1,0 +1,79 @@
+
+> banking-ai-portal@0.1.0 dev:full
+> node scripts/free-dev-ports.cjs && concurrently -k "npm run dev:backend" "node scripts/wait-for-backend.cjs && npm run dev:frontend"
+
+Dev ports 8001 and 5173 are free.
+[0] 
+[0] > banking-ai-portal@0.1.0 dev:backend
+[0] > npm --prefix backend run dev
+[0] 
+[0] 
+[0] > banking-ai-backend@0.1.0 dev
+[0] > node ../scripts/python.cjs -m uvicorn app.main:app --host 127.0.0.1 --port 8001
+[0] 
+[0] INFO:     Started server process [5460]
+[0] INFO:     Waiting for application startup.
+[0] INFO:     Application startup complete.
+[0] INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+[0] INFO:     127.0.0.1:49672 - "GET /api/ready HTTP/1.1" 200 OK
+[1] Portal API ready. ML startup still running (phase=fraud_training).
+[1] Starting frontend.
+[1] 
+[1] > banking-ai-portal@0.1.0 dev:frontend
+[1] > npm --prefix frontend run dev
+[1] 
+[1] 
+[1] > banking-ai-frontend@0.1.0 dev
+[1] > vite --host 127.0.0.1 --port 5173
+[1] 
+[1] [2m9:57:44 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because vite config has changed
+[1] 
+[1]   [32m[1mVITE[22m v8.0.14[39m  [2mready in [0m[1m614[22m[2m[0m ms[22m
+[1] 
+[1]   [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
+[0] INFO:     127.0.0.1:49677 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49678 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49679 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49681 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49684 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49689 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49693 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49698 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49706 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49709 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49715 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49720 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49726 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49755 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49761 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49767 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49776 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49781 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] 	Time limit exceeded... Skipping Naive.
+[0] 	Time limit exceeded... Skipping SeasonalNaive.
+[0] INFO:     127.0.0.1:49790 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] 	Time limit exceeded... Skipping ETS.
+[0] 	Time limit exceeded... Skipping Theta.
+[0] INFO:     127.0.0.1:49795 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49799 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49805 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:49812 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59720 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59724 - "GET /api/startup/status HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59727 - "GET /api/use-cases/aml-monitoring/raw HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59727 - "GET /api/use-cases/aml-monitoring/evaluations HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59734 - "POST /api/use-cases/aml-monitoring/run HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59734 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59738 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59743 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59745 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59749 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59751 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59755 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59759 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59759 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59761 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/progress HTTP/1.1" 200 OK
+[0] INFO:     127.0.0.1:59761 - "GET /api/use-cases/aml-monitoring/runs/b3c80296-71e3-4be5-b8e4-c4a205c3e8e3/result HTTP/1.1" 200 OK
+[0] npm run dev:backend exited with code 1
+--> Sending SIGTERM to other processes..
+[1] node scripts/wait-for-backend.cjs && npm run dev:frontend exited with code 1

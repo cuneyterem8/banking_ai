@@ -1,0 +1,40 @@
+{
+  "generation_seed": 8808,
+  "customer_count": 120,
+  "service_event_count": 80,
+  "campaign_audience_count": 40,
+  "evaluation_case_count": 24,
+  "expected_case_ids": [
+    "EMAIL-CASE-001",
+    "EMAIL-CASE-002",
+    "EMAIL-CASE-003",
+    "EMAIL-CASE-004",
+    "EMAIL-CASE-005",
+    "EMAIL-CASE-006",
+    "EMAIL-CASE-007",
+    "EMAIL-CASE-008",
+    "EMAIL-CASE-009",
+    "EMAIL-CASE-010",
+    "EMAIL-CASE-011",
+    "EMAIL-CASE-012",
+    "EMAIL-CASE-013",
+    "EMAIL-CASE-014",
+    "EMAIL-CASE-015",
+    "EMAIL-CASE-016",
+    "EMAIL-CASE-017",
+    "EMAIL-CASE-018",
+    "EMAIL-CASE-019",
+    "EMAIL-CASE-020",
+    "EMAIL-CASE-021",
+    "EMAIL-CASE-022",
+    "EMAIL-CASE-023",
+    "EMAIL-CASE-024"
+  ],
+  "required_rule_ids": [
+    "no_full_identifier",
+    "marketing_opt_out",
+    "no_misleading_claim",
+    "has_call_to_action",
+    "required_disclosure_present"
+  ]
+}

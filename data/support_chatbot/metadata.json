@@ -1,0 +1,102 @@
+{
+  "dataset": "synthetic_support_chatbot_knowledge_base",
+  "generation_seed": 4404,
+  "knowledge_document_count": 8,
+  "evaluation_question_count": 8,
+  "chunk_count": 26,
+  "topics": [
+    "account_maintenance",
+    "branch_cash",
+    "card_disputes",
+    "digital_banking",
+    "escalation",
+    "fee_update",
+    "retail_banking",
+    "support_faq"
+  ],
+  "description": "Synthetic internal banking support knowledge base for local-first RAG and GPT-4o fallback.",
+  "documents": [
+    {
+      "source_id": "SUPPORT-POLICY-RETAIL",
+      "source_file": "retail_banking_policy.pdf",
+      "source_type": "policy",
+      "topic": "retail_banking",
+      "title": "Retail Banking Support Policy",
+      "relative_path": "raw/policies/retail_banking_policy.pdf",
+      "media_type": "application/pdf",
+      "checksum": "2c457a85aa70b66a7b4a40c79719956f47c12f4a064ee276463ebcb0578aa350"
+    },
+    {
+      "source_id": "SUPPORT-POLICY-CARD-DISPUTE",
+      "source_file": "card_dispute_policy.pdf",
+      "source_type": "policy",
+      "topic": "card_disputes",
+      "title": "Card Dispute And Fraud Support Policy",
+      "relative_path": "raw/policies/card_dispute_policy.pdf",
+      "media_type": "application/pdf",
+      "checksum": "e6fc04edf375eea1405824ec902909c7dcc575e16be6c4043818ffd7bb22a856"
+    },
+    {
+      "source_id": "SUPPORT-POLICY-DIGITAL",
+      "source_file": "digital_banking_policy.pdf",
+      "source_type": "policy",
+      "topic": "digital_banking",
+      "title": "Digital Banking Support Policy",
+      "relative_path": "raw/policies/digital_banking_policy.pdf",
+      "media_type": "application/pdf",
+      "checksum": "28c4c8d06d0a7eb1d1ca76d7b26c45467e485d87f4ce2ec7972839220c16e3cb"
+    },
+    {
+      "source_id": "SUPPORT-PROCEDURE-CASH",
+      "source_file": "branch_cash_operations.md",
+      "source_type": "procedure",
+      "topic": "branch_cash",
+      "title": "Branch Cash Operations Procedure",
+      "relative_path": "raw/procedures/branch_cash_operations.md",
+      "media_type": "text/markdown",
+      "checksum": "7bfd4db9bde54068293eeae7436f19566b3e2bc8bc5ba753e0b5dd46ca25b27f"
+    },
+    {
+      "source_id": "SUPPORT-PROCEDURE-ESCALATION",
+      "source_file": "contact_center_escalation.md",
+      "source_type": "procedure",
+      "topic": "escalation",
+      "title": "Contact Center Escalation Procedure",
+      "relative_path": "raw/procedures/contact_center_escalation.md",
+      "media_type": "text/markdown",
+      "checksum": "6ae36ef0b27270fca43b22469f1ca92fcf2b9d4d298e8dcea46d4232077a5190"
+    },
+    {
+      "source_id": "SUPPORT-PROCEDURE-MAINTENANCE",
+      "source_file": "account_maintenance.md",
+      "source_type": "procedure",
+      "topic": "account_maintenance",
+      "title": "Account Maintenance Procedure",
+      "relative_path": "raw/procedures/account_maintenance.md",
+      "media_type": "text/markdown",
+      "checksum": "e8090b89775ea75ab8cdc0709da1087521d9d6c7b7383c8fa16440a27883f648"
+    },
+    {
+      "source_id": "SUPPORT-FAQ",
+      "source_file": "customer_support_faq.json",
+      "source_type": "faq",
+      "topic": "support_faq",
+      "title": "Customer Support FAQ",
+      "relative_path": "raw/faq/customer_support_faq.json",
+      "media_type": "application/json",
+      "checksum": "645af2de8e7566e950206920139ef99ff671f21de5e2ffea95de15bd927a26e3"
+    },
+    {
+      "source_id": "SUPPORT-NOTICE-FEE-2026",
+      "source_file": "product_fee_update.txt",
+      "source_type": "notice",
+      "topic": "fee_update",
+      "title": "Product Fee Update Notice",
+      "relative_path": "raw/notices/product_fee_update.txt",
+      "media_type": "text/plain",
+      "checksum": "b21053019ab1109d5142cb9607552d290b1351a4cff977feec99c2d9f94b7a8d"
+    }
+  ],
+  "evaluation_file": "raw/evaluation/support_questions.json",
+  "evaluation_checksum": "c805d23006401949264011080175535f1c7b25522b9c785f73e9b0d49b694833"
+}

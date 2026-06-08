@@ -1,0 +1,6 @@
+-r requirements.txt
+autogluon.tabular[lightgbm,xgboost]==1.5.0
+autogluon.timeseries==1.5.0
+catboost==1.2.10
+ray[default]==2.52.1
+openai==2.38.0

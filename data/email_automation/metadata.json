@@ -1,0 +1,19 @@
+{
+  "generation_seed": 8808,
+  "customer_count": 120,
+  "service_event_count": 80,
+  "campaign_audience_count": 40,
+  "evaluation_case_count": 24,
+  "template_count": 13,
+  "artifact_checksums": {
+    "raw/customers/customer_profiles.xlsx": "2698cbebb8a1a70f9987b658811cc83b1521fc2f09dd8b3ebc0d5ee4d027eeaf",
+    "raw/events/customer_events.json": "3dda888af9e7b41fc9933a28ac9f188f6de4088784f6ae62184fbe4ddeda0a09",
+    "raw/campaigns/campaign_plan.xlsx": "768978956014b00cb2675134873964f585901012da49d0eb1bd5f152e19bce60",
+    "raw/templates/service_templates.txt": "c841ae8c946dd6a2ba4f0a7179250d5bf0a7edcc6ee43f673f33c10f433b118e",
+    "raw/templates/campaign_templates.txt": "8edffa0877b509f12a778e532138d4785e42ea377389e63ba84ad8f89e331b9b",
+    "raw/policies/email_compliance_policy.pdf": "cb41686735d37bd2647dbab57ee7917ed68e86a76d379c21ad881f4676bf0561",
+    "raw/policies/tone_and_brand_guidelines.pdf": "76160180097fac7ad06a3f2a3445f3df1d70a199bfb1f95b21dbc4e2279e684a",
+    "raw/evaluation/email_generation_cases.json": "72dece94f41afbd4141dc3e99a5ff7478db3631431ed74aa3c5dd828a5b41b4d",
+    "ground_truth.json": "18e582732b03dd063c1ebc06e69680574ba92a4c05a22d1a2df1401793f17e7f"
+  }
+}

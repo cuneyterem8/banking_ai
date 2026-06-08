@@ -1,0 +1,137 @@
+{
+  "dataset": "synthetic_liquidity_cash_timeseries",
+  "generation_seed": 5505,
+  "history_start_date": "2026-01-01",
+  "history_end_date": "2026-06-29",
+  "forecast_start_date": "2026-06-30",
+  "forecast_end_date": "2026-07-13",
+  "history_days": 180,
+  "forecast_horizon_days": 14,
+  "location_count": 6,
+  "history_record_count": 1080,
+  "holdout_record_count": 84,
+  "columns": [
+    "series_id",
+    "location_id",
+    "location_name",
+    "location_type",
+    "region",
+    "date",
+    "day_of_week",
+    "is_weekend",
+    "holiday_flag",
+    "holiday_name",
+    "campaign_flag",
+    "campaign_name",
+    "cash_outflow",
+    "cash_inflow",
+    "net_cash_demand",
+    "opening_cash",
+    "closing_cash",
+    "replenishment_amount",
+    "stockout_event",
+    "cash_capacity",
+    "minimum_cash_threshold"
+  ],
+  "locations": [
+    {
+      "series_id": "BR-CENTRAL-001",
+      "location_id": "BR-001",
+      "location_name": "Central City Branch",
+      "location_type": "branch",
+      "region": "Metro",
+      "cash_capacity": 760000,
+      "minimum_cash_threshold": 180000,
+      "service_target": 0.98
+    },
+    {
+      "series_id": "BR-LAKESIDE-002",
+      "location_id": "BR-002",
+      "location_name": "Lakeside Branch",
+      "location_type": "branch",
+      "region": "North",
+      "cash_capacity": 610000,
+      "minimum_cash_threshold": 140000,
+      "service_target": 0.97
+    },
+    {
+      "series_id": "BR-HARBOR-003",
+      "location_id": "BR-003",
+      "location_name": "Harbor Business Branch",
+      "location_type": "branch",
+      "region": "West",
+      "cash_capacity": 690000,
+      "minimum_cash_threshold": 155000,
+      "service_target": 0.98
+    },
+    {
+      "series_id": "ATM-CENTRAL-101",
+      "location_id": "ATM-101",
+      "location_name": "Central Transit ATM",
+      "location_type": "atm",
+      "region": "Metro",
+      "cash_capacity": 188000,
+      "minimum_cash_threshold": 38000,
+      "service_target": 0.96
+    },
+    {
+      "series_id": "ATM-MARKET-102",
+      "location_id": "ATM-102",
+      "location_name": "North Market ATM",
+      "location_type": "atm",
+      "region": "North",
+      "cash_capacity": 156000,
+      "minimum_cash_threshold": 32000,
+      "service_target": 0.95
+    },
+    {
+      "series_id": "ATM-RESORT-103",
+      "location_id": "ATM-103",
+      "location_name": "West Resort ATM",
+      "location_type": "atm",
+      "region": "West",
+      "cash_capacity": 172000,
+      "minimum_cash_threshold": 35000,
+      "service_target": 0.95
+    }
+  ],
+  "expected_topics": [
+    "branch cash demand",
+    "ATM replenishment",
+    "holiday demand adjustment",
+    "campaign demand adjustment",
+    "stockout risk",
+    "cash capacity control"
+  ],
+  "artifacts": [
+    {
+      "file_name": "synthetic_liquidity_cash_timeseries.xlsx",
+      "relative_path": "raw/timeseries/synthetic_liquidity_cash_timeseries.xlsx",
+      "artifact_type": "xlsx",
+      "group": "timeseries",
+      "checksum": "5a3eaf2f7bd227efa97c3c73a220c1959fbe9872d0a717259478e727231f78dd"
+    },
+    {
+      "file_name": "holiday_calendar.csv",
+      "relative_path": "raw/calendar/holiday_calendar.csv",
+      "artifact_type": "csv",
+      "group": "calendar",
+      "checksum": "fbeb7e1c66fdf684c10744632616386f5e463c872ecef703a7657ca2d7573fed"
+    },
+    {
+      "file_name": "campaign_calendar.csv",
+      "relative_path": "raw/calendar/campaign_calendar.csv",
+      "artifact_type": "csv",
+      "group": "calendar",
+      "checksum": "a76ecf6d8244d0c13af2730c3e9682ef94e6da0f7c1e310e5ca7ccf1c728d1c7"
+    },
+    {
+      "file_name": "cash_inventory_policy.pdf",
+      "relative_path": "raw/policies/cash_inventory_policy.pdf",
+      "artifact_type": "pdf",
+      "group": "policies",
+      "checksum": "f2b4430883034f2451a6202fe1c8808a0f83ba07b19214629443ddf3ebac1e40"
+    }
+  ],
+  "description": "Synthetic branch and ATM liquidity time-series data with deterministic holdout actuals for forecast validation."
+}
