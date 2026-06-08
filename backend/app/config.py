@@ -21,6 +21,14 @@ class Settings(BaseSettings):
     data_dir: Path = Path("data")
     skip_startup_training: bool = False
     force_retrain: bool = False
+    market_live_search_enabled: bool = True
+    market_research_model: str = "gpt-5.4-mini"
+    market_search_fallback_model: str = "gpt-5-search-api"
+    market_search_context_size: str = "low"
+    market_max_search_calls_startup: int = 6
+    market_max_search_calls_user_run: int = 10
+    market_max_search_calls_deep: int = 16
+    market_search_timeout_seconds: int = 45
 
 
 @lru_cache

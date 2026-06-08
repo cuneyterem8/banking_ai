@@ -98,10 +98,10 @@ USE_CASES: tuple[UseCaseDefinition, ...] = (
         slug="market-intelligence",
         title="Market Intelligence",
         category="Research",
-        description="Summarize public-style synthetic market and news signals.",
-        adapter_type="web-search-gpt4o",
+        description="Run budget-controlled multi-agent market research with live web search and cited banking impact briefs.",
+        adapter_type="multi-agent-openai-web-search",
         model_family="agentic-research",
-        status="planned",
+        status="implemented",
         implementation_order=9,
     ),
     UseCaseDefinition(

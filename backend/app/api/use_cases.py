@@ -53,6 +53,14 @@ from app.use_cases.liquidity_forecast.service import (
     get_liquidity_run_result,
     start_liquidity_forecast_run,
 )
+from app.use_cases.market_intelligence.schemas import MarketResearchRequest
+from app.use_cases.market_intelligence.service import (
+    get_market_intelligence_latest,
+    get_market_run_progress,
+    get_market_run_result,
+    research_market_intelligence,
+    start_market_intelligence_run,
+)
 from app.use_cases.registry import get_use_case
 from app.use_cases.support_chatbot.schemas import SupportChatRequest
 from app.use_cases.support_chatbot.service import (
@@ -134,6 +142,8 @@ def fraud_evaluations(slug: str, session: Session = Depends(get_session)) -> dic
         return get_kyc_kyb_latest(session)
     if slug == "email-automation":
         return get_email_automation_latest(session)
+    if slug == "market-intelligence":
+        return get_market_intelligence_latest(session)
     if slug == "credit-risk":
         return get_credit_evaluations(session)
     if slug != "fraud-detection":
@@ -167,6 +177,8 @@ def run_use_case(slug: str, session: Session = Depends(get_session)):
         return start_kyc_kyb_run(session)
     if slug == "email-automation":
         return start_email_automation_run(session)
+    if slug == "market-intelligence":
+        return start_market_intelligence_run(session)
     raise HTTPException(status_code=501, detail=f"{definition.title} is planned for a later staged implementation.")
 
 
@@ -195,6 +207,21 @@ def draft_use_case(slug: str, request: EmailDraftRequest, session: Session = Dep
     return draft_email(session, request)
 
 
+@router.post("/{slug}/research")
+def research_use_case(slug: str, request: MarketResearchRequest, session: Session = Depends(get_session)) -> dict:
+    definition = get_use_case(slug)
+    if definition is None:
+        raise HTTPException(status_code=404, detail="Use case not found.")
+    if slug != "market-intelligence":
+        raise HTTPException(status_code=404, detail="Research endpoint is only available for Market Intelligence.")
+    if not is_startup_stage_completed(slug):
+        raise HTTPException(
+            status_code=409,
+            detail=f"{definition.title} startup processing is not complete yet.",
+        )
+    return research_market_intelligence(session, request)
+
+
 @router.get("/{slug}/runs/{run_id}/progress")
 def run_progress(slug: str, run_id: str, session: Session = Depends(get_session)) -> dict:
     if slug == "support-chatbot":
@@ -209,6 +236,8 @@ def run_progress(slug: str, run_id: str, session: Session = Depends(get_session)
         return get_kyc_kyb_run_progress(run_id, session)
     if slug == "email-automation":
         return get_email_run_progress(run_id, session)
+    if slug == "market-intelligence":
+        return get_market_run_progress(run_id, session)
     if slug == "credit-risk":
         return get_credit_run_progress(run_id, session)
     if slug != "fraud-detection":
@@ -230,6 +259,8 @@ def run_result(slug: str, run_id: str, session: Session = Depends(get_session)) 
         return get_kyc_kyb_run_result(run_id, session)
     if slug == "email-automation":
         return get_email_run_result(run_id, session)
+    if slug == "market-intelligence":
+        return get_market_run_result(run_id, session)
     if slug == "credit-risk":
         return get_credit_run_result(run_id, session)
     if slug != "fraud-detection":

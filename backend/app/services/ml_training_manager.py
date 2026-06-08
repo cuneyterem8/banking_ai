@@ -51,6 +51,8 @@ from app.use_cases.kyc_kyb.raw_data import USE_CASE_SLUG as KYC_KYB_USE_CASE_SLU
 from app.use_cases.kyc_kyb.service import run_kyc_kyb_startup
 from app.use_cases.liquidity_forecast.raw_data import USE_CASE_SLUG as LIQUIDITY_USE_CASE_SLUG
 from app.use_cases.liquidity_forecast.service import run_liquidity_forecast_startup
+from app.use_cases.market_intelligence.raw_data import USE_CASE_SLUG as MARKET_USE_CASE_SLUG
+from app.use_cases.market_intelligence.service import run_market_intelligence_startup
 from app.use_cases.support_chatbot.raw_data import USE_CASE_SLUG as SUPPORT_USE_CASE_SLUG
 from app.use_cases.support_chatbot.service import run_support_evaluation_startup
 from app.utils.json_safe import sanitize_for_json
@@ -295,6 +297,7 @@ STARTUP_STAGES: tuple[StartupStageDefinition, ...] = (
     StartupStageDefinition(AML_USE_CASE_SLUG, "AML Monitoring", 6, run_aml_monitoring_startup),
     StartupStageDefinition(KYC_KYB_USE_CASE_SLUG, "KYC/KYB", 7, run_kyc_kyb_startup),
     StartupStageDefinition(EMAIL_USE_CASE_SLUG, "Email Automation", 8, run_email_automation_startup),
+    StartupStageDefinition(MARKET_USE_CASE_SLUG, "Market Intelligence", 9, run_market_intelligence_startup),
 )
 
 _stage_by_slug = {stage.slug: stage for stage in STARTUP_STAGES}

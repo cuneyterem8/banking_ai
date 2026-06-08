@@ -109,7 +109,7 @@
       "relative_path": "raw/timeseries/synthetic_liquidity_cash_timeseries.xlsx",
       "artifact_type": "xlsx",
       "group": "timeseries",
-      "checksum": "5a3eaf2f7bd227efa97c3c73a220c1959fbe9872d0a717259478e727231f78dd"
+      "checksum": "280c557cb07babc632eef61d1794872e45047f5534db8cc1a3abfd799cef70b8"
     },
     {
       "file_name": "holiday_calendar.csv",

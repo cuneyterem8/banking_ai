@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Activity, AlertTriangle, BrainCircuit, CheckCircle2, FileStack, FileText, Landmark, Mail, Menu, MessageSquare, Play, Send, ShieldCheck } from "lucide-react";
+import { Activity, AlertTriangle, BrainCircuit, CheckCircle2, ExternalLink, FileStack, FileText, Globe2, Landmark, Mail, Menu, MessageSquare, Newspaper, Play, Search, Send, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { NavLink, Navigate, Route, Routes, useParams } from "react-router-dom";
@@ -32,6 +32,7 @@ import {
   fetchAmlMonitoringLatest,
   fetchDocumentOcrLatest,
   fetchEmailAutomationLatest,
+  fetchMarketIntelligenceLatest,
   fetchKycKybLatest,
   fetchLiquidityForecastLatest,
   fetchRawData,
@@ -41,6 +42,7 @@ import {
   fetchUseCases,
   runUseCaseWithProgress,
   submitEmailDraft,
+  submitMarketResearch,
   submitSupportChatbotQuestion,
   type AmlAlertDecision,
   type AmlMonitoringPayload,
@@ -61,6 +63,12 @@ import {
   type LiquidityForecastPayload,
   type LiquidityForecastRecord,
   type LiquidityLocationProfile,
+  type MarketAgentStep,
+  type MarketBrief,
+  type MarketIntelligencePayload,
+  type MarketResearchRequest,
+  type MarketSignal,
+  type MarketSource,
   type ModelRun,
   type RawArtifact,
   type RunProgress,
@@ -296,6 +304,9 @@ function UseCasePage() {
   }
   if (item.slug === "email-automation") {
     return <EmailAutomationPage />;
+  }
+  if (item.slug === "market-intelligence") {
+    return <MarketIntelligencePage />;
   }
   return (
     <section className="space-y-6 p-8">
@@ -2086,6 +2097,356 @@ function EmailAutomationPage() {
   );
 }
 
+function MarketIntelligencePage() {
+  const slug = "market-intelligence";
+  const queryClient = useQueryClient();
+  const [runProgress, setRunProgress] = useState<RunProgress | null>(null);
+  const [researchForm, setResearchForm] = useState<MarketResearchRequest>({
+    objective: "Create a concise banking market intelligence brief for US banking leaders.",
+    region: "US",
+    focus_areas: ["rates", "deposits", "credit", "regulation"],
+    depth: "standard",
+    max_search_calls: 10,
+    use_live_web: true
+  });
+
+  const raw = useQuery({ queryKey: ["raw", slug], queryFn: () => fetchRawData(slug) });
+  const training = useStartupTraining(slug);
+  const startupReady = training.data?.status === "completed";
+  const startupActive = isStartupTrainingActive(training.data?.status);
+  const aiHealth = useQuery({ queryKey: ["ai-health"], queryFn: fetchAiHealth });
+  const runs = useQuery({ queryKey: ["runs", slug], queryFn: () => fetchRuns(slug) });
+  const runInProgress = runs.data?.items.some((run) => run.status === "running") ?? false;
+  const latest = useQuery({
+    queryKey: ["market-intelligence-latest"],
+    queryFn: fetchMarketIntelligenceLatest,
+    refetchInterval: () => (runInProgress || runProgress !== null ? 1000 : false)
+  });
+
+  const runMutation = useMutation({
+    mutationFn: () =>
+      runUseCaseWithProgress(
+        slug,
+        (progress) => {
+          setRunProgress(progress);
+        },
+        "Market brief run failed."
+      ),
+    onSuccess: () => {
+      setRunProgress(null);
+      queryClient.invalidateQueries({ queryKey: ["market-intelligence-latest"] });
+      queryClient.invalidateQueries({ queryKey: ["runs", slug] });
+      queryClient.invalidateQueries({ queryKey: ["use-cases"] });
+    },
+    onError: () => setRunProgress(null)
+  });
+
+  const researchMutation = useMutation({
+    mutationFn: () => submitMarketResearch(researchForm),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["market-intelligence-latest"] });
+      queryClient.invalidateQueries({ queryKey: ["runs", slug] });
+      queryClient.invalidateQueries({ queryKey: ["use-cases"] });
+    }
+  });
+
+  const rawDataset = raw.data?.datasets.find((dataset) => dataset.dataset_key === "market_intelligence_inputs");
+  const artifacts = raw.data?.artifacts ?? [];
+  const artifactGroups = groupMarketArtifacts(artifacts);
+  const mutationPayload = isMarketIntelligencePayload(runMutation.data?.result.payload)
+    ? runMutation.data.result.payload
+    : null;
+  const dailyPayload = startupReady ? mutationPayload ?? latest.data?.latest?.payload ?? null : null;
+  const researchPayload = startupReady ? researchMutation.data?.payload ?? latest.data?.latest_research?.payload ?? null : null;
+  const activePayload = researchPayload ?? dailyPayload;
+  const latestProvider = startupReady
+    ? researchPayload?.summary.provider_used ?? dailyPayload?.summary.provider_used ?? latest.data?.latest?.run.provider_used
+    : undefined;
+  const webSearch = aiHealth.data?.adapters.find((adapter) => adapter.name === "OpenAI Web Search" || adapter.name === "Web Search");
+  const focusOptions = ["rates", "deposits", "credit", "regulation", "payments", "fraud", "aml", "consumer_sentiment"];
+
+  const toggleFocusArea = (value: string) => {
+    setResearchForm((current) => {
+      const exists = current.focus_areas.includes(value);
+      const next = exists
+        ? current.focus_areas.filter((item) => item !== value)
+        : [...current.focus_areas, value];
+      return { ...current, focus_areas: next.length ? next : [value] };
+    });
+  };
+
+  return (
+    <section className="space-y-6 p-8">
+      <PageTitle
+        icon={<Newspaper size={22} />}
+        title="Market Intelligence"
+        subtitle="Budget-controlled multi-agent market research with OpenAI web search, citation review, and synthetic corpus fallback."
+      />
+
+      <div className="grid grid-cols-5 gap-4">
+        <MetricCard label="Synthetic Articles" value={rawDataset?.payload.news_count ?? 0} />
+        <MetricCard label="Rate Rows" value={rawDataset?.payload.rate_record_count ?? 0} />
+        <MetricCard label="Competitor Rows" value={rawDataset?.payload.competitor_rate_count ?? 0} />
+        <MetricCard label="Sources" value={activePayload?.summary.source_count ?? 0} />
+        <MetricCard label="Startup Status" value={training.data?.status ?? "loading"} />
+      </div>
+
+      <Panel title="Use Case Overview">
+        <div className="grid gap-4 md:grid-cols-4">
+          {[
+            ["Workflow", "Planner, search scouts, evidence extractor, verifier, scorer, synthesizer, and citation reviewer."],
+            ["Live Search", "OpenAI web search is used when configured. Every live claim keeps a visible URL citation."],
+            ["Cost Control", "Search calls are capped by startup, standard, and deep budgets before a run starts."],
+            ["Fallback", "If live search is unavailable, startup completes with deterministic synthetic market artifacts."]
+          ].map(([title, text]) => (
+            <div key={title} className="rounded-md border border-zinc-800 bg-zinc-950 p-4">
+              <h3 className="mb-2 font-semibold text-zinc-100">{title}</h3>
+              <p className="text-sm text-zinc-400">{text}</p>
+            </div>
+          ))}
+        </div>
+      </Panel>
+
+      <div className="grid grid-cols-[1.15fr_0.85fr] gap-5">
+        <Panel title="Raw Market Inputs">
+          <div className="space-y-4">
+            <DataTable rows={rawDataset?.payload.preview ?? []} limit={12} />
+            <div className="grid grid-cols-2 gap-3">
+              {artifactGroups.map(([group, groupArtifacts]) => (
+                <div key={group} className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium">{formatDocumentType(group)}</p>
+                    <span className="text-xs text-zinc-400">{groupArtifacts.length} files</span>
+                  </div>
+                  <div className="mt-2 space-y-1 text-xs text-zinc-400">
+                    {groupArtifacts.map((artifact) => (
+                      <div key={artifact.id} className="flex items-center gap-2">
+                        <FileStack size={14} className="text-emerald-300" />
+                        <span className="truncate">{artifact.file_name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {raw.isError ? <ErrorBox message={(raw.error as Error).message} /> : null}
+          </div>
+        </Panel>
+
+        <Panel title="Adapter Health">
+          <div className="space-y-3">
+            <AdapterHealthRow adapter={webSearch} fallbackName="OpenAI Web Search" />
+            <div className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">OpenAI GPT-5.4 mini</p>
+                  <p className="text-xs text-zinc-500">Fallback model: GPT-5 search API</p>
+                </div>
+                {webSearch?.available ? (
+                  <CheckCircle2 className="text-emerald-500" size={18} />
+                ) : (
+                  <AlertTriangle className="text-amber-500" size={18} />
+                )}
+              </div>
+              <p className="mt-2 text-sm text-zinc-400">
+                Market Intelligence uses the configured OpenAI research model with hard search-call budgets.
+              </p>
+            </div>
+            <div className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Synthetic Corpus Fallback</p>
+                  <p className="text-xs text-zinc-500">Deterministic research baseline</p>
+                </div>
+                <CheckCircle2 className="text-emerald-500" size={18} />
+              </div>
+              <p className="mt-2 text-sm text-zinc-400">
+                Generated market news, rates, competitor snapshots, calendar rows, and research PDF can complete startup without live search.
+              </p>
+            </div>
+            {aiHealth.isError ? <ErrorBox message={(aiHealth.error as Error).message} /> : null}
+          </div>
+        </Panel>
+      </div>
+
+      <Panel title="Run Market Brief">
+        <div className="space-y-4">
+          <p className="text-sm text-zinc-300">
+            Startup runs the default daily banking market brief. The run button reruns the controlled brief and persists sources,
+            signals, public agent trace, cost counters, and warnings.
+          </p>
+          <button
+            type="button"
+            onClick={() => runMutation.mutate()}
+            disabled={runMutation.isPending || !rawDataset || !startupReady}
+            className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-emerald-950/40 hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-700"
+          >
+            <Play size={16} />
+            {runMutation.isPending ? "Running" : "Run Market Brief"}
+          </button>
+          {(runMutation.isPending || runProgress) && (
+            <ProgressBar percent={runProgress?.progress_percent ?? 0} stage={runProgress?.stage ?? "starting"} />
+          )}
+          {startupActive ? (
+            <ProgressBar percent={training.data?.progress_percent ?? 0} stage={`Startup: ${training.data?.stage ?? "queued"}`} />
+          ) : null}
+          {training.data?.status === "failed" ? (
+            <ErrorBox message={training.data.error ?? "Market Intelligence startup brief failed."} />
+          ) : null}
+          {runMutation.isError ? <ErrorBox message={(runMutation.error as Error).message} /> : null}
+          {dailyPayload ? (
+            <div className="grid grid-cols-6 gap-3">
+              <MetricCard label="Provider" value={formatProviderLabel(latestProvider ?? dailyPayload.summary.provider_used)} />
+              <MetricCard label="Search Calls" value={dailyPayload.summary.search_call_count} />
+              <MetricCard label="Signals" value={dailyPayload.summary.signal_count} />
+              <MetricCard label="Confidence" value={formatPercent(dailyPayload.summary.average_confidence)} />
+              <MetricCard label="Live Sources" value={dailyPayload.summary.live_source_count} />
+              <MetricCard label="Cost Est." value={`$${dailyPayload.summary.estimated_search_cost_usd.toFixed(2)}`} />
+            </div>
+          ) : (
+            <EmptyState text="Daily brief output appears when Market Intelligence stage 9 completes." />
+          )}
+        </div>
+      </Panel>
+
+      <div className="grid grid-cols-[0.9fr_1.1fr] gap-5">
+        <Panel title="Research Workspace">
+          <div className="space-y-4">
+            <label className="block text-sm font-medium text-zinc-300" htmlFor="market-objective">
+              Objective
+            </label>
+            <textarea
+              id="market-objective"
+              value={researchForm.objective}
+              onChange={(event) => setResearchForm((current) => ({ ...current, objective: event.target.value }))}
+              rows={4}
+              className="w-full rounded-md border border-zinc-700 bg-zinc-950 p-3 text-sm text-zinc-100 outline-none ring-emerald-500/40 focus:ring-2"
+            />
+
+            <div className="grid grid-cols-3 gap-3">
+              <label className="block text-sm font-medium text-zinc-300" htmlFor="market-region">
+                Region
+                <select
+                  id="market-region"
+                  value={researchForm.region}
+                  onChange={(event) => setResearchForm((current) => ({ ...current, region: event.target.value }))}
+                  className="mt-2 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 outline-none ring-emerald-500/40 focus:ring-2"
+                >
+                  <option value="US">US</option>
+                  <option value="EU">EU</option>
+                  <option value="UK">UK</option>
+                  <option value="Global">Global</option>
+                </select>
+              </label>
+              <label className="block text-sm font-medium text-zinc-300" htmlFor="market-depth">
+                Depth
+                <select
+                  id="market-depth"
+                  value={researchForm.depth}
+                  onChange={(event) => setResearchForm((current) => ({ ...current, depth: event.target.value as MarketResearchRequest["depth"] }))}
+                  className="mt-2 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 outline-none ring-emerald-500/40 focus:ring-2"
+                >
+                  <option value="quick">Quick</option>
+                  <option value="standard">Standard</option>
+                  <option value="deep">Deep</option>
+                </select>
+              </label>
+              <label className="block text-sm font-medium text-zinc-300" htmlFor="market-search-calls">
+                Max Search Calls
+                <input
+                  id="market-search-calls"
+                  type="number"
+                  min={0}
+                  max={24}
+                  value={researchForm.max_search_calls}
+                  onChange={(event) => setResearchForm((current) => ({ ...current, max_search_calls: Number(event.target.value) }))}
+                  className="mt-2 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 outline-none ring-emerald-500/40 focus:ring-2"
+                />
+              </label>
+            </div>
+
+            <div>
+              <p className="mb-2 text-sm font-medium text-zinc-300">Focus Areas</p>
+              <div className="grid grid-cols-2 gap-2">
+                {focusOptions.map((focus) => (
+                  <label key={focus} className="flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm text-zinc-300">
+                    <input
+                      type="checkbox"
+                      checked={researchForm.focus_areas.includes(focus)}
+                      onChange={() => toggleFocusArea(focus)}
+                      className="h-4 w-4 accent-emerald-500"
+                    />
+                    {formatDocumentType(focus)}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <label className="flex items-center gap-3 rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm text-zinc-300">
+              <input
+                type="checkbox"
+                checked={researchForm.use_live_web}
+                onChange={(event) => setResearchForm((current) => ({ ...current, use_live_web: event.target.checked }))}
+                className="h-4 w-4 accent-emerald-500"
+              />
+              Use live OpenAI web search
+            </label>
+
+            <button
+              type="button"
+              onClick={() => researchMutation.mutate()}
+              disabled={researchMutation.isPending || !rawDataset || !startupReady || !researchForm.objective.trim()}
+              className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-emerald-950/40 hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-700"
+            >
+              <Search size={16} />
+              {researchMutation.isPending ? "Researching" : "Run Live Research"}
+            </button>
+            {researchMutation.isError ? <ErrorBox message={(researchMutation.error as Error).message} /> : null}
+          </div>
+        </Panel>
+
+        <Panel title="Latest Brief">
+          {activePayload?.briefs[0] ? (
+            <MarketBriefPanel brief={activePayload.briefs[0]} payload={activePayload} />
+          ) : (
+            <EmptyState text="Run the daily brief or research workspace to see executive summary, implications, actions, and warnings." />
+          )}
+        </Panel>
+      </div>
+
+      <Panel title="Signals Table">
+        {activePayload?.signals.length ? (
+          <MarketSignalsTable signals={activePayload.signals} />
+        ) : (
+          <EmptyState text="Market impact signals appear after the brief is generated." />
+        )}
+      </Panel>
+
+      <div className="grid grid-cols-[1.1fr_0.9fr] gap-5">
+        <Panel title="Sources And Citations">
+          {activePayload?.sources.length ? (
+            <MarketSourcesPanel sources={activePayload.sources} />
+          ) : (
+            <EmptyState text="Cited live and synthetic sources appear after a completed run." />
+          )}
+        </Panel>
+
+        <Panel title="Agent Trace">
+          {activePayload?.agent_trace.length ? (
+            <MarketAgentTrace steps={activePayload.agent_trace} />
+          ) : (
+            <EmptyState text="Public agent-step logs appear after the workflow completes." />
+          )}
+        </Panel>
+      </div>
+
+      <Panel title="Run History">
+        <RunHistory runs={runs.data?.items ?? []} />
+      </Panel>
+    </section>
+  );
+}
+
 function PageTitle({ icon, title, subtitle }: { icon: ReactNode; title: string; subtitle: string }) {
   return (
     <header className="flex items-center gap-4">
@@ -3452,6 +3813,151 @@ function EmailDraftDetail({
   );
 }
 
+function MarketBriefPanel({ brief, payload }: { brief: MarketBrief; payload: MarketIntelligencePayload }) {
+  const sections: { title: string; items: string[] }[] = [
+    { title: "Top Developments", items: brief.top_developments },
+    { title: "Banking Implications", items: brief.banking_implications },
+    { title: "Recommended Actions", items: brief.recommended_actions },
+    { title: "Watchlist Items", items: brief.watchlist_items }
+  ];
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <div className="mb-2 flex flex-wrap gap-2 text-xs">
+          <span className="rounded-full bg-emerald-500/15 px-2 py-1 text-emerald-200">
+            {formatProviderLabel(payload.summary.provider_used, true)}
+          </span>
+          <span className="rounded-full bg-zinc-800 px-2 py-1 text-zinc-300">
+            {formatDocumentType(payload.mode)}
+          </span>
+          <span className="rounded-full bg-zinc-800 px-2 py-1 text-zinc-300">
+            Confidence {formatPercent(brief.confidence)}
+          </span>
+        </div>
+        <h3 className="text-lg font-semibold text-zinc-100">{brief.headline}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-zinc-300">{brief.executive_summary}</p>
+      </div>
+
+      <div className="grid grid-cols-4 gap-3">
+        <MetricCard label="Search Calls" value={payload.cost_control.search_call_count} />
+        <MetricCard label="Max Calls" value={payload.cost_control.max_search_calls} />
+        <MetricCard label="Context" value={payload.cost_control.search_context_size} />
+        <MetricCard label="Warnings" value={payload.warnings.length} />
+      </div>
+
+      {sections.map(({ title, items }) => (
+        <section key={title}>
+          <h4 className="mb-2 text-sm font-semibold text-zinc-200">{title}</h4>
+          <div className="space-y-2">
+            {items.map((item) => (
+              <p key={item} className="rounded-md border border-zinc-800 bg-zinc-950 p-3 text-sm text-zinc-300">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      {payload.warnings.length ? (
+        <section className="space-y-2">
+          {payload.warnings.map((warning) => (
+            <ErrorBox key={warning} message={warning} />
+          ))}
+        </section>
+      ) : null}
+    </div>
+  );
+}
+
+function MarketSignalsTable({ signals }: { signals: MarketSignal[] }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full text-left text-sm">
+        <thead>
+          <tr className="border-b border-zinc-800 text-xs uppercase text-zinc-400">
+            <th className="whitespace-nowrap px-3 py-2">Topic</th>
+            <th className="whitespace-nowrap px-3 py-2">Impact Area</th>
+            <th className="whitespace-nowrap px-3 py-2">Direction</th>
+            <th className="whitespace-nowrap px-3 py-2">Urgency</th>
+            <th className="whitespace-nowrap px-3 py-2">Confidence</th>
+            <th className="whitespace-nowrap px-3 py-2">Evidence</th>
+            <th className="px-3 py-2">Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+          {signals.map((signal) => (
+            <tr key={signal.signal_id} className="border-b border-zinc-800/80 align-top">
+              <td className="whitespace-nowrap px-3 py-2">{formatDocumentType(signal.topic)}</td>
+              <td className="whitespace-nowrap px-3 py-2">{formatDocumentType(signal.impact_area)}</td>
+              <td className={`whitespace-nowrap px-3 py-2 ${marketDirectionClass(signal.direction)}`}>
+                {formatDocumentType(signal.direction)}
+              </td>
+              <td className="whitespace-nowrap px-3 py-2">{formatDocumentType(signal.urgency)}</td>
+              <td className="whitespace-nowrap px-3 py-2">{formatPercent(signal.confidence)}</td>
+              <td className="whitespace-nowrap px-3 py-2">{signal.evidence_count}</td>
+              <td className="min-w-[360px] px-3 py-2 text-zinc-300">{signal.summary}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function MarketSourcesPanel({ sources }: { sources: MarketSource[] }) {
+  return (
+    <div className="space-y-3">
+      {sources.slice(0, 12).map((source) => (
+        <div key={source.source_id} className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex max-w-full items-center gap-2 font-medium text-emerald-200 hover:text-emerald-100"
+              >
+                <span className="truncate">{source.title}</span>
+                <ExternalLink size={14} className="shrink-0" />
+              </a>
+              <p className="mt-1 text-xs text-zinc-500">{source.domain} - {formatDocumentType(source.source_type)}</p>
+            </div>
+            <span className="shrink-0 rounded-full bg-zinc-800 px-2 py-1 text-xs text-zinc-300">
+              {source.verification_status}
+            </span>
+          </div>
+          <p className="mt-2 line-clamp-3 text-sm text-zinc-400">{source.snippet}</p>
+          <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-zinc-500">
+            <span className="inline-flex items-center gap-1"><Globe2 size={13} /> {source.query_id ?? "synthetic"}</span>
+            <span>{source.citation_count} citations</span>
+            <span>{source.published_at ?? "No published date"}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MarketAgentTrace({ steps }: { steps: MarketAgentStep[] }) {
+  return (
+    <div className="space-y-3">
+      {steps.map((step) => (
+        <div key={step.step_id} className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+          <div className="flex items-center justify-between gap-3">
+            <p className="font-medium text-zinc-100">{step.agent_name}</p>
+            <span className="rounded-full bg-zinc-800 px-2 py-1 text-xs text-zinc-300">{step.status}</span>
+          </div>
+          <p className="mt-2 text-sm text-zinc-400">{step.summary}</p>
+          <p className="mt-2 text-xs text-zinc-500">
+            Inputs {step.input_count} - Outputs {step.output_count} - {step.duration_ms} ms
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function groupSupportArtifacts(artifacts: RawArtifact[]) {
   const grouped = new Map<string, RawArtifact[]>();
   for (const artifact of artifacts) {
@@ -3514,6 +4020,21 @@ function groupKycKybArtifacts(artifacts: RawArtifact[]) {
 }
 
 function groupEmailArtifacts(artifacts: RawArtifact[]) {
+  const grouped = new Map<string, RawArtifact[]>();
+  for (const artifact of artifacts) {
+    const relative = String(artifact.metadata_json?.relative_path ?? "");
+    let group = artifact.dataset_key;
+    if (relative.startsWith("raw/")) {
+      group = relative.split("/")[1] ?? artifact.dataset_key;
+    }
+    const current = grouped.get(group) ?? [];
+    current.push(artifact);
+    grouped.set(group, current);
+  }
+  return Array.from(grouped.entries()).sort(([left], [right]) => left.localeCompare(right));
+}
+
+function groupMarketArtifacts(artifacts: RawArtifact[]) {
   const grouped = new Map<string, RawArtifact[]>();
   for (const artifact of artifacts) {
     const relative = String(artifact.metadata_json?.relative_path ?? "");
@@ -3606,6 +4127,16 @@ function isEmailAutomationPayload(payload: unknown): payload is EmailAutomationP
   );
 }
 
+function isMarketIntelligencePayload(payload: unknown): payload is MarketIntelligencePayload {
+  return Boolean(
+    payload &&
+      typeof payload === "object" &&
+      "summary" in payload &&
+      "briefs" in payload &&
+      Array.isArray((payload as MarketIntelligencePayload).briefs)
+  );
+}
+
 function formatProviderLabel(provider?: string | null, withPrefix = false) {
   const label =
     provider === "gpt-4o-fallback"
@@ -3629,7 +4160,13 @@ function formatProviderLabel(provider?: string | null, withPrefix = false) {
         : provider === "local-ollama"
         ? "Ollama Qwen"
         : provider === "template-baseline"
-          ? "Template baseline"
+        ? "Template baseline"
+        : provider === "openai-web-search"
+          ? "OpenAI web search"
+        : provider === "openai-web-search-fallback"
+          ? "OpenAI search fallback"
+        : provider === "synthetic-corpus-fallback"
+          ? "Synthetic corpus fallback"
         : provider === "local-autogluon"
           ? "AutoGluon Tabular"
         : provider === "local-ocr"
@@ -3661,6 +4198,12 @@ function kycRiskClass(riskLevel: string) {
 function emailRiskClass(riskLevel: string) {
   if (riskLevel === "Critical" || riskLevel === "High") return "text-red-300";
   if (riskLevel === "Medium") return "text-amber-200";
+  return "text-emerald-300";
+}
+
+function marketDirectionClass(direction: string) {
+  if (direction === "negative") return "text-red-300";
+  if (direction === "mixed" || direction === "watch") return "text-amber-200";
   return "text-emerald-300";
 }
 

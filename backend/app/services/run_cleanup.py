@@ -17,6 +17,8 @@ from app.use_cases.kyc_kyb.raw_data import USE_CASE_SLUG as KYC_KYB_USE_CASE_SLU
 from app.use_cases.kyc_kyb.service import KYC_KYB_TEST_RESULT_TYPE, KYC_KYB_VAL_RESULT_TYPE
 from app.use_cases.liquidity_forecast.raw_data import USE_CASE_SLUG as LIQUIDITY_USE_CASE_SLUG
 from app.use_cases.liquidity_forecast.service import LIQUIDITY_FORECAST_RESULT_TYPE
+from app.use_cases.market_intelligence.raw_data import USE_CASE_SLUG as MARKET_USE_CASE_SLUG
+from app.use_cases.market_intelligence.service import MARKET_DAILY_RESULT_TYPE, MARKET_RESEARCH_RESULT_TYPE
 from app.use_cases.support_chatbot.raw_data import USE_CASE_SLUG as SUPPORT_USE_CASE_SLUG
 from app.use_cases.support_chatbot.service import SUPPORT_CHAT_RESULT_TYPE, SUPPORT_EVAL_RESULT_TYPE
 
@@ -39,6 +41,7 @@ STARTUP_USE_CASE_SLUGS = (
     AML_USE_CASE_SLUG,
     KYC_KYB_USE_CASE_SLUG,
     EMAIL_USE_CASE_SLUG,
+    MARKET_USE_CASE_SLUG,
 )
 STARTUP_RESULT_TYPES = {
     USE_CASE_SLUG: (FRAUD_VAL_RESULT_TYPE, FRAUD_TEST_RESULT_TYPE),
@@ -49,6 +52,7 @@ STARTUP_RESULT_TYPES = {
     AML_USE_CASE_SLUG: (AML_VAL_RESULT_TYPE, AML_TEST_RESULT_TYPE),
     KYC_KYB_USE_CASE_SLUG: (KYC_KYB_VAL_RESULT_TYPE, KYC_KYB_TEST_RESULT_TYPE),
     EMAIL_USE_CASE_SLUG: (EMAIL_AUTOMATION_EVAL_RESULT_TYPE, EMAIL_AUTOMATION_DRAFT_RESULT_TYPE),
+    MARKET_USE_CASE_SLUG: (MARKET_DAILY_RESULT_TYPE, MARKET_RESEARCH_RESULT_TYPE),
 }
 
 

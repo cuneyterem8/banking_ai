@@ -17,7 +17,7 @@ export const USE_CASES: UseCaseNavItem[] = [
   { slug: "aml-monitoring", title: "AML Monitoring", category: "Compliance", status: "implemented", order: 6 },
   { slug: "kyc-kyb", title: "KYC/KYB", category: "Onboarding", status: "implemented", order: 7 },
   { slug: "email-automation", title: "Email Automation", category: "Customer Communications", status: "implemented", order: 8 },
-  { slug: "market-intelligence", title: "Market Intelligence", category: "Research", status: "planned", order: 9 },
+  { slug: "market-intelligence", title: "Market Intelligence", category: "Research", status: "implemented", order: 9 },
   { slug: "workflow-orchestration", title: "Workflow Orchestration", category: "Process Automation", status: "planned", order: 10 }
 ];
 

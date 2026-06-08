@@ -4,9 +4,9 @@ Local-first staged MVP for 10 banking AI use cases. All app-facing text, source 
 
 ## Current Stage
 
-Stage 8 is implemented: **Fraud Detection**, **Credit Risk**, **Document OCR**, **Support Chatbot**, **Liquidity Forecast**, **AML Monitoring**, **KYC/KYB**, and **Email Automation**.
+Stage 9 is implemented: **Fraud Detection**, **Credit Risk**, **Document OCR**, **Support Chatbot**, **Liquidity Forecast**, **AML Monitoring**, **KYC/KYB**, **Email Automation**, and **Market Intelligence**.
 
-The other two use cases are visible in the sidebar as planned stages and will be implemented after manual approval of the previous stage.
+The remaining use case is visible in the sidebar as a planned stage and will be implemented after manual approval of the previous stage.
 
 ## Data directory
 
@@ -20,6 +20,7 @@ All synthetic raw files and database seed inputs live under [`data/`](data/). `n
 - AML Monitoring: `data/aml_monitoring/raw/` train/val/test AML alert Excel files, transaction network workbook, entity JSON, case notes PDF, plus metadata and ground truth JSON
 - KYC/KYB: `data/kyc_kyb/raw/` individual and business onboarding packages, reference watchlists, document policy PDF, plus metadata and ground truth JSON
 - Email Automation: `data/email_automation/raw/` customer events JSON, customer/campaign Excel files, templates, compliance policy PDFs, evaluation cases, plus metadata and ground truth JSON
+- Market Intelligence: `data/market_intelligence/raw/` synthetic market news JSON, rates CSV, competitor rate workbook, economic calendar CSV, market snapshot PDF, taxonomy JSON, evaluation cases, plus metadata and ground truth JSON
 
 ```powershell
 npm run data:generate
@@ -48,9 +49,9 @@ npm run ai:check
 npm run dev:full
 ```
 
-`npm run full` is an alias for `npm run dev:full`. The frontend waits for `http://127.0.0.1:8001/api/ready` (database reachable, API accepting traffic) before starting. The eight-stage startup pipeline continues in the background; poll `GET /api/ml-ready`, `GET /api/startup/status`, or each use case `training-status` endpoint to see when models and deterministic startup outputs are ready.
+`npm run full` is an alias for `npm run dev:full`. The frontend waits for `http://127.0.0.1:8001/api/ready` (database reachable, API accepting traffic) before starting. The nine-stage startup pipeline continues in the background; poll `GET /api/ml-ready`, `GET /api/startup/status`, or each use case `training-status` endpoint to see when models and deterministic startup outputs are ready.
 
-Heavy ML jobs use separate startup and user-run queues. Startup runs sequentially in this order: Fraud Detection, Credit Risk, Document OCR, Support Chatbot, Liquidity Forecast, AML Monitoring, KYC/KYB, Email Automation. User-triggered runs can execute after that use case's own startup stage completes while later startup stages continue. AutoGluon fit operations still share a local lock so they do not compete for Ray workers and RAM at the same time.
+Heavy ML jobs use separate startup and user-run queues. Startup runs sequentially in this order: Fraud Detection, Credit Risk, Document OCR, Support Chatbot, Liquidity Forecast, AML Monitoring, KYC/KYB, Email Automation, Market Intelligence. User-triggered runs can execute after that use case's own startup stage completes while later startup stages continue. AutoGluon fit operations still share a local lock so they do not compete for Ray workers and RAM at the same time.
 
 If port `8001` is already in use (`WinError 10048`), run `npm run dev:stop` or `npm run dev:full` (it frees ports 8001 and 5173 automatically before starting).
 
@@ -64,7 +65,7 @@ Backend: `http://localhost:8001`
 
 ## Active models
 
-- On backend startup (`npm run dev:full`), prior processed outputs for the first eight implemented use cases are cleared, then the eight startup stages run sequentially.
+- On backend startup (`npm run dev:full`), prior processed outputs for the first nine implemented use cases are cleared, then the nine startup stages run sequentially.
 - Fraud Detection trains on **train** (2560), calibrates threshold and validation metrics on **val** (640), then scores **test** (800) via **Run Fraud Model**. **PR-AUC** is the primary score.
 - Credit Risk trains on **train** (1920), calibrates threshold and validation metrics on **val** (480), then scores **test** (600) via **Run Credit Risk Model**. **ROC-AUC** is the primary score.
 - Document OCR performs deterministic startup extraction over 60 synthetic banking documents with pdfplumber/PyMuPDF first and GPT-4o fallback for scanned/image-only artifacts when configured. **Run Document OCR** reruns extraction.
@@ -73,6 +74,7 @@ Backend: `http://localhost:8001`
 - AML Monitoring trains on **train** (1600), calibrates validation metrics on **val** (400), and drafts top validation narratives at startup. **Run AML Monitoring** scores **test** (500) and drafts narratives for the highest-risk held-out alerts. **PR-AUC** is the primary score.
 - KYC/KYB extracts synthetic onboarding documents, applies deterministic policy rules, trains on **train** (32), calibrates validation metrics on **val** (8), then scores **test** (8) via **Run KYC/KYB Verification**. **PR-AUC** is the primary score.
 - Email Automation runs a startup evaluation over 24 synthetic generation cases, creates service and campaign drafts, applies deterministic compliance rules, and persists provider/scoring details. **Run Email Automation** reruns the evaluation set, while the Draft Workspace creates one persisted synthetic draft at a time. No real email sending is implemented.
+- Market Intelligence runs a startup daily banking market brief with OpenAI web search when configured and deterministic synthetic corpus fallback when not. **Run Market Brief** reruns the controlled brief, while the Research Workspace performs one persisted scoped research run with visible clickable citations and budget counters.
 - Dataset includes **27 transaction features** (device, IP, merchant risk, velocity, authentication, geography, and more).
 - Credit Risk includes **23 applicant/raw underwriting fields** plus labels and synthetic loss-given-default.
 - Document OCR includes **12 customer packages**, each with bank statement, account confirmation, income proof, scanned statement PDF, and transfer notice JPG.
@@ -81,6 +83,7 @@ Backend: `http://localhost:8001`
 - AML Monitoring includes **2500 synthetic alerts**, transaction network sheets, entity relationships, suspicious activity notes, typology labels, and SAR recommendation ground truth.
 - KYC/KYB includes **48 onboarding packages**, **288 generated documents**, sanctions and jurisdiction reference files, document policy rules, and manual-review ground truth.
 - Email Automation includes **120 synthetic customers**, **80 service events**, **40 campaign audience rows**, **24 evaluation cases**, compliance policy PDFs, brand/tone guidelines, and no-send draft ground truth.
+- Market Intelligence includes **180 synthetic market articles**, **180 daily rate rows**, **80 competitor rate rows**, **36 economic calendar events**, **8 research brief cases**, topic taxonomy, and a synthetic market snapshot PDF.
 - Optional env: `SKIP_STARTUP_TRAINING=1`, `FORCE_RETRAIN=1`.
 - After changing data files, delete the matching model folder under `storage/models/` and restart the backend.
 

@@ -6,7 +6,7 @@ def test_registry_contains_ten_use_cases() -> None:
     assert [item.implementation_order for item in USE_CASES] == list(range(1, 11))
 
 
-def test_stage_eight_use_cases_are_implemented() -> None:
+def test_stage_nine_use_cases_are_implemented() -> None:
     implemented = [item.slug for item in USE_CASES if item.status == "implemented"]
     assert implemented == [
         "fraud-detection",
@@ -17,6 +17,7 @@ def test_stage_eight_use_cases_are_implemented() -> None:
         "aml-monitoring",
         "kyc-kyb",
         "email-automation",
+        "market-intelligence",
     ]
     assert get_use_case("fraud-detection") is not None
     assert get_use_case("credit-risk") is not None
@@ -26,3 +27,4 @@ def test_stage_eight_use_cases_are_implemented() -> None:
     assert get_use_case("aml-monitoring") is not None
     assert get_use_case("kyc-kyb") is not None
     assert get_use_case("email-automation") is not None
+    assert get_use_case("market-intelligence") is not None

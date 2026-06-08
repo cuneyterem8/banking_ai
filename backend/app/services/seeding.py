@@ -81,6 +81,20 @@ from app.use_cases.liquidity_forecast.raw_data import (
     manifest_preview as liquidity_manifest_preview,
     raw_artifact_paths as liquidity_raw_artifact_paths,
 )
+from app.use_cases.market_intelligence.raw_data import (
+    DATASET_KEY_MARKET_INPUTS as MARKET_DATASET_KEY_MARKET_INPUTS,
+    USE_CASE_SLUG as MARKET_USE_CASE_SLUG,
+    ground_truth_summary as market_ground_truth_summary,
+    load_calendar_events as load_market_calendar_events,
+    load_competitor_rates as load_market_competitor_rates,
+    load_evaluation_cases as load_market_evaluation_cases,
+    load_news as load_market_news,
+    load_rates as load_market_rates,
+    load_taxonomy as load_market_taxonomy,
+    manifest_preview as market_manifest_preview,
+    market_data_relative,
+    raw_artifact_paths as market_raw_artifact_paths,
+)
 from app.use_cases.registry import USE_CASES
 from app.use_cases.support_chatbot.raw_data import (
     DATASET_KEY_KNOWLEDGE_BASE as SUPPORT_DATASET_KEY_KNOWLEDGE_BASE,
@@ -755,6 +769,100 @@ def seed_email_automation(session: Session) -> None:
     session.commit()
 
 
+def seed_market_intelligence(session: Session) -> None:
+    news = [item.model_dump() for item in load_market_news()]
+    rates = [item.model_dump() for item in load_market_rates()]
+    competitors = [item.model_dump() for item in load_market_competitor_rates()]
+    calendar_events = [item.model_dump() for item in load_market_calendar_events()]
+    evaluation_cases = [item.model_dump() for item in load_market_evaluation_cases()]
+    taxonomy = load_market_taxonomy()
+    payload = {
+        "records": evaluation_cases,
+        "news": news,
+        "rates": rates,
+        "competitors": competitors,
+        "calendar_events": calendar_events,
+        "taxonomy": taxonomy,
+        "preview": market_manifest_preview(),
+        "record_count": len(news) + len(rates) + len(competitors) + len(calendar_events) + len(evaluation_cases),
+        "news_count": len(news),
+        "rate_record_count": len(rates),
+        "competitor_rate_count": len(competitors),
+        "calendar_event_count": len(calendar_events),
+        "evaluation_case_count": len(evaluation_cases),
+        "topic_count": len(taxonomy.get("topics", [])),
+        "ground_truth_summary": market_ground_truth_summary(),
+    }
+    existing = session.exec(
+        select(RawDataset).where(
+            RawDataset.use_case_slug == MARKET_USE_CASE_SLUG,
+            RawDataset.dataset_key == MARKET_DATASET_KEY_MARKET_INPUTS,
+        )
+    ).first()
+    if existing:
+        existing.payload = payload
+        existing.source_type = "data_directory_files"
+        session.add(existing)
+    else:
+        session.add(
+            RawDataset(
+                use_case_slug=MARKET_USE_CASE_SLUG,
+                dataset_key=MARKET_DATASET_KEY_MARKET_INPUTS,
+                source_type="data_directory_files",
+                payload=payload,
+            )
+        )
+
+    existing_artifacts = session.exec(select(RawArtifact).where(RawArtifact.use_case_slug == MARKET_USE_CASE_SLUG)).all()
+    for artifact in existing_artifacts:
+        session.delete(artifact)
+
+    for path in market_raw_artifact_paths():
+        resolved = path.resolve()
+        extension = resolved.suffix.lower()
+        data_relative = market_data_relative(resolved)
+        if data_relative.startswith("raw/news"):
+            dataset_key = "news"
+        elif data_relative.startswith("raw/rates"):
+            dataset_key = "rates"
+        elif data_relative.startswith("raw/competitors"):
+            dataset_key = "competitors"
+        elif data_relative.startswith("raw/calendar"):
+            dataset_key = "calendar"
+        elif data_relative.startswith("raw/research"):
+            dataset_key = "research"
+        elif data_relative.startswith("raw/taxonomy"):
+            dataset_key = "taxonomy"
+        elif data_relative.startswith("raw/evaluation"):
+            dataset_key = "evaluation"
+        elif resolved.name == "metadata.json":
+            dataset_key = "metadata"
+        else:
+            dataset_key = "ground_truth"
+        media_type = {
+            ".json": "application/json",
+            ".csv": "text/csv",
+            ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            ".pdf": "application/pdf",
+        }.get(extension, "application/octet-stream")
+        session.add(
+            RawArtifact(
+                use_case_slug=MARKET_USE_CASE_SLUG,
+                dataset_key=dataset_key,
+                file_name=resolved.name,
+                file_path=str(resolved),
+                artifact_type=extension.removeprefix(".") or "json",
+                media_type=media_type,
+                metadata_json={
+                    "generated": True,
+                    "stage": 9,
+                    "relative_path": data_relative,
+                },
+            )
+        )
+    session.commit()
+
+
 def seed_all(session: Session) -> None:
     seed_use_cases(session)
     seed_fraud_detection(session)
@@ -765,3 +873,4 @@ def seed_all(session: Session) -> None:
     seed_aml_monitoring(session)
     seed_kyc_kyb(session)
     seed_email_automation(session)
+    seed_market_intelligence(session)

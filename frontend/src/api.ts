@@ -59,6 +59,15 @@ export type RawDataset = {
     events?: Record<string, unknown>[];
     campaigns?: Record<string, unknown>[];
     templates?: Record<string, unknown>[];
+    news?: Record<string, unknown>[];
+    rates?: Record<string, unknown>[];
+    competitors?: Record<string, unknown>[];
+    calendar_events?: Record<string, unknown>[];
+    taxonomy?: Record<string, unknown>;
+    news_count?: number;
+    rate_record_count?: number;
+    competitor_rate_count?: number;
+    topic_count?: number;
   };
 };
 
@@ -340,6 +349,123 @@ export type EmailDraftResponse = {
   payload: EmailAutomationPayload;
 };
 
+export type MarketSource = {
+  source_id: string;
+  title: string;
+  url: string;
+  domain: string;
+  source_type: string;
+  query_id?: string | null;
+  query?: string | null;
+  snippet: string;
+  retrieved_at: string;
+  published_at?: string | null;
+  verification_status: string;
+  citation_count: number;
+};
+
+export type MarketEvidenceItem = {
+  evidence_id: string;
+  source_id: string;
+  topic: string;
+  impact_area: string;
+  claim: string;
+  sentiment: string;
+  urgency: string;
+  confidence: number;
+  source_url?: string | null;
+};
+
+export type MarketSignal = {
+  signal_id: string;
+  topic: string;
+  sector: string;
+  impact_area: string;
+  direction: "positive" | "negative" | "mixed" | "watch";
+  urgency: string;
+  confidence: number;
+  summary: string;
+  evidence_ids: string[];
+  evidence_count: number;
+};
+
+export type MarketBrief = {
+  brief_id: string;
+  headline: string;
+  executive_summary: string;
+  top_developments: string[];
+  banking_implications: string[];
+  risks_and_opportunities: string[];
+  recommended_actions: string[];
+  watchlist_items: string[];
+  cited_source_ids: string[];
+  confidence: number;
+};
+
+export type MarketAgentStep = {
+  step_id: string;
+  agent_name: string;
+  status: string;
+  summary: string;
+  input_count: number;
+  output_count: number;
+  duration_ms: number;
+};
+
+export type MarketCostControl = {
+  model_name: string;
+  fallback_model_name: string;
+  search_context_size: string;
+  max_search_calls: number;
+  search_call_count: number;
+  estimated_search_cost_usd: number;
+  live_search_enabled: boolean;
+};
+
+export type MarketIntelligenceSummary = {
+  mode: "daily_brief" | "research";
+  source_count: number;
+  live_source_count: number;
+  synthetic_source_count: number;
+  evidence_count: number;
+  signal_count: number;
+  brief_count: number;
+  search_call_count: number;
+  estimated_search_cost_usd: number;
+  warning_count: number;
+  average_confidence: number;
+  provider_used: string;
+  model_name: string;
+};
+
+export type MarketIntelligencePayload = {
+  mode: "daily_brief" | "research";
+  summary: MarketIntelligenceSummary;
+  briefs: MarketBrief[];
+  signals: MarketSignal[];
+  sources: MarketSource[];
+  evidence_items: MarketEvidenceItem[];
+  query_plan: Record<string, unknown>[];
+  agent_trace: MarketAgentStep[];
+  cost_control: MarketCostControl;
+  warnings: string[];
+};
+
+export type MarketResearchRequest = {
+  objective: string;
+  region: string;
+  focus_areas: string[];
+  depth: "quick" | "standard" | "deep";
+  max_search_calls: number;
+  use_live_web: boolean;
+};
+
+export type MarketResearchResponse = {
+  run: ModelRun;
+  result: ProcessedResult;
+  payload: MarketIntelligencePayload;
+};
+
 export type DecisionRecord = FraudDecision | CreditDecision | AmlAlertDecision | KycKybPackageDecision;
 
 export type OcrTable = {
@@ -569,7 +695,7 @@ export type ProcessedResult = {
     split?: string;
     evaluation?: SplitEvaluation;
     records?: DecisionRecord[];
-    summary?: DocumentOcrSummary | SupportChatbotSummary | LiquidityForecastSummary | AmlMonitoringSummary | KycKybSummary | EmailAutomationSummary;
+    summary?: DocumentOcrSummary | SupportChatbotSummary | LiquidityForecastSummary | AmlMonitoringSummary | KycKybSummary | EmailAutomationSummary | MarketIntelligenceSummary;
     documents?: DocumentExtraction[];
     answers?: SupportChatbotAnswer[];
     retrieved_chunks?: SupportKnowledgeChunk[];
@@ -587,6 +713,13 @@ export type ProcessedResult = {
     drafts?: EmailAutomationDraft[];
     compliance_findings?: EmailComplianceFinding[];
     scores?: EmailAutomationScore[];
+    briefs?: MarketBrief[];
+    signals?: MarketSignal[];
+    sources?: MarketSource[];
+    evidence_items?: MarketEvidenceItem[];
+    query_plan?: Record<string, unknown>[];
+    agent_trace?: MarketAgentStep[];
+    cost_control?: MarketCostControl;
     warnings?: string[];
   };
   explanation: Record<string, unknown>;
@@ -686,6 +819,20 @@ export type EmailAutomationLatestResponse = {
   } | null;
 };
 
+export type MarketIntelligenceLatestResponse = {
+  use_case_slug: string;
+  latest: {
+    run: ModelRun;
+    result: ProcessedResult;
+    payload: MarketIntelligencePayload;
+  } | null;
+  latest_research: {
+    run: ModelRun;
+    result: ProcessedResult;
+    payload: MarketIntelligencePayload;
+  } | null;
+};
+
 export type FraudEvaluationBundle = EvaluationBundle;
 export type FraudEvaluationsResponse = EvaluationsResponse;
 
@@ -771,6 +918,10 @@ export function fetchEmailAutomationLatest() {
   return request<EmailAutomationLatestResponse>("/use-cases/email-automation/evaluations");
 }
 
+export function fetchMarketIntelligenceLatest() {
+  return request<MarketIntelligenceLatestResponse>("/use-cases/market-intelligence/evaluations");
+}
+
 export function submitSupportChatbotQuestion(payload: SupportChatRequest) {
   return request<SupportChatResponse>("/use-cases/support-chatbot/chat", {
     method: "POST",
@@ -780,6 +931,13 @@ export function submitSupportChatbotQuestion(payload: SupportChatRequest) {
 
 export function submitEmailDraft(payload: EmailDraftRequest) {
   return request<EmailDraftResponse>("/use-cases/email-automation/draft", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+}
+
+export function submitMarketResearch(payload: MarketResearchRequest) {
+  return request<MarketResearchResponse>("/use-cases/market-intelligence/research", {
     method: "POST",
     body: JSON.stringify(payload)
   });

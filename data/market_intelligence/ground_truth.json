@@ -1,0 +1,37 @@
+{
+  "generation_seed": 9909,
+  "news_count": 180,
+  "rate_record_count": 180,
+  "competitor_rate_count": 80,
+  "calendar_event_count": 36,
+  "evaluation_case_count": 8,
+  "expected_topics": [
+    "rates",
+    "deposits",
+    "credit",
+    "regulation",
+    "payments",
+    "fraud",
+    "aml",
+    "consumer_sentiment"
+  ],
+  "expected_impact_areas": [
+    "deposit_pricing",
+    "loan_demand",
+    "credit_risk",
+    "liquidity_cash_demand",
+    "aml_fraud_compliance",
+    "customer_communications",
+    "market_opportunity"
+  ],
+  "required_agents": [
+    "Research Orchestrator",
+    "Query Planner",
+    "Search Scout",
+    "Evidence Extractor",
+    "Source Verifier",
+    "Signal Scorer",
+    "Executive Synthesizer",
+    "Citation Reviewer"
+  ]
+}

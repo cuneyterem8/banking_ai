@@ -20,6 +20,7 @@ EXPECTED_STARTUP_ORDER = [
     "aml-monitoring",
     "kyc-kyb",
     "email-automation",
+    "market-intelligence",
 ]
 
 
@@ -34,7 +35,7 @@ def _set_stage(slug: str, *, status: str, stage: str = "idle", progress: int = 0
 
 def test_startup_registry_contains_exact_implemented_order() -> None:
     assert [stage.slug for stage in STARTUP_STAGES] == EXPECTED_STARTUP_ORDER
-    assert [stage.order for stage in STARTUP_STAGES] == [1, 2, 3, 4, 5, 6, 7, 8]
+    assert [stage.order for stage in STARTUP_STAGES] == [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def test_api_ready_before_ml_training_finishes() -> None:
@@ -49,7 +50,7 @@ def test_api_ready_before_ml_training_finishes() -> None:
     assert readiness["ready"] is True
     assert readiness["ml_training_ready"] is False
     assert readiness["ml_phase"] == "fraud_training"
-    assert readiness["total_stage_count"] == 8
+    assert readiness["total_stage_count"] == 9
     assert readiness["active_stage"]["use_case_slug"] == "fraud-detection"
 
 
@@ -88,8 +89,8 @@ def test_training_status_supports_all_startup_stages() -> None:
 
     statuses = [get_training_status(slug) for slug in EXPECTED_STARTUP_ORDER]
     assert [status["use_case_slug"] for status in statuses] == EXPECTED_STARTUP_ORDER
-    assert [status["order"] for status in statuses] == [1, 2, 3, 4, 5, 6, 7, 8]
+    assert [status["order"] for status in statuses] == [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     startup = get_startup_status()
-    assert startup["total_stage_count"] == 8
+    assert startup["total_stage_count"] == 9
     assert [stage["use_case_slug"] for stage in startup["stages"]] == EXPECTED_STARTUP_ORDER

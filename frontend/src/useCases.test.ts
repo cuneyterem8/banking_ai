@@ -9,7 +9,7 @@ describe("use case navigation", () => {
     expect(USE_CASES.map((item) => item.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
-  it("marks the first eight staged use cases as implemented in stage eight", () => {
+  it("marks the first nine staged use cases as implemented in stage nine", () => {
     expect(USE_CASES.filter((item) => item.status === "implemented").map((item) => item.slug)).toEqual([
       "fraud-detection",
       "credit-risk",
@@ -18,11 +18,12 @@ describe("use case navigation", () => {
       "liquidity-forecast",
       "aml-monitoring",
       "kyc-kyb",
-      "email-automation"
+      "email-automation",
+      "market-intelligence"
     ]);
   });
 
   it("keeps the frontend startup order aligned with the implemented use cases", () => {
-    expect(STARTUP_USE_CASE_SLUGS).toEqual(USE_CASES.slice(0, 8).map((item) => item.slug));
+    expect(STARTUP_USE_CASE_SLUGS).toEqual(USE_CASES.slice(0, 9).map((item) => item.slug));
   });
 });

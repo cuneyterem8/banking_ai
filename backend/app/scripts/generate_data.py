@@ -6,6 +6,7 @@ from app.use_cases.email_automation.data_generation import write_artifacts as wr
 from app.use_cases.fraud_detection.data_generation import write_artifacts as write_fraud_artifacts
 from app.use_cases.kyc_kyb.data_generation import write_artifacts as write_kyc_kyb_artifacts
 from app.use_cases.liquidity_forecast.data_generation import write_artifacts as write_liquidity_forecast_artifacts
+from app.use_cases.market_intelligence.data_generation import write_artifacts as write_market_intelligence_artifacts
 from app.use_cases.support_chatbot.data_generation import write_artifacts as write_support_chatbot_artifacts
 
 
@@ -29,6 +30,7 @@ def main() -> None:
         "aml_monitoring": write_aml_monitoring_artifacts(),
         "kyc_kyb": write_kyc_kyb_artifacts(),
         "email_automation": write_email_automation_artifacts(),
+        "market_intelligence": write_market_intelligence_artifacts(),
     }
     print("Generated synthetic raw artifacts:")
     for use_case, use_case_paths in paths.items():

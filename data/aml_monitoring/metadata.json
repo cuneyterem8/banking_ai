@@ -52,12 +52,12 @@
     "Eastport Trade Hub"
   ],
   "artifact_checksums": {
-    "train_xlsx": "c513c85665aa5b6371d9488e229ea0c908ef20449bbfe7205a5414d2ca2cbca1",
-    "val_xlsx": "f9166936cff37b3a61dd47406749d3a774ee308007c730cb6fe958b95e3ba4fc",
-    "test_xlsx": "cbf2929127a01133c7c64911ae656e042262fb2b4aa9ce2f1bb5f31497564f85",
-    "transaction_network": "02aabac7ed4d7598b52c33569fe9d3f3d9610ccf189a38eb7972e89872bd072c",
+    "train_xlsx": "4a0eb98d00811cc6be7d58410e5e1b087a8f67e7de156c6d9dc59fe6234057ac",
+    "val_xlsx": "c21ac67df67b011bc6596dca554d2f58155478937398f73091bc0476312a7a3e",
+    "test_xlsx": "a64f7bc1d40d8f9d9c564deddedc679e1b687c0d3beceecaf0ea0d817a0e0df4",
+    "transaction_network": "5a42f0dce97ff8c3f1985f69c734b89e4308315a2a14264c93a05baf5f8d5caf",
     "entity_relationships": "34afaabdd21043f935f22222c2e578732d4d9c35d1147bd97c2df099fb60d9b6",
-    "case_notes_pdf": "4d9300b74c8d9c29420e11af33c19a3ee7bf85ef8258d19abde242060cdfe552",
+    "case_notes_pdf": "e98b997a15a3ae28285bd1fc06369e33e9c8a9b7d0042494dd85917f3e92a471",
     "ground_truth": "7221941cc39c4b242d5a7a4d783e05155512ae9bf9b2c4e0480cccbc501a2755"
   },
   "description": "Synthetic AML alerts with risk, transaction behavior, network, entity, and typology fields for SAR prioritization."

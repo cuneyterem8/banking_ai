@@ -3,7 +3,7 @@
   "generation_seed": 4521,
   "feature_count": 27,
   "target_fraud_rate": 0.075,
-  "fraud_logit_intercept": 0.427269,
+  "fraud_logit_intercept": -3.473236,
   "label_noise_rate": 0.003,
   "total_generated_rows": 4000,
   "train_count": 2560,
