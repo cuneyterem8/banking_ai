@@ -21,6 +21,8 @@ from app.use_cases.market_intelligence.raw_data import USE_CASE_SLUG as MARKET_U
 from app.use_cases.market_intelligence.service import MARKET_DAILY_RESULT_TYPE, MARKET_RESEARCH_RESULT_TYPE
 from app.use_cases.support_chatbot.raw_data import USE_CASE_SLUG as SUPPORT_USE_CASE_SLUG
 from app.use_cases.support_chatbot.service import SUPPORT_CHAT_RESULT_TYPE, SUPPORT_EVAL_RESULT_TYPE
+from app.use_cases.workflow_orchestration.raw_data import USE_CASE_SLUG as WORKFLOW_USE_CASE_SLUG
+from app.use_cases.workflow_orchestration.service import WORKFLOW_CASE_RUN_RESULT_TYPE, WORKFLOW_STARTUP_RESULT_TYPE
 
 TEST_COMPLETED_ACTION = "fraud_detection_test_completed"
 VAL_COMPLETED_ACTION = "fraud_training_completed"
@@ -32,6 +34,8 @@ KYC_KYB_TEST_COMPLETED_ACTION = "kyc_kyb_test_completed"
 KYC_KYB_VAL_COMPLETED_ACTION = "kyc_kyb_validation_completed"
 EMAIL_AUTOMATION_DRAFT_COMPLETED_ACTION = "email_automation_draft_completed"
 EMAIL_AUTOMATION_EVAL_COMPLETED_ACTION = "email_automation_evaluation_completed"
+WORKFLOW_CASE_RUN_COMPLETED_ACTION = "workflow_orchestration_case_run_completed"
+WORKFLOW_STARTUP_COMPLETED_ACTION = "workflow_orchestration_startup_completed"
 STARTUP_USE_CASE_SLUGS = (
     USE_CASE_SLUG,
     CREDIT_USE_CASE_SLUG,
@@ -42,6 +46,7 @@ STARTUP_USE_CASE_SLUGS = (
     KYC_KYB_USE_CASE_SLUG,
     EMAIL_USE_CASE_SLUG,
     MARKET_USE_CASE_SLUG,
+    WORKFLOW_USE_CASE_SLUG,
 )
 STARTUP_RESULT_TYPES = {
     USE_CASE_SLUG: (FRAUD_VAL_RESULT_TYPE, FRAUD_TEST_RESULT_TYPE),
@@ -53,6 +58,7 @@ STARTUP_RESULT_TYPES = {
     KYC_KYB_USE_CASE_SLUG: (KYC_KYB_VAL_RESULT_TYPE, KYC_KYB_TEST_RESULT_TYPE),
     EMAIL_USE_CASE_SLUG: (EMAIL_AUTOMATION_EVAL_RESULT_TYPE, EMAIL_AUTOMATION_DRAFT_RESULT_TYPE),
     MARKET_USE_CASE_SLUG: (MARKET_DAILY_RESULT_TYPE, MARKET_RESEARCH_RESULT_TYPE),
+    WORKFLOW_USE_CASE_SLUG: (WORKFLOW_STARTUP_RESULT_TYPE, WORKFLOW_CASE_RUN_RESULT_TYPE),
 }
 
 

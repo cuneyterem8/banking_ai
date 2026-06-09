@@ -399,7 +399,7 @@ def run_liquidity_forecast(
             holdout=holdout,
             locations=locations,
             events=events,
-            artifact_dir=Path(settings.storage_dir) / "models" / "liquidity-forecast" / "autogluon-timeseries",
+            artifact_dir=Path(settings.storage_dir) / "liquidity-forecast" / "autogluon-timeseries",
             progress_callback=progress_callback,
         )
         if autogluon_result is not None:

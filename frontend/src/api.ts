@@ -68,6 +68,13 @@ export type RawDataset = {
     rate_record_count?: number;
     competitor_rate_count?: number;
     topic_count?: number;
+    case_count?: number;
+    workflow_type_count?: number;
+    startup_case_count?: number;
+    heldout_case_count?: number;
+    workflow_definitions?: Record<string, unknown>[];
+    startup_case_ids?: string[];
+    heldout_case_ids?: string[];
   };
 };
 
@@ -466,6 +473,128 @@ export type MarketResearchResponse = {
   payload: MarketIntelligencePayload;
 };
 
+export type WorkflowDependencySnapshot = {
+  use_case_slug: string;
+  title: string;
+  status: "available" | "missing" | "failed";
+  latest_run_id?: string | null;
+  latest_result_id?: string | null;
+  result_type?: string | null;
+  provider_used?: string | null;
+  summary: Record<string, unknown>;
+  warning?: string | null;
+};
+
+export type WorkflowStepResult = {
+  step_id: string;
+  case_id: string;
+  workflow_type: string;
+  title: string;
+  owner: string;
+  depends_on: string[];
+  status: "completed" | "completed_with_warning" | "blocked";
+  required_dependencies: string[];
+  evidence: string[];
+  blockers: string[];
+  duration_ms: number;
+};
+
+export type WorkflowRoutingDecision = {
+  case_id: string;
+  final_status: string;
+  recommended_owner: string;
+  risk_level: "Low" | "Medium" | "High" | "Critical";
+  straight_through_eligible: boolean;
+  manual_review_required: boolean;
+  dependency_status: "Ready" | "Partial" | "Missing";
+  top_reasons: string[];
+  next_best_actions: string[];
+};
+
+export type WorkflowSlaResult = {
+  case_id: string;
+  policy_hours: number;
+  elapsed_hours: number;
+  remaining_hours: number;
+  sla_status: "On Track" | "At Risk" | "Breached";
+  breach_reason?: string | null;
+};
+
+export type WorkflowCaseResult = {
+  case_id: string;
+  workflow_type: string;
+  subject_id: string;
+  subject_name: string;
+  priority: "Standard" | "Elevated" | "Urgent";
+  final_status: "Straight Through Approved" | "Needs Review" | "Escalated" | "Blocked" | "Rejected";
+  risk_level: "Low" | "Medium" | "High" | "Critical";
+  straight_through_eligible: boolean;
+  manual_review_required: boolean;
+  recommended_owner: string;
+  next_best_actions: string[];
+  top_reasons: string[];
+  dependency_status: "Ready" | "Partial" | "Missing";
+  provider_used: string;
+  input_context: Record<string, unknown>;
+};
+
+export type WorkflowCaseSummary = {
+  case_id: string;
+  summary_status: string;
+  summary: string;
+  recommended_wording: string;
+  next_steps: string[];
+  confidence: number;
+  provider_used: string;
+  model_name: string;
+  warnings: string[];
+};
+
+export type WorkflowOrchestrationSummary = {
+  mode: "startup_evaluation" | "case_run";
+  case_count: number;
+  workflow_type_count: number;
+  straight_through_count: number;
+  needs_review_count: number;
+  escalated_count: number;
+  blocked_count: number;
+  rejected_count: number;
+  dependency_ready_count: number;
+  dependency_warning_count: number;
+  sla_breach_count: number;
+  average_risk_score: number;
+  summary_count: number;
+  fallback_count: number;
+  timeout_count: number;
+  invalid_json_count: number;
+  warning_count: number;
+  provider_used: string;
+  model_name: string;
+};
+
+export type WorkflowOrchestrationPayload = {
+  mode: "startup_evaluation" | "case_run";
+  summary: WorkflowOrchestrationSummary;
+  cases: WorkflowCaseResult[];
+  workflow_steps: WorkflowStepResult[];
+  dependency_snapshots: WorkflowDependencySnapshot[];
+  routing_decisions: WorkflowRoutingDecision[];
+  case_summaries: WorkflowCaseSummary[];
+  sla_results: WorkflowSlaResult[];
+  warnings: string[];
+};
+
+export type WorkflowOrchestrationRequest = {
+  case_id: string;
+  include_llm_summary: boolean;
+};
+
+export type WorkflowOrchestrationResponse = {
+  run: ModelRun;
+  result: ProcessedResult;
+  payload: WorkflowOrchestrationPayload;
+};
+
 export type DecisionRecord = FraudDecision | CreditDecision | AmlAlertDecision | KycKybPackageDecision;
 
 export type OcrTable = {
@@ -695,7 +824,7 @@ export type ProcessedResult = {
     split?: string;
     evaluation?: SplitEvaluation;
     records?: DecisionRecord[];
-    summary?: DocumentOcrSummary | SupportChatbotSummary | LiquidityForecastSummary | AmlMonitoringSummary | KycKybSummary | EmailAutomationSummary | MarketIntelligenceSummary;
+    summary?: DocumentOcrSummary | SupportChatbotSummary | LiquidityForecastSummary | AmlMonitoringSummary | KycKybSummary | EmailAutomationSummary | MarketIntelligenceSummary | WorkflowOrchestrationSummary;
     documents?: DocumentExtraction[];
     answers?: SupportChatbotAnswer[];
     retrieved_chunks?: SupportKnowledgeChunk[];
@@ -720,6 +849,12 @@ export type ProcessedResult = {
     query_plan?: Record<string, unknown>[];
     agent_trace?: MarketAgentStep[];
     cost_control?: MarketCostControl;
+    cases?: WorkflowCaseResult[];
+    workflow_steps?: WorkflowStepResult[];
+    dependency_snapshots?: WorkflowDependencySnapshot[];
+    routing_decisions?: WorkflowRoutingDecision[];
+    case_summaries?: WorkflowCaseSummary[];
+    sla_results?: WorkflowSlaResult[];
     warnings?: string[];
   };
   explanation: Record<string, unknown>;
@@ -833,6 +968,20 @@ export type MarketIntelligenceLatestResponse = {
   } | null;
 };
 
+export type WorkflowOrchestrationLatestResponse = {
+  use_case_slug: string;
+  latest: {
+    run: ModelRun;
+    result: ProcessedResult;
+    payload: WorkflowOrchestrationPayload;
+  } | null;
+  latest_case_run: {
+    run: ModelRun;
+    result: ProcessedResult;
+    payload: WorkflowOrchestrationPayload;
+  } | null;
+};
+
 export type FraudEvaluationBundle = EvaluationBundle;
 export type FraudEvaluationsResponse = EvaluationsResponse;
 
@@ -922,6 +1071,10 @@ export function fetchMarketIntelligenceLatest() {
   return request<MarketIntelligenceLatestResponse>("/use-cases/market-intelligence/evaluations");
 }
 
+export function fetchWorkflowOrchestrationLatest() {
+  return request<WorkflowOrchestrationLatestResponse>("/use-cases/workflow-orchestration/evaluations");
+}
+
 export function submitSupportChatbotQuestion(payload: SupportChatRequest) {
   return request<SupportChatResponse>("/use-cases/support-chatbot/chat", {
     method: "POST",
@@ -938,6 +1091,13 @@ export function submitEmailDraft(payload: EmailDraftRequest) {
 
 export function submitMarketResearch(payload: MarketResearchRequest) {
   return request<MarketResearchResponse>("/use-cases/market-intelligence/research", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+}
+
+export function submitWorkflowOrchestration(payload: WorkflowOrchestrationRequest) {
+  return request<WorkflowOrchestrationResponse>("/use-cases/workflow-orchestration/orchestrate", {
     method: "POST",
     body: JSON.stringify(payload)
   });

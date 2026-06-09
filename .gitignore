@@ -18,3 +18,4 @@ data/**/raw/**/*.png
 data/**/raw/**/*.jpg
 !data/**/.gitkeep
 !data/README.md
+.agent_test/

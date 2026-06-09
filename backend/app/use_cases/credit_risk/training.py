@@ -42,7 +42,7 @@ ProgressCallback = Callable[[int, str], None]
 
 def get_model_dir() -> Any:
     settings = get_settings()
-    return settings.storage_dir / "models" / "credit-risk" / "autogluon"
+    return settings.storage_dir / "credit-risk" / "autogluon"
 
 
 def _resolve_threshold(model_dir: Any, override: float | None = None) -> float:

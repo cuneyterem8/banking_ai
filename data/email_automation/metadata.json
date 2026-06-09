@@ -6,13 +6,13 @@
   "evaluation_case_count": 24,
   "template_count": 13,
   "artifact_checksums": {
-    "raw/customers/customer_profiles.xlsx": "db5b3f7dd70e407ae649e1d506ccc0e9f12eefe6a370cc5c4b31567199dbd5a7",
+    "raw/customers/customer_profiles.xlsx": "56d7b3e041840258918b6f9e750c7d946a122c2096565b511fc997c0f5a84f0d",
     "raw/events/customer_events.json": "3dda888af9e7b41fc9933a28ac9f188f6de4088784f6ae62184fbe4ddeda0a09",
-    "raw/campaigns/campaign_plan.xlsx": "f59f8fb66496bef367dc803d3800d82179bb54fb8678507b173e16500fc66857",
+    "raw/campaigns/campaign_plan.xlsx": "945cc96ccc5121afe85bcef103ff1ac8b7a5467860cc599922685e994ad76529",
     "raw/templates/service_templates.txt": "c841ae8c946dd6a2ba4f0a7179250d5bf0a7edcc6ee43f673f33c10f433b118e",
     "raw/templates/campaign_templates.txt": "8edffa0877b509f12a778e532138d4785e42ea377389e63ba84ad8f89e331b9b",
-    "raw/policies/email_compliance_policy.pdf": "dd8d83a5648a46d1e3564989e5016042db607ecdc832ca4e975bbddca13947a7",
-    "raw/policies/tone_and_brand_guidelines.pdf": "3da96f01b039d6e0f35088bb8b436b59c46b33460cf321f0d285a1b2ad33614d",
+    "raw/policies/email_compliance_policy.pdf": "a7d31d5fcca3460c35937600cac4f9a7f5763f730ef1005f17755c10dfa5b948",
+    "raw/policies/tone_and_brand_guidelines.pdf": "f6aa3e7c9fcb18d656647463c2c56876e1a8b432f41aacf7c86c9c7e1c22ed78",
     "raw/evaluation/email_generation_cases.json": "72dece94f41afbd4141dc3e99a5ff7478db3631431ed74aa3c5dd828a5b41b4d",
     "ground_truth.json": "18e582732b03dd063c1ebc06e69680574ba92a4c05a22d1a2df1401793f17e7f"
   }

@@ -8,9 +8,9 @@
   "artifact_checksums": {
     "raw/news/synthetic_market_news.json": "69d3d8152691f5c0d36eccda579395a23536952c93a5ad1974364c21ab5cd9ae",
     "raw/rates/rates_timeseries.csv": "134aa4945f6ecc5e77151b66cb7f7d3369ac377887bc7381dee2597ba268957d",
-    "raw/competitors/competitor_product_rates.xlsx": "a42da9bde033db8f09968856b317dc9d4a52e33ee8d0df5247e3d34c0c6462c4",
+    "raw/competitors/competitor_product_rates.xlsx": "61a458cb692417225202f487f7c5c11e93546f51dbdcf6ed653bb9ad9c7a50c9",
     "raw/calendar/economic_calendar.csv": "4904844d85f48ed52b7e469a211bec760f230462c47b836176efd8d7ec6c576d",
-    "raw/research/market_snapshot.pdf": "defe1ca78b39b1ea685c8cdea5d731ec4213285454e573e3d32cfa3fe285e2a3",
+    "raw/research/market_snapshot.pdf": "e1b0e65bbf1823be7a723b6f1ac6c8056d2ae30392194f779c579c2e56af5df7",
     "raw/taxonomy/topics.json": "202c6ef524f60da991cc172e5ecbeeccfa45a9248a18511ef2c71580580d83b4",
     "raw/evaluation/research_brief_cases.json": "985bb608395d7e64b35affad679def61298da24bba8e31977531f76cc30b8082",
     "ground_truth.json": "45795f1b5277174958e2fb63d77d516ef92ae8018db5b93f77342ff74821a4f6"

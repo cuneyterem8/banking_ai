@@ -18,7 +18,7 @@ export const USE_CASES: UseCaseNavItem[] = [
   { slug: "kyc-kyb", title: "KYC/KYB", category: "Onboarding", status: "implemented", order: 7 },
   { slug: "email-automation", title: "Email Automation", category: "Customer Communications", status: "implemented", order: 8 },
   { slug: "market-intelligence", title: "Market Intelligence", category: "Research", status: "implemented", order: 9 },
-  { slug: "workflow-orchestration", title: "Workflow Orchestration", category: "Process Automation", status: "planned", order: 10 }
+  { slug: "workflow-orchestration", title: "Workflow Orchestration", category: "Process Automation", status: "implemented", order: 10 }
 ];
 
 export function getUseCase(slug: string | undefined): UseCaseNavItem | undefined {

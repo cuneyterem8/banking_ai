@@ -55,6 +55,8 @@ from app.use_cases.market_intelligence.raw_data import USE_CASE_SLUG as MARKET_U
 from app.use_cases.market_intelligence.service import run_market_intelligence_startup
 from app.use_cases.support_chatbot.raw_data import USE_CASE_SLUG as SUPPORT_USE_CASE_SLUG
 from app.use_cases.support_chatbot.service import run_support_evaluation_startup
+from app.use_cases.workflow_orchestration.raw_data import USE_CASE_SLUG as WORKFLOW_USE_CASE_SLUG
+from app.use_cases.workflow_orchestration.service import run_workflow_orchestration_startup
 from app.utils.json_safe import sanitize_for_json
 
 ProgressCallback = Callable[[int, str], None]
@@ -163,7 +165,7 @@ def _persist_training_result(
             ModelArtifact(
                 use_case_slug=USE_CASE_SLUG,
                 artifact_type="autogluon_model_directory",
-                local_path="storage/models/fraud-detection/autogluon",
+                local_path="models/fraud-detection/autogluon",
                 metadata_json={
                     "provider": "local-autogluon",
                     "preset": get_settings().autogluon_preset,
@@ -222,7 +224,7 @@ def _persist_credit_training_result(
             ModelArtifact(
                 use_case_slug=CREDIT_USE_CASE_SLUG,
                 artifact_type="autogluon_model_directory",
-                local_path="storage/models/credit-risk/autogluon",
+                local_path="models/credit-risk/autogluon",
                 metadata_json={
                     "provider": "local-autogluon",
                     "primary_metric": "roc_auc",
@@ -298,6 +300,7 @@ STARTUP_STAGES: tuple[StartupStageDefinition, ...] = (
     StartupStageDefinition(KYC_KYB_USE_CASE_SLUG, "KYC/KYB", 7, run_kyc_kyb_startup),
     StartupStageDefinition(EMAIL_USE_CASE_SLUG, "Email Automation", 8, run_email_automation_startup),
     StartupStageDefinition(MARKET_USE_CASE_SLUG, "Market Intelligence", 9, run_market_intelligence_startup),
+    StartupStageDefinition(WORKFLOW_USE_CASE_SLUG, "Workflow Orchestration", 10, run_workflow_orchestration_startup),
 )
 
 _stage_by_slug = {stage.slug: stage for stage in STARTUP_STAGES}

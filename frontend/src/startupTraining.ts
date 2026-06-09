@@ -11,7 +11,8 @@ export const STARTUP_USE_CASE_SLUGS = [
   "aml-monitoring",
   "kyc-kyb",
   "email-automation",
-  "market-intelligence"
+  "market-intelligence",
+  "workflow-orchestration"
 ] as const;
 
 export type StartupUseCaseSlug = (typeof STARTUP_USE_CASE_SLUGS)[number];

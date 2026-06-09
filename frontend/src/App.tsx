@@ -33,6 +33,7 @@ import {
   fetchDocumentOcrLatest,
   fetchEmailAutomationLatest,
   fetchMarketIntelligenceLatest,
+  fetchWorkflowOrchestrationLatest,
   fetchKycKybLatest,
   fetchLiquidityForecastLatest,
   fetchRawData,
@@ -44,6 +45,7 @@ import {
   submitEmailDraft,
   submitMarketResearch,
   submitSupportChatbotQuestion,
+  submitWorkflowOrchestration,
   type AmlAlertDecision,
   type AmlMonitoringPayload,
   type AmlNarrativeDraft,
@@ -75,7 +77,15 @@ import {
   type SplitEvaluation,
   type SupportChatbotAnswer,
   type SupportChatbotPayload,
-  type SupportKnowledgeChunk
+  type SupportKnowledgeChunk,
+  type WorkflowCaseResult,
+  type WorkflowCaseSummary,
+  type WorkflowDependencySnapshot,
+  type WorkflowOrchestrationPayload,
+  type WorkflowOrchestrationRequest,
+  type WorkflowRoutingDecision,
+  type WorkflowSlaResult,
+  type WorkflowStepResult
 } from "./api";
 import { getUseCase, USE_CASES } from "./useCases";
 import {
@@ -307,6 +317,9 @@ function UseCasePage() {
   }
   if (item.slug === "market-intelligence") {
     return <MarketIntelligencePage />;
+  }
+  if (item.slug === "workflow-orchestration") {
+    return <WorkflowOrchestrationPage />;
   }
   return (
     <section className="space-y-6 p-8">
@@ -2447,6 +2460,290 @@ function MarketIntelligencePage() {
   );
 }
 
+function WorkflowOrchestrationPage() {
+  const slug = "workflow-orchestration";
+  const queryClient = useQueryClient();
+  const [runProgress, setRunProgress] = useState<RunProgress | null>(null);
+  const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
+  const [orchestrationForm, setOrchestrationForm] = useState<WorkflowOrchestrationRequest>({
+    case_id: "",
+    include_llm_summary: true
+  });
+
+  const raw = useQuery({ queryKey: ["raw", slug], queryFn: () => fetchRawData(slug) });
+  const training = useStartupTraining(slug);
+  const startupReady = training.data?.status === "completed";
+  const startupActive = isStartupTrainingActive(training.data?.status);
+  const aiHealth = useQuery({ queryKey: ["ai-health"], queryFn: fetchAiHealth });
+  const runs = useQuery({ queryKey: ["runs", slug], queryFn: () => fetchRuns(slug) });
+  const runInProgress = runs.data?.items.some((run) => run.status === "running") ?? false;
+  const latest = useQuery({
+    queryKey: ["workflow-orchestration-latest"],
+    queryFn: fetchWorkflowOrchestrationLatest,
+    refetchInterval: () => (runInProgress || runProgress !== null ? 1000 : false)
+  });
+
+  const runMutation = useMutation({
+    mutationFn: () =>
+      runUseCaseWithProgress(
+        slug,
+        (progress) => {
+          setRunProgress(progress);
+        },
+        "Workflow batch run failed."
+      ),
+    onSuccess: (response) => {
+      setRunProgress(null);
+      const payload = isWorkflowOrchestrationPayload(response.result.payload) ? response.result.payload : null;
+      if (payload?.cases[0]?.case_id) {
+        setSelectedCaseId(payload.cases[0].case_id);
+      }
+      queryClient.invalidateQueries({ queryKey: ["workflow-orchestration-latest"] });
+      queryClient.invalidateQueries({ queryKey: ["runs", slug] });
+      queryClient.invalidateQueries({ queryKey: ["use-cases"] });
+    },
+    onError: () => setRunProgress(null)
+  });
+
+  const orchestrateMutation = useMutation({
+    mutationFn: () => submitWorkflowOrchestration(orchestrationForm),
+    onSuccess: (response) => {
+      const caseResult = response.payload.cases[0];
+      if (caseResult?.case_id) {
+        setSelectedCaseId(caseResult.case_id);
+      }
+      queryClient.invalidateQueries({ queryKey: ["workflow-orchestration-latest"] });
+      queryClient.invalidateQueries({ queryKey: ["runs", slug] });
+      queryClient.invalidateQueries({ queryKey: ["use-cases"] });
+    }
+  });
+
+  const rawDataset = raw.data?.datasets.find((dataset) => dataset.dataset_key === "workflow_cases");
+  const artifacts = raw.data?.artifacts ?? [];
+  const artifactGroups = groupWorkflowArtifacts(artifacts);
+  const caseRecords = rawDataset?.payload.records ?? [];
+  const mutationPayload = isWorkflowOrchestrationPayload(runMutation.data?.result.payload)
+    ? runMutation.data.result.payload
+    : null;
+  const startupPayload = startupReady ? mutationPayload ?? latest.data?.latest?.payload ?? null : null;
+  const caseRunPayload = startupReady ? orchestrateMutation.data?.payload ?? latest.data?.latest_case_run?.payload ?? null : null;
+  const activePayload = caseRunPayload ?? startupPayload;
+  const selectedCase =
+    activePayload?.cases.find((item) => item.case_id === selectedCaseId) ?? activePayload?.cases[0] ?? null;
+  const selectedSteps = selectedCase ? activePayload?.workflow_steps.filter((step) => step.case_id === selectedCase.case_id) ?? [] : [];
+  const selectedRouting = selectedCase ? activePayload?.routing_decisions.find((item) => item.case_id === selectedCase.case_id) ?? null : null;
+  const selectedSla = selectedCase ? activePayload?.sla_results.find((item) => item.case_id === selectedCase.case_id) ?? null : null;
+  const selectedSummary = selectedCase ? activePayload?.case_summaries.find((item) => item.case_id === selectedCase.case_id) ?? null : null;
+  const localLlm = aiHealth.data?.adapters.find((adapter) => adapter.name === "Ollama Qwen");
+  const gptFallback = aiHealth.data?.adapters.find((adapter) => adapter.name === "OpenAI GPT-4o");
+  const latestProvider = startupReady
+    ? caseRunPayload?.summary.provider_used ?? startupPayload?.summary.provider_used ?? latest.data?.latest?.run.provider_used
+    : undefined;
+
+  useEffect(() => {
+    if (!orchestrationForm.case_id && caseRecords[0]?.case_id) {
+      setOrchestrationForm((current) => ({ ...current, case_id: String(caseRecords[0].case_id) }));
+    }
+  }, [caseRecords, orchestrationForm.case_id]);
+
+  useEffect(() => {
+    if (selectedCaseId && activePayload?.cases.some((item) => item.case_id === selectedCaseId)) {
+      return;
+    }
+    if (activePayload?.cases[0]?.case_id) {
+      setSelectedCaseId(activePayload.cases[0].case_id);
+    }
+  }, [activePayload, selectedCaseId]);
+
+  return (
+    <section className="space-y-6 p-8">
+      <PageTitle
+        icon={<Activity size={22} />}
+        title="Workflow Orchestration"
+        subtitle="Deterministic DAG orchestration across persisted outputs from the first nine synthetic banking AI use cases."
+      />
+
+      <div className="grid grid-cols-5 gap-4">
+        <MetricCard label="Workflow Cases" value={rawDataset?.payload.case_count ?? 0} />
+        <MetricCard label="Workflow Types" value={rawDataset?.payload.workflow_type_count ?? 0} />
+        <MetricCard label="Raw Artifacts" value={artifacts.length} />
+        <MetricCard label="Dependencies Ready" value={`${activePayload?.summary.dependency_ready_count ?? 0}/9`} />
+        <MetricCard label="Startup Status" value={training.data?.status ?? "loading"} />
+      </div>
+
+      <WorkflowOverviewPanel />
+
+      <div className="grid grid-cols-[1.15fr_0.85fr] gap-5">
+        <Panel title="Raw Workflow Inputs">
+          <div className="space-y-4">
+            <DataTable rows={rawDataset?.payload.preview ?? []} limit={12} />
+            <div className="grid grid-cols-2 gap-3">
+              {artifactGroups.map(([group, groupArtifacts]) => (
+                <div key={group} className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium">{formatDocumentType(group)}</p>
+                    <span className="text-xs text-zinc-400">{groupArtifacts.length} files</span>
+                  </div>
+                  <div className="mt-2 space-y-1 text-xs text-zinc-400">
+                    {groupArtifacts.slice(0, 12).map((artifact) => (
+                      <div key={artifact.id} className="flex items-center gap-2">
+                        <FileStack size={14} className="text-emerald-300" />
+                        <span className="truncate">{artifact.file_name}</span>
+                      </div>
+                    ))}
+                    {groupArtifacts.length > 12 ? <p className="text-zinc-500">+{groupArtifacts.length - 12} more files</p> : null}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {raw.isError ? <ErrorBox message={(raw.error as Error).message} /> : null}
+          </div>
+        </Panel>
+
+        <Panel title="Dependency Health">
+          {activePayload?.dependency_snapshots.length ? (
+            <WorkflowDependencyHealth snapshots={activePayload.dependency_snapshots} />
+          ) : (
+            <div className="space-y-3">
+              <div className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Deterministic Orchestrator</p>
+                    <p className="text-xs text-zinc-500">Local DAG engine</p>
+                  </div>
+                  <CheckCircle2 className="text-emerald-500" size={18} />
+                </div>
+                <p className="mt-2 text-sm text-zinc-400">
+                  Dependency snapshots appear after Stage 10 startup reads persisted outputs from the first nine use cases.
+                </p>
+              </div>
+              <AdapterHealthRow adapter={localLlm} fallbackName="Ollama Qwen" />
+              <AdapterHealthRow adapter={gptFallback} fallbackName="OpenAI GPT-4o" />
+            </div>
+          )}
+          {aiHealth.isError ? <ErrorBox message={(aiHealth.error as Error).message} /> : null}
+        </Panel>
+      </div>
+
+      <Panel title="Run Workflow Batch">
+        <div className="space-y-4">
+          <p className="text-sm text-zinc-300">
+            Startup runs the first twelve synthetic workflow cases. The run button executes the held-out cases without retraining or rerunning upstream models.
+          </p>
+          <button
+            type="button"
+            onClick={() => runMutation.mutate()}
+            disabled={runMutation.isPending || !rawDataset || !startupReady}
+            className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-emerald-950/40 hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-700"
+          >
+            <Play size={16} />
+            {runMutation.isPending ? "Running" : "Run Workflow Batch"}
+          </button>
+          {(runMutation.isPending || runProgress) && (
+            <ProgressBar percent={runProgress?.progress_percent ?? 0} stage={runProgress?.stage ?? "starting"} />
+          )}
+          {startupActive ? (
+            <ProgressBar percent={training.data?.progress_percent ?? 0} stage={`Startup: ${training.data?.stage ?? "queued"}`} />
+          ) : null}
+          {training.data?.status === "failed" ? (
+            <ErrorBox message={training.data.error ?? "Workflow Orchestration startup evaluation failed."} />
+          ) : null}
+          {runMutation.isError ? <ErrorBox message={(runMutation.error as Error).message} /> : null}
+          {startupPayload ? (
+            <div className="grid grid-cols-6 gap-3">
+              <MetricCard label="Provider" value={formatProviderLabel(latestProvider ?? startupPayload.summary.provider_used)} />
+              <MetricCard label="Cases" value={startupPayload.summary.case_count} />
+              <MetricCard label="Straight Through" value={startupPayload.summary.straight_through_count} />
+              <MetricCard label="Needs Review" value={startupPayload.summary.needs_review_count} />
+              <MetricCard label="SLA Breaches" value={startupPayload.summary.sla_breach_count} />
+              <MetricCard label="Warnings" value={startupPayload.summary.warning_count} />
+            </div>
+          ) : (
+            <EmptyState text="Workflow startup output appears when Stage 10 completes." />
+          )}
+        </div>
+      </Panel>
+
+      <div className="grid grid-cols-[0.9fr_1.1fr] gap-5">
+        <Panel title="Case Orchestration Workspace">
+          <div className="space-y-4">
+            <label className="block text-sm font-medium text-zinc-300" htmlFor="workflow-case">
+              Case
+            </label>
+            <select
+              id="workflow-case"
+              value={orchestrationForm.case_id}
+              onChange={(event) => setOrchestrationForm((current) => ({ ...current, case_id: event.target.value }))}
+              className="w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 outline-none ring-emerald-500/40 focus:ring-2"
+            >
+              {caseRecords.map((record) => (
+                <option key={String(record.case_id)} value={String(record.case_id)}>
+                  {String(record.case_id)} - {formatDocumentType(String(record.workflow_type ?? "workflow"))}
+                </option>
+              ))}
+            </select>
+
+            <label className="flex items-center gap-3 rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm text-zinc-300">
+              <input
+                type="checkbox"
+                checked={orchestrationForm.include_llm_summary}
+                onChange={(event) => setOrchestrationForm((current) => ({ ...current, include_llm_summary: event.target.checked }))}
+                className="h-4 w-4 accent-emerald-500"
+              />
+              Include LLM case summary
+            </label>
+
+            <button
+              type="button"
+              onClick={() => orchestrateMutation.mutate()}
+              disabled={orchestrateMutation.isPending || !rawDataset || !startupReady || !orchestrationForm.case_id}
+              className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-emerald-950/40 hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-700"
+            >
+              <Send size={16} />
+              {orchestrateMutation.isPending ? "Orchestrating" : "Run Selected Case"}
+            </button>
+            {orchestrateMutation.isError ? <ErrorBox message={(orchestrateMutation.error as Error).message} /> : null}
+          </div>
+        </Panel>
+
+        <Panel title="Selected Case Detail">
+          {selectedCase ? (
+            <WorkflowCaseDetail
+              caseResult={selectedCase}
+              steps={selectedSteps}
+              routing={selectedRouting}
+              sla={selectedSla}
+              summary={selectedSummary}
+            />
+          ) : (
+            <EmptyState text="Select a case after startup or a selected-case run completes." />
+          )}
+        </Panel>
+      </div>
+
+      <Panel title="Workflow Case Queue">
+        {activePayload?.cases.length ? (
+          <WorkflowCaseQueue cases={activePayload.cases} selectedCaseId={selectedCase?.case_id ?? null} onSelect={setSelectedCaseId} />
+        ) : (
+          <EmptyState text="Workflow case decisions appear after Stage 10 startup completes." />
+        )}
+      </Panel>
+
+      <Panel title="SLA Results">
+        {activePayload?.sla_results.length ? (
+          <WorkflowSlaPanel slaResults={activePayload.sla_results} />
+        ) : (
+          <EmptyState text="SLA status appears after workflow cases are orchestrated." />
+        )}
+      </Panel>
+
+      <Panel title="Run History">
+        <RunHistory runs={runs.data?.items ?? []} />
+      </Panel>
+    </section>
+  );
+}
+
 function PageTitle({ icon, title, subtitle }: { icon: ReactNode; title: string; subtitle: string }) {
   return (
     <header className="flex items-center gap-4">
@@ -3958,6 +4255,265 @@ function MarketAgentTrace({ steps }: { steps: MarketAgentStep[] }) {
   );
 }
 
+function WorkflowOverviewPanel() {
+  return (
+    <Panel title="Use Case Overview">
+      <div className="grid gap-5 text-sm leading-relaxed text-zinc-300 lg:grid-cols-4">
+        <section>
+          <h3 className="mb-2 font-semibold text-zinc-100">Purpose</h3>
+          <p>
+            Workflow Orchestration coordinates synthetic banking cases across onboarding, lending, disputes, and cash exception workflows.
+          </p>
+        </section>
+        <section>
+          <h3 className="mb-2 font-semibold text-zinc-100">Dependency Snapshots</h3>
+          <p>
+            The stage reads latest persisted outputs from the first nine use cases and records warnings when evidence is missing.
+          </p>
+        </section>
+        <section>
+          <h3 className="mb-2 font-semibold text-zinc-100">DAG Execution</h3>
+          <p>
+            A deterministic workflow definition controls step order, required upstream evidence, routing, ownership, and SLA status.
+          </p>
+        </section>
+        <section>
+          <h3 className="mb-2 font-semibold text-zinc-100">LLM Summary</h3>
+          <p>
+            Ollama Qwen or GPT-4o may draft explanatory wording, but deterministic routing rules remain authoritative.
+          </p>
+        </section>
+      </div>
+    </Panel>
+  );
+}
+
+function WorkflowDependencyHealth({ snapshots }: { snapshots: WorkflowDependencySnapshot[] }) {
+  return (
+    <div className="space-y-2">
+      {snapshots.map((snapshot) => (
+        <div key={snapshot.use_case_slug} className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-medium text-zinc-100">{snapshot.title}</p>
+              <p className="text-xs text-zinc-500">
+                {snapshot.result_type ?? "No result"} - {snapshot.provider_used ? formatProviderLabel(snapshot.provider_used) : "No provider"}
+              </p>
+            </div>
+            {snapshot.status === "available" ? (
+              <CheckCircle2 className="shrink-0 text-emerald-500" size={18} />
+            ) : (
+              <AlertTriangle className="shrink-0 text-amber-500" size={18} />
+            )}
+          </div>
+          {snapshot.warning ? <p className="mt-2 text-xs text-amber-200">{snapshot.warning}</p> : null}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function WorkflowCaseQueue({
+  cases,
+  selectedCaseId,
+  onSelect
+}: {
+  cases: WorkflowCaseResult[];
+  selectedCaseId: string | null;
+  onSelect: (caseId: string) => void;
+}) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-max text-left text-sm">
+        <thead>
+          <tr className="border-b border-zinc-800 text-xs uppercase text-zinc-400">
+            <th className="whitespace-nowrap px-3 py-2">Case</th>
+            <th className="whitespace-nowrap px-3 py-2">Workflow</th>
+            <th className="whitespace-nowrap px-3 py-2">Status</th>
+            <th className="whitespace-nowrap px-3 py-2">Owner</th>
+            <th className="whitespace-nowrap px-3 py-2">Risk</th>
+            <th className="whitespace-nowrap px-3 py-2">Dependencies</th>
+            <th className="whitespace-nowrap px-3 py-2">Provider</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cases.map((caseResult) => {
+            const selected = caseResult.case_id === selectedCaseId;
+            return (
+              <tr
+                key={caseResult.case_id}
+                onClick={() => onSelect(caseResult.case_id)}
+                className={[
+                  "cursor-pointer border-b border-zinc-800/80 transition",
+                  selected ? "bg-emerald-500/10 text-emerald-100" : "hover:bg-zinc-950"
+                ].join(" ")}
+              >
+                <td className="whitespace-nowrap px-3 py-2 font-medium">{caseResult.case_id}</td>
+                <td className="whitespace-nowrap px-3 py-2">{formatDocumentType(caseResult.workflow_type)}</td>
+                <td className={`whitespace-nowrap px-3 py-2 ${workflowStatusClass(caseResult.final_status)}`}>{caseResult.final_status}</td>
+                <td className="whitespace-nowrap px-3 py-2">{caseResult.recommended_owner}</td>
+                <td className={`whitespace-nowrap px-3 py-2 ${workflowRiskClass(caseResult.risk_level)}`}>{caseResult.risk_level}</td>
+                <td className="whitespace-nowrap px-3 py-2">{caseResult.dependency_status}</td>
+                <td className="whitespace-nowrap px-3 py-2">{formatProviderLabel(caseResult.provider_used)}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function WorkflowCaseDetail({
+  caseResult,
+  steps,
+  routing,
+  sla,
+  summary
+}: {
+  caseResult: WorkflowCaseResult;
+  steps: WorkflowStepResult[];
+  routing: WorkflowRoutingDecision | null;
+  sla: WorkflowSlaResult | null;
+  summary: WorkflowCaseSummary | null;
+}) {
+  return (
+    <div className="space-y-5">
+      <div className="flex flex-wrap items-center gap-2 text-xs">
+        <span className="rounded-full bg-emerald-500/15 px-2 py-1 text-emerald-200">
+          {formatProviderLabel(caseResult.provider_used, true)}
+        </span>
+        <span className={`rounded-full bg-zinc-800 px-2 py-1 ${workflowStatusClass(caseResult.final_status)}`}>
+          {caseResult.final_status}
+        </span>
+        <span className={`rounded-full bg-zinc-800 px-2 py-1 ${workflowRiskClass(caseResult.risk_level)}`}>
+          {caseResult.risk_level}
+        </span>
+      </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        <MetricCard label="Owner" value={caseResult.recommended_owner} />
+        <MetricCard label="Dependency" value={caseResult.dependency_status} />
+        <MetricCard label="SLA" value={sla?.sla_status ?? "N/A"} />
+      </div>
+
+      <section>
+        <h3 className="mb-2 text-sm font-semibold text-zinc-200">Input Context</h3>
+        <div className="grid gap-2">
+          {Object.entries(caseResult.input_context).map(([key, value]) => (
+            <div key={key} className="grid grid-cols-[0.85fr_1.15fr] gap-3 rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm">
+              <span className="text-zinc-400">{formatColumnHeader(key)}</span>
+              <span className="break-words text-zinc-100">{formatDetailValue(value)}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h3 className="mb-2 text-sm font-semibold text-zinc-200">Routing Decision</h3>
+        {routing ? (
+          <div className="space-y-2">
+            {[...routing.top_reasons, ...routing.next_best_actions].map((item) => (
+              <p key={item} className="rounded-md border border-zinc-800 bg-zinc-950 p-2 text-sm text-zinc-300">
+                {item}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <EmptyState text="No routing decision is available." />
+        )}
+      </section>
+
+      <section>
+        <h3 className="mb-2 text-sm font-semibold text-zinc-200">Step Timeline</h3>
+        <WorkflowStepTimeline steps={steps} />
+      </section>
+
+      {summary ? (
+        <section className="rounded-md border border-zinc-800 bg-zinc-950 p-4">
+          <div className="mb-2 flex flex-wrap gap-2 text-xs">
+            <span className="rounded-full bg-zinc-800 px-2 py-1 text-zinc-300">
+              {formatProviderLabel(summary.provider_used, true)}
+            </span>
+            <span className="rounded-full bg-zinc-800 px-2 py-1 text-zinc-300">
+              Confidence {formatPercent(summary.confidence)}
+            </span>
+          </div>
+          <p className="text-sm leading-relaxed text-zinc-300">{summary.summary}</p>
+          <p className="mt-3 text-sm font-medium text-emerald-200">{summary.recommended_wording}</p>
+          {summary.warnings.map((warning) => (
+            <ErrorBox key={warning} message={warning} />
+          ))}
+        </section>
+      ) : null}
+    </div>
+  );
+}
+
+function WorkflowStepTimeline({ steps }: { steps: WorkflowStepResult[] }) {
+  if (!steps.length) {
+    return <EmptyState text="No workflow steps are available for this case." />;
+  }
+  return (
+    <div className="space-y-3">
+      {steps.map((step) => (
+        <div key={`${step.case_id}-${step.step_id}`} className="rounded-md border border-zinc-800 bg-zinc-950 p-3">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="font-medium text-zinc-100">{step.title}</p>
+              <p className="text-xs text-zinc-500">{step.owner}</p>
+            </div>
+            <span className={step.status === "completed" ? "rounded-full bg-emerald-500/15 px-2 py-1 text-xs text-emerald-200" : "rounded-full bg-amber-500/15 px-2 py-1 text-xs text-amber-200"}>
+              {formatDocumentType(step.status)}
+            </span>
+          </div>
+          <p className="mt-2 text-xs text-zinc-500">
+            Dependencies: {step.required_dependencies.join(", ") || "none"} - Duration {step.duration_ms} ms
+          </p>
+          {step.blockers.length ? (
+            <div className="mt-2 space-y-1">
+              {step.blockers.map((blocker) => (
+                <p key={blocker} className="text-xs text-amber-200">{blocker}</p>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function WorkflowSlaPanel({ slaResults }: { slaResults: WorkflowSlaResult[] }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full text-left text-sm">
+        <thead>
+          <tr className="border-b border-zinc-800 text-xs uppercase text-zinc-400">
+            <th className="whitespace-nowrap px-3 py-2">Case</th>
+            <th className="whitespace-nowrap px-3 py-2">Status</th>
+            <th className="whitespace-nowrap px-3 py-2">Policy Hours</th>
+            <th className="whitespace-nowrap px-3 py-2">Elapsed</th>
+            <th className="whitespace-nowrap px-3 py-2">Remaining</th>
+            <th className="px-3 py-2">Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          {slaResults.map((sla) => (
+            <tr key={sla.case_id} className="border-b border-zinc-800/80">
+              <td className="whitespace-nowrap px-3 py-2 font-medium">{sla.case_id}</td>
+              <td className={`whitespace-nowrap px-3 py-2 ${workflowSlaClass(sla.sla_status)}`}>{sla.sla_status}</td>
+              <td className="whitespace-nowrap px-3 py-2">{sla.policy_hours}</td>
+              <td className="whitespace-nowrap px-3 py-2">{sla.elapsed_hours}</td>
+              <td className="whitespace-nowrap px-3 py-2">{sla.remaining_hours}</td>
+              <td className="px-3 py-2 text-zinc-300">{sla.breach_reason ?? "Within synthetic SLA policy."}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function groupSupportArtifacts(artifacts: RawArtifact[]) {
   const grouped = new Map<string, RawArtifact[]>();
   for (const artifact of artifacts) {
@@ -4040,6 +4596,23 @@ function groupMarketArtifacts(artifacts: RawArtifact[]) {
     const relative = String(artifact.metadata_json?.relative_path ?? "");
     let group = artifact.dataset_key;
     if (relative.startsWith("raw/")) {
+      group = relative.split("/")[1] ?? artifact.dataset_key;
+    }
+    const current = grouped.get(group) ?? [];
+    current.push(artifact);
+    grouped.set(group, current);
+  }
+  return Array.from(grouped.entries()).sort(([left], [right]) => left.localeCompare(right));
+}
+
+function groupWorkflowArtifacts(artifacts: RawArtifact[]) {
+  const grouped = new Map<string, RawArtifact[]>();
+  for (const artifact of artifacts) {
+    const relative = String(artifact.metadata_json?.relative_path ?? "");
+    let group = artifact.dataset_key;
+    if (relative.startsWith("raw/cases")) {
+      group = "cases";
+    } else if (relative.startsWith("raw/")) {
       group = relative.split("/")[1] ?? artifact.dataset_key;
     }
     const current = grouped.get(group) ?? [];
@@ -4137,6 +4710,16 @@ function isMarketIntelligencePayload(payload: unknown): payload is MarketIntelli
   );
 }
 
+function isWorkflowOrchestrationPayload(payload: unknown): payload is WorkflowOrchestrationPayload {
+  return Boolean(
+    payload &&
+      typeof payload === "object" &&
+      "summary" in payload &&
+      "cases" in payload &&
+      Array.isArray((payload as WorkflowOrchestrationPayload).cases)
+  );
+}
+
 function formatProviderLabel(provider?: string | null, withPrefix = false) {
   const label =
     provider === "gpt-4o-fallback"
@@ -4167,6 +4750,14 @@ function formatProviderLabel(provider?: string | null, withPrefix = false) {
           ? "OpenAI search fallback"
         : provider === "synthetic-corpus-fallback"
           ? "Synthetic corpus fallback"
+        : provider === "local-orchestrator"
+          ? "Local orchestrator"
+        : provider === "local-orchestrator+local-ollama"
+          ? "Local orchestrator + Ollama Qwen"
+        : provider === "local-orchestrator+gpt-4o-fallback"
+          ? "Local orchestrator + GPT-4o fallback"
+        : provider === "local-orchestrator+mixed-local-gpt4o"
+          ? "Local orchestrator + mixed LLM"
         : provider === "local-autogluon"
           ? "AutoGluon Tabular"
         : provider === "local-ocr"
@@ -4204,6 +4795,25 @@ function emailRiskClass(riskLevel: string) {
 function marketDirectionClass(direction: string) {
   if (direction === "negative") return "text-red-300";
   if (direction === "mixed" || direction === "watch") return "text-amber-200";
+  return "text-emerald-300";
+}
+
+function workflowRiskClass(riskLevel: string) {
+  if (riskLevel === "Critical") return "text-red-300";
+  if (riskLevel === "High") return "text-amber-200";
+  if (riskLevel === "Medium") return "text-yellow-300";
+  return "text-emerald-300";
+}
+
+function workflowStatusClass(status: string) {
+  if (status === "Rejected" || status === "Blocked") return "text-red-300";
+  if (status === "Escalated" || status === "Needs Review") return "text-amber-200";
+  return "text-emerald-300";
+}
+
+function workflowSlaClass(status: string) {
+  if (status === "Breached") return "text-red-300";
+  if (status === "At Risk") return "text-amber-200";
   return "text-emerald-300";
 }
 

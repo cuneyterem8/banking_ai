@@ -106,6 +106,19 @@ from app.use_cases.support_chatbot.raw_data import (
     raw_artifact_paths as support_raw_artifact_paths,
 )
 from app.use_cases.support_chatbot.data_generation import support_data_root
+from app.use_cases.workflow_orchestration.raw_data import (
+    DATASET_KEY_WORKFLOW_CASES as WORKFLOW_DATASET_KEY_WORKFLOW_CASES,
+    USE_CASE_SLUG as WORKFLOW_USE_CASE_SLUG,
+    ground_truth_summary as workflow_ground_truth_summary,
+    load_case_profiles as load_workflow_case_profiles,
+    load_ground_truth as load_workflow_ground_truth,
+    load_heldout_case_ids as load_workflow_heldout_case_ids,
+    load_startup_case_ids as load_workflow_startup_case_ids,
+    load_workflow_definitions as load_workflow_definitions,
+    manifest_preview as workflow_manifest_preview,
+    raw_artifact_paths as workflow_raw_artifact_paths,
+    workflow_data_relative,
+)
 
 
 PREVIEW_ROW_LIMIT = 30
@@ -863,6 +876,107 @@ def seed_market_intelligence(session: Session) -> None:
     session.commit()
 
 
+def seed_workflow_orchestration(session: Session) -> None:
+    cases = [item.model_dump() for item in load_workflow_case_profiles()]
+    definitions = [item.model_dump() for item in load_workflow_definitions()]
+    startup_case_ids = load_workflow_startup_case_ids()
+    heldout_case_ids = load_workflow_heldout_case_ids()
+    ground_truth = workflow_ground_truth_summary()
+    payload = {
+        "records": cases,
+        "preview": workflow_manifest_preview(),
+        "record_count": len(cases),
+        "case_count": len(cases),
+        "workflow_type_count": len({item["workflow_type"] for item in cases}),
+        "startup_case_count": len(startup_case_ids),
+        "heldout_case_count": len(heldout_case_ids),
+        "workflow_definitions": definitions,
+        "startup_case_ids": startup_case_ids,
+        "heldout_case_ids": heldout_case_ids,
+        "ground_truth_summary": ground_truth,
+    }
+    existing = session.exec(
+        select(RawDataset).where(
+            RawDataset.use_case_slug == WORKFLOW_USE_CASE_SLUG,
+            RawDataset.dataset_key == WORKFLOW_DATASET_KEY_WORKFLOW_CASES,
+        )
+    ).first()
+    if existing:
+        existing.payload = payload
+        existing.source_type = "data_directory_files"
+        session.add(existing)
+    else:
+        session.add(
+            RawDataset(
+                use_case_slug=WORKFLOW_USE_CASE_SLUG,
+                dataset_key=WORKFLOW_DATASET_KEY_WORKFLOW_CASES,
+                source_type="data_directory_files",
+                payload=payload,
+            )
+        )
+
+    existing_artifacts = session.exec(select(RawArtifact).where(RawArtifact.use_case_slug == WORKFLOW_USE_CASE_SLUG)).all()
+    for artifact in existing_artifacts:
+        session.delete(artifact)
+
+    expected_by_case = {
+        item["case_id"]: item
+        for item in load_workflow_ground_truth().get("cases", [])
+    }
+    for path in workflow_raw_artifact_paths():
+        resolved = path.resolve()
+        extension = resolved.suffix.lower()
+        data_relative = workflow_data_relative(resolved)
+        if data_relative.startswith("raw/cases"):
+            dataset_key = "cases"
+        elif data_relative.startswith("raw/workflows"):
+            dataset_key = "workflows"
+        elif data_relative.startswith("raw/policies"):
+            dataset_key = "policies"
+        elif data_relative.startswith("raw/integrations"):
+            dataset_key = "integrations"
+        elif data_relative.startswith("raw/evaluation"):
+            dataset_key = "evaluation"
+        elif resolved.name == "metadata.json":
+            dataset_key = "metadata"
+        else:
+            dataset_key = "ground_truth"
+        media_type = {
+            ".json": "application/json",
+            ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            ".pdf": "application/pdf",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+        }.get(extension, "application/octet-stream")
+        metadata = {
+            "generated": True,
+            "stage": 10,
+            "relative_path": data_relative,
+        }
+        if data_relative.startswith("raw/cases/"):
+            parts = data_relative.split("/")
+            if len(parts) >= 3:
+                case_id = parts[2]
+                metadata.update(
+                    {
+                        "case_id": case_id,
+                        "expected": expected_by_case.get(case_id, {}),
+                    }
+                )
+        session.add(
+            RawArtifact(
+                use_case_slug=WORKFLOW_USE_CASE_SLUG,
+                dataset_key=dataset_key,
+                file_name=resolved.name,
+                file_path=str(resolved),
+                artifact_type=extension.removeprefix(".") or "json",
+                media_type=media_type,
+                metadata_json=metadata,
+            )
+        )
+    session.commit()
+
+
 def seed_all(session: Session) -> None:
     seed_use_cases(session)
     seed_fraud_detection(session)
@@ -874,3 +988,4 @@ def seed_all(session: Session) -> None:
     seed_kyc_kyb(session)
     seed_email_automation(session)
     seed_market_intelligence(session)
+    seed_workflow_orchestration(session)

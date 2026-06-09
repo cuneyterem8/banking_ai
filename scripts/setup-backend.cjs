@@ -32,9 +32,7 @@ run(
     "--upgrade",
     "pip",
     "-r",
-    path.join(root, "backend", "requirements.txt"),
-    "-r",
-    path.join(root, "backend", "requirements-ai.txt"),
+    path.join(root, "requirements.txt"),
   ],
   { cwd: root }
 );

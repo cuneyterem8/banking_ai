@@ -1,0 +1,463 @@
+{
+  "generation_seed": 1010,
+  "case_count": 24,
+  "startup_case_count": 12,
+  "heldout_case_count": 12,
+  "workflow_types": [
+    "retail_account_opening",
+    "smb_lending_onboarding",
+    "card_dispute_escalation",
+    "cash_liquidity_exception"
+  ],
+  "cases": [
+    {
+      "case_id": "case_0001",
+      "workflow_type": "retail_account_opening",
+      "expected_final_status": "Straight Through Approved",
+      "expected_owner": "Retail Onboarding Team",
+      "required_dependency_slugs": [
+        "kyc-kyb",
+        "document-ocr",
+        "support-chatbot",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Complete automated checklist",
+        "Notify the synthetic relationship owner"
+      ]
+    },
+    {
+      "case_id": "case_0002",
+      "workflow_type": "smb_lending_onboarding",
+      "expected_final_status": "Straight Through Approved",
+      "expected_owner": "SMB Credit Operations",
+      "required_dependency_slugs": [
+        "credit-risk",
+        "kyc-kyb",
+        "aml-monitoring",
+        "document-ocr"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Complete automated checklist",
+        "Notify the synthetic relationship owner"
+      ]
+    },
+    {
+      "case_id": "case_0003",
+      "workflow_type": "card_dispute_escalation",
+      "expected_final_status": "Straight Through Approved",
+      "expected_owner": "Card Disputes Desk",
+      "required_dependency_slugs": [
+        "fraud-detection",
+        "support-chatbot",
+        "document-ocr",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Complete automated checklist",
+        "Notify the synthetic relationship owner"
+      ]
+    },
+    {
+      "case_id": "case_0004",
+      "workflow_type": "cash_liquidity_exception",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Treasury Operations",
+      "required_dependency_slugs": [
+        "liquidity-forecast",
+        "aml-monitoring",
+        "market-intelligence",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate cash liquidity exception evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0005",
+      "workflow_type": "retail_account_opening",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Retail Onboarding Team",
+      "required_dependency_slugs": [
+        "kyc-kyb",
+        "document-ocr",
+        "support-chatbot",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "kyc_exception"
+      ],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate retail account opening evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0006",
+      "workflow_type": "smb_lending_onboarding",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "SMB Credit Operations",
+      "required_dependency_slugs": [
+        "credit-risk",
+        "kyc-kyb",
+        "aml-monitoring",
+        "document-ocr"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate smb lending onboarding evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0007",
+      "workflow_type": "card_dispute_escalation",
+      "expected_final_status": "Blocked",
+      "expected_owner": "Intake Operations",
+      "required_dependency_slugs": [
+        "fraud-detection",
+        "support-chatbot",
+        "document-ocr",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "incomplete_documents"
+      ],
+      "expected_next_actions": [
+        "Request missing evidence",
+        "Pause SLA clock after intake review",
+        "Reopen when blockers are resolved"
+      ]
+    },
+    {
+      "case_id": "case_0008",
+      "workflow_type": "cash_liquidity_exception",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Treasury Operations",
+      "required_dependency_slugs": [
+        "liquidity-forecast",
+        "aml-monitoring",
+        "market-intelligence",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "vault_capacity_exception"
+      ],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate cash liquidity exception evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0009",
+      "workflow_type": "retail_account_opening",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Retail Onboarding Team",
+      "required_dependency_slugs": [
+        "kyc-kyb",
+        "document-ocr",
+        "support-chatbot",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "sla_breach_risk"
+      ],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate retail account opening evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0010",
+      "workflow_type": "smb_lending_onboarding",
+      "expected_final_status": "Straight Through Approved",
+      "expected_owner": "SMB Credit Operations",
+      "required_dependency_slugs": [
+        "credit-risk",
+        "kyc-kyb",
+        "aml-monitoring",
+        "document-ocr"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Complete automated checklist",
+        "Notify the synthetic relationship owner"
+      ]
+    },
+    {
+      "case_id": "case_0011",
+      "workflow_type": "card_dispute_escalation",
+      "expected_final_status": "Blocked",
+      "expected_owner": "Intake Operations",
+      "required_dependency_slugs": [
+        "fraud-detection",
+        "support-chatbot",
+        "document-ocr",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "missing_dependency_evidence"
+      ],
+      "expected_next_actions": [
+        "Request missing evidence",
+        "Pause SLA clock after intake review",
+        "Reopen when blockers are resolved"
+      ]
+    },
+    {
+      "case_id": "case_0012",
+      "workflow_type": "cash_liquidity_exception",
+      "expected_final_status": "Straight Through Approved",
+      "expected_owner": "Treasury Operations",
+      "required_dependency_slugs": [
+        "liquidity-forecast",
+        "aml-monitoring",
+        "market-intelligence",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Complete automated checklist",
+        "Notify the synthetic relationship owner"
+      ]
+    },
+    {
+      "case_id": "case_0013",
+      "workflow_type": "retail_account_opening",
+      "expected_final_status": "Rejected",
+      "expected_owner": "Risk Review Committee",
+      "required_dependency_slugs": [
+        "kyc-kyb",
+        "document-ocr",
+        "support-chatbot",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "identity_mismatch"
+      ],
+      "expected_next_actions": [
+        "Record rejection reason",
+        "Send compliant synthetic notice",
+        "Close the workflow case"
+      ]
+    },
+    {
+      "case_id": "case_0014",
+      "workflow_type": "smb_lending_onboarding",
+      "expected_final_status": "Blocked",
+      "expected_owner": "Intake Operations",
+      "required_dependency_slugs": [
+        "credit-risk",
+        "kyc-kyb",
+        "aml-monitoring",
+        "document-ocr"
+      ],
+      "expected_blockers": [
+        "incomplete_documents"
+      ],
+      "expected_next_actions": [
+        "Request missing evidence",
+        "Pause SLA clock after intake review",
+        "Reopen when blockers are resolved"
+      ]
+    },
+    {
+      "case_id": "case_0015",
+      "workflow_type": "card_dispute_escalation",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Card Disputes Desk",
+      "required_dependency_slugs": [
+        "fraud-detection",
+        "support-chatbot",
+        "document-ocr",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate card dispute escalation evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0016",
+      "workflow_type": "cash_liquidity_exception",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Treasury Operations",
+      "required_dependency_slugs": [
+        "liquidity-forecast",
+        "aml-monitoring",
+        "market-intelligence",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "vault_capacity_exception"
+      ],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate cash liquidity exception evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0017",
+      "workflow_type": "retail_account_opening",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Retail Onboarding Team",
+      "required_dependency_slugs": [
+        "kyc-kyb",
+        "document-ocr",
+        "support-chatbot",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate retail account opening evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0018",
+      "workflow_type": "smb_lending_onboarding",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "SMB Credit Operations",
+      "required_dependency_slugs": [
+        "credit-risk",
+        "kyc-kyb",
+        "aml-monitoring",
+        "document-ocr"
+      ],
+      "expected_blockers": [
+        "sla_breach_risk"
+      ],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate smb lending onboarding evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0019",
+      "workflow_type": "card_dispute_escalation",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Card Disputes Desk",
+      "required_dependency_slugs": [
+        "fraud-detection",
+        "support-chatbot",
+        "document-ocr",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate card dispute escalation evidence",
+        "Update next action before SLA due time"
+      ]
+    },
+    {
+      "case_id": "case_0020",
+      "workflow_type": "cash_liquidity_exception",
+      "expected_final_status": "Straight Through Approved",
+      "expected_owner": "Treasury Operations",
+      "required_dependency_slugs": [
+        "liquidity-forecast",
+        "aml-monitoring",
+        "market-intelligence",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Complete automated checklist",
+        "Notify the synthetic relationship owner"
+      ]
+    },
+    {
+      "case_id": "case_0021",
+      "workflow_type": "retail_account_opening",
+      "expected_final_status": "Blocked",
+      "expected_owner": "Intake Operations",
+      "required_dependency_slugs": [
+        "kyc-kyb",
+        "document-ocr",
+        "support-chatbot",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "incomplete_documents"
+      ],
+      "expected_next_actions": [
+        "Request missing evidence",
+        "Pause SLA clock after intake review",
+        "Reopen when blockers are resolved"
+      ]
+    },
+    {
+      "case_id": "case_0022",
+      "workflow_type": "smb_lending_onboarding",
+      "expected_final_status": "Blocked",
+      "expected_owner": "Intake Operations",
+      "required_dependency_slugs": [
+        "credit-risk",
+        "kyc-kyb",
+        "aml-monitoring",
+        "document-ocr"
+      ],
+      "expected_blockers": [
+        "missing_dependency_evidence"
+      ],
+      "expected_next_actions": [
+        "Request missing evidence",
+        "Pause SLA clock after intake review",
+        "Reopen when blockers are resolved"
+      ]
+    },
+    {
+      "case_id": "case_0023",
+      "workflow_type": "card_dispute_escalation",
+      "expected_final_status": "Straight Through Approved",
+      "expected_owner": "Card Disputes Desk",
+      "required_dependency_slugs": [
+        "fraud-detection",
+        "support-chatbot",
+        "document-ocr",
+        "email-automation"
+      ],
+      "expected_blockers": [],
+      "expected_next_actions": [
+        "Complete automated checklist",
+        "Notify the synthetic relationship owner"
+      ]
+    },
+    {
+      "case_id": "case_0024",
+      "workflow_type": "cash_liquidity_exception",
+      "expected_final_status": "Needs Review",
+      "expected_owner": "Treasury Operations",
+      "required_dependency_slugs": [
+        "liquidity-forecast",
+        "aml-monitoring",
+        "market-intelligence",
+        "email-automation"
+      ],
+      "expected_blockers": [
+        "vault_capacity_exception"
+      ],
+      "expected_next_actions": [
+        "Assign manual review queue",
+        "Validate cash liquidity exception evidence",
+        "Update next action before SLA due time"
+      ]
+    }
+  ]
+}

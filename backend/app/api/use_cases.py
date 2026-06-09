@@ -70,6 +70,14 @@ from app.use_cases.support_chatbot.service import (
     get_support_run_result,
     start_support_evaluation_run,
 )
+from app.use_cases.workflow_orchestration.schemas import WorkflowOrchestrationRequest
+from app.use_cases.workflow_orchestration.service import (
+    get_workflow_orchestration_latest,
+    get_workflow_run_progress,
+    get_workflow_run_result,
+    orchestrate_workflow_case,
+    start_workflow_orchestration_run,
+)
 
 router = APIRouter(prefix="/use-cases", tags=["use-cases"])
 
@@ -144,6 +152,8 @@ def fraud_evaluations(slug: str, session: Session = Depends(get_session)) -> dic
         return get_email_automation_latest(session)
     if slug == "market-intelligence":
         return get_market_intelligence_latest(session)
+    if slug == "workflow-orchestration":
+        return get_workflow_orchestration_latest(session)
     if slug == "credit-risk":
         return get_credit_evaluations(session)
     if slug != "fraud-detection":
@@ -179,6 +189,8 @@ def run_use_case(slug: str, session: Session = Depends(get_session)):
         return start_email_automation_run(session)
     if slug == "market-intelligence":
         return start_market_intelligence_run(session)
+    if slug == "workflow-orchestration":
+        return start_workflow_orchestration_run(session)
     raise HTTPException(status_code=501, detail=f"{definition.title} is planned for a later staged implementation.")
 
 
@@ -222,6 +234,21 @@ def research_use_case(slug: str, request: MarketResearchRequest, session: Sessio
     return research_market_intelligence(session, request)
 
 
+@router.post("/{slug}/orchestrate")
+def orchestrate_use_case(slug: str, request: WorkflowOrchestrationRequest, session: Session = Depends(get_session)) -> dict:
+    definition = get_use_case(slug)
+    if definition is None:
+        raise HTTPException(status_code=404, detail="Use case not found.")
+    if slug != "workflow-orchestration":
+        raise HTTPException(status_code=404, detail="Orchestrate endpoint is only available for Workflow Orchestration.")
+    if not is_startup_stage_completed(slug):
+        raise HTTPException(
+            status_code=409,
+            detail=f"{definition.title} startup processing is not complete yet.",
+        )
+    return orchestrate_workflow_case(session, request)
+
+
 @router.get("/{slug}/runs/{run_id}/progress")
 def run_progress(slug: str, run_id: str, session: Session = Depends(get_session)) -> dict:
     if slug == "support-chatbot":
@@ -238,6 +265,8 @@ def run_progress(slug: str, run_id: str, session: Session = Depends(get_session)
         return get_email_run_progress(run_id, session)
     if slug == "market-intelligence":
         return get_market_run_progress(run_id, session)
+    if slug == "workflow-orchestration":
+        return get_workflow_run_progress(run_id, session)
     if slug == "credit-risk":
         return get_credit_run_progress(run_id, session)
     if slug != "fraud-detection":
@@ -261,6 +290,8 @@ def run_result(slug: str, run_id: str, session: Session = Depends(get_session)) 
         return get_email_run_result(run_id, session)
     if slug == "market-intelligence":
         return get_market_run_result(run_id, session)
+    if slug == "workflow-orchestration":
+        return get_workflow_run_result(run_id, session)
     if slug == "credit-risk":
         return get_credit_run_result(run_id, session)
     if slug != "fraud-detection":

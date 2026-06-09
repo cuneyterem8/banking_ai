@@ -42,7 +42,7 @@ CRITICAL_RISK_THRESHOLD = 0.78
 
 def get_model_dir() -> Any:
     settings = get_settings()
-    return settings.storage_dir / "models" / "aml-monitoring" / "autogluon"
+    return settings.storage_dir / "aml-monitoring" / "autogluon"
 
 
 def _resolve_threshold(model_dir: Any, override: float | None = None) -> float:

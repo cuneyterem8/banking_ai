@@ -8,6 +8,6 @@
     "db:seed": "node ../scripts/python.cjs -m app.scripts.seed",
     "data:generate": "node ../scripts/python.cjs -m app.scripts.generate_data",
     "ai:check": "node ../scripts/python.cjs -m app.scripts.ai_check",
-    "test": "node ../scripts/python.cjs -m pytest"
+    "test": "node ../scripts/python.cjs -m pytest ..\\.agent_test\\backend_tests"
   }
 }

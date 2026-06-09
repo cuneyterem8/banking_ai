@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     autogluon_time_limit_seconds: int = 180
     autogluon_num_bag_folds: int = 0
     autogluon_num_cpus: int = 1
-    storage_dir: Path = Path("../storage")
+    storage_dir: Path = Path("models")
     data_dir: Path = Path("data")
     skip_startup_training: bool = False
     force_retrain: bool = False

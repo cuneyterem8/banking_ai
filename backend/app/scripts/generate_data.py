@@ -8,6 +8,7 @@ from app.use_cases.kyc_kyb.data_generation import write_artifacts as write_kyc_k
 from app.use_cases.liquidity_forecast.data_generation import write_artifacts as write_liquidity_forecast_artifacts
 from app.use_cases.market_intelligence.data_generation import write_artifacts as write_market_intelligence_artifacts
 from app.use_cases.support_chatbot.data_generation import write_artifacts as write_support_chatbot_artifacts
+from app.use_cases.workflow_orchestration.data_generation import write_artifacts as write_workflow_orchestration_artifacts
 
 
 def ensure_placeholder_dirs() -> None:
@@ -31,6 +32,7 @@ def main() -> None:
         "kyc_kyb": write_kyc_kyb_artifacts(),
         "email_automation": write_email_automation_artifacts(),
         "market_intelligence": write_market_intelligence_artifacts(),
+        "workflow_orchestration": write_workflow_orchestration_artifacts(),
     }
     print("Generated synthetic raw artifacts:")
     for use_case, use_case_paths in paths.items():

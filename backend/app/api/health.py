@@ -59,7 +59,7 @@ def startup_status(session: Session = Depends(get_session)) -> dict:
 @router.get("/ai/health")
 def ai_health() -> dict:
     settings = get_settings()
-    autogluon_dir = settings.storage_dir / "models" / "fraud-detection" / "autogluon"
+    autogluon_dir = settings.storage_dir / "fraud-detection" / "autogluon"
     checks = [
         AutoGluonTabularAdapter(artifact_dir=autogluon_dir).health_check(),
         AutoGluonTimeSeriesAdapter().health_check(),

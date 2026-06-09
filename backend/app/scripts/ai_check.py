@@ -12,7 +12,7 @@ from app.config import get_settings
 def main() -> None:
     settings = get_settings()
     checks = [
-        AutoGluonTabularAdapter(Path(settings.storage_dir) / "models" / "fraud-detection" / "autogluon").health_check(),
+        AutoGluonTabularAdapter(Path(settings.storage_dir) / "fraud-detection" / "autogluon").health_check(),
         AutoGluonTimeSeriesAdapter().health_check(),
         LocalOCRAdapter().health_check(),
         OllamaQwenAdapter().health_check(),

@@ -202,7 +202,7 @@ def _persist_result(
             ModelArtifact(
                 use_case_slug=USE_CASE_SLUG,
                 artifact_type="autogluon_model_directory",
-                local_path="storage/models/aml-monitoring/autogluon",
+                local_path="models/aml-monitoring/autogluon",
                 metadata_json={
                     "provider": "local-autogluon",
                     "primary_metric": "average_precision",
